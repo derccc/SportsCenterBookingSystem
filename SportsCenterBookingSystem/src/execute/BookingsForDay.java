@@ -1,18 +1,25 @@
 package execute;
 import java.util.ArrayList;
 
-public class BookingOfDay {
+public class BookingsForDay {
 	private String date;
 	private ArrayList<Booking> bookings;
 
-	public BookingOfDay(String date) {
+	public BookingsForDay(String date) {
 		this.date = date;
 		this.bookings = new ArrayList<>();
 	}
+	
+	public String getDate() {
+		return this.date;
+	}
 
 	public void addBooking(Booking booking) {
-		
-		this.bookings.add(booking);
+		if (checkAvailability(booking.getStartTime(), booking.getEndTime()))
+				this.bookings.add(booking);
+		else
+			/////////
+			throw new IllegalArgumentException("Booking time is not available");
 	}
 
 	public void removeBooking(Booking booking) {

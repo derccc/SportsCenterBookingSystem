@@ -5,15 +5,19 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import execute.BookingOfDay;
+import execute.BookingsForDay;
 
 public class Main {
 	public static void main(String[] args) {
-		ArrayList<BookingOfDay> allBookings = new ArrayList<>();
-		allBookings = getBookingsFromFile();
+
+		ArrayList<Area> allAreas = getBookingsFromFile();
 		
 		Scanner scanner = new Scanner(System.in);
 		String action = "";
+		
+		System.out.println("Welcome to the booking system");
+		System.out.println("Please input your user ID:");
+		String userID = scanner.nextLine();
 		
 		System.out.println("Please input your action");
 		System.out.println("[m] for make booking, [c] for change booking, [r] for remove booking, [v] for view booking, [q] for quit");
@@ -45,27 +49,24 @@ public class Main {
 		}
 	}
 
-	public static ArrayList<BookingOfDay> getBookingsFromFile() {
-		ArrayList<BookingOfDay> bookings = new ArrayList<>();
+	public static ArrayList<Area> getBookingsFromFile() {
+		ArrayList<Area> areas = new ArrayList<>();
 		// Read from file
 		try {
-			File file = new File("./assets/booking_data.txt");
+			File file = new File("src/execute/assets/booking_data");
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
 				String data = scanner.nextLine();
 				String[] bookingData = data.split(" ");
-				String date = bookingData[2];
+				Booking booking = new Booking(bookingData[0], bookingData[1], bookingData[2], Integer.parseInt(bookingData[3]), Integer.parseInt(bookingData[4]), bookingData[5]);
+				if (getAreaByID(booking.getAreaID(), areas) == null) {
+					Area area = new Area(booking.getAreaID());
+					area.addBooking(booking);
+					areas.add(area);
+				} else {
+					getAreaByID(booking.getAreaID(), areas).addBooking(booking);
+				}
 				
-				//????
-				BookingOfDay bookingOfDay = new BookingOfDay(date);
-				
-				
-				
-				String bookingID = bookingData[5];
-				int startTime = Integer.parseInt(bookingData[3]);
-				int endTime = Integer.parseInt(bookingData[4]);
-				Booking booking = new Booking(bookingID, startTime, endTime);
-				bookingOfDay.addBooking(booking);
 			}
 			scanner.close();
 		
@@ -73,6 +74,15 @@ public class Main {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-		return bookings;
+		return areas;
+	}
+	
+	public static Area getAreaByID(String areaID, ArrayList<Area> allAreas) {
+		for (Area a : allAreas) {
+			if (a.getAreaID().equals(areaID)) {
+				return a;
+			}
+		}
+		return null;
 	}
 }
