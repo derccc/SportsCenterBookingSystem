@@ -1,15 +1,15 @@
 package execute;
 
 public class Booking {
-	private String areaID;
+	private String roomID;
 	private String UserID;
 	private String date;
 	private int startTime;
 	private int endTime;
 	private String bookingID;
 	
-	public Booking(String areaID, String UserID, String date, int startTime, int endTime, String bookingID) {
-        this.areaID = areaID;
+	public Booking(String roomID, String UserID, String date, int startTime, int endTime, String bookingID) {
+        this.roomID = roomID;
         this.UserID = UserID;
         this.date = date;
         this.startTime = startTime;
@@ -17,8 +17,8 @@ public class Booking {
         this.bookingID = bookingID;
     }
 	
-	public String getAreaID() {
-		return this.areaID;
+	public String getRoomID() {
+		return this.roomID;
 	}
 	
 	public String getUserID() {
@@ -41,8 +41,8 @@ public class Booking {
 		return this.endTime;
 	}
 	
-	public void setAreaID(String areaID) {
-		this.areaID = areaID;
+	public void setRoomID(String roomID) {
+		this.roomID = roomID;
 	}
 	
 //	public void setUserID(String UserID) {

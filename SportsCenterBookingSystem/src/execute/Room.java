@@ -2,17 +2,17 @@ package execute;
 
 import java.util.ArrayList;
 
-public class Area {
-	private String areaID;
+public class Room {
+	private String roomID;
 	private ArrayList<BookingsForDay> allbookings;
 	
-	public Area(String areaID) {
-		this.areaID = areaID;
+	public Room(String roomID) {
+		this.roomID = roomID;
 		this.allbookings = new ArrayList<>();
 	}
 	
-	public String getAreaID() {
-		return this.areaID;
+	public String getRoomID() {
+		return this.roomID;
 	}
 	
 	public void addBooking(Booking booking) {

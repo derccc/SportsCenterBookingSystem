@@ -9,8 +9,8 @@ import execute.BookingsForDay;
 
 public class Main {
 	public static void main(String[] args) {
-
-		ArrayList<Area> allAreas = getBookingsFromFile();
+		
+		SportsCenter sportsCenter = SportsCenter.getInstance();
 		
 		Scanner scanner = new Scanner(System.in);
 		String action = "";
@@ -49,40 +49,4 @@ public class Main {
 		}
 	}
 
-	public static ArrayList<Area> getBookingsFromFile() {
-		ArrayList<Area> areas = new ArrayList<>();
-		// Read from file
-		try {
-			File file = new File("src/execute/assets/booking_data");
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine()) {
-				String data = scanner.nextLine();
-				String[] bookingData = data.split(" ");
-				Booking booking = new Booking(bookingData[0], bookingData[1], bookingData[2], Integer.parseInt(bookingData[3]), Integer.parseInt(bookingData[4]), bookingData[5]);
-				if (getAreaByID(booking.getAreaID(), areas) == null) {
-					Area area = new Area(booking.getAreaID());
-					area.addBooking(booking);
-					areas.add(area);
-				} else {
-					getAreaByID(booking.getAreaID(), areas).addBooking(booking);
-				}
-				
-			}
-			scanner.close();
-		
-		} catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-		return areas;
-	}
-	
-	public static Area getAreaByID(String areaID, ArrayList<Area> allAreas) {
-		for (Area a : allAreas) {
-			if (a.getAreaID().equals(areaID)) {
-				return a;
-			}
-		}
-		return null;
-	}
 }
