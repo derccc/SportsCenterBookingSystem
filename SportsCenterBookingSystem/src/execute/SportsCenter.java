@@ -28,6 +28,7 @@ public class SportsCenter {
 	public void init() {
 		// Load all rooms from file
 		// Read from file
+		//TODO: load from room txt 
 		try {
 			File file = new File("src/execute/assets/booking_data");
 			Scanner scanner = new Scanner(file);
@@ -35,7 +36,7 @@ public class SportsCenter {
 				String data = scanner.nextLine();
 				String[] bookingData = data.split(" ");
 				Booking booking = new Booking(bookingData[0], bookingData[1], bookingData[2], Integer.parseInt(bookingData[3]), Integer.parseInt(bookingData[4]), bookingData[5]);
-				if (getRoomByID(booking.getRoomID()) == null) {
+				if (getRoomByID(booking.getRoomID()) == null) {  //TODO: move out of the if-condition
 					Room area = new Room(booking.getRoomID());
 					area.addBooking(booking);
 					allRooms.add(area);

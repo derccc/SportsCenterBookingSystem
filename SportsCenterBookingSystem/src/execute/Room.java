@@ -4,15 +4,21 @@ import java.util.ArrayList;
 
 public class Room {
 	private String roomID;
+	private RoomType roomType;
 	private ArrayList<BookingsForDay> allbookings;
 	
-	public Room(String roomID) {
+	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
+		this.roomType=roomType;
 		this.allbookings = new ArrayList<>();
 	}
 	
 	public String getRoomID() {
 		return this.roomID;
+	}
+
+	public RoomType getRoomType(){
+		return roomType;
 	}
 	
 	public void addBooking(Booking booking) {
@@ -25,7 +31,7 @@ public class Room {
 		}
 	}
 	
-	public void removeBooking(String bookingID) {
+	public void removeBooking(String bookingID) { //TODO: add this later
 
 	}
 	
