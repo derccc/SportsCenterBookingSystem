@@ -56,19 +56,15 @@ public class SportsCenter {
 		
 		
 		try {
-            File file = new File("src/execute/assets/user_data");
+            File file = new File("./assets/User.txt");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 String[] splittedData = data.split(" ");
-                User user;
-                if (splittedData[1].equals("A")){
-                    user = new Admin(splittedData[0], splittedData[2]);
-                    allUsers.add(user);
-                } else if (splittedData[1].equals("N")){
-                    user = new NormalUser(splittedData[0], splittedData[2]);
-                    allUsers.add(user);
-                }
+                User user = new User(splittedData[0], splittedData[1], splittedData[2]);
+                allUsers.add(user);
+                
+                
             }
             scanner.close();
 

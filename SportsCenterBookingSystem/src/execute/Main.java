@@ -10,29 +10,66 @@ import execute.BookingsForDay;
 public class Main {
 	public static void main(String[] args) {
 		
-		SportsCenter sportsCenter = SportsCenter.getInstance();
+		SportsCenter sportsCentre = SportsCenter.getInstance();
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the Sports Centre Booking System!");
         
-        String userID;
-        String userPassword;
-        User user;
-        do {
-            System.out.println("Please input your User ID:");
-            userID = scanner.nextLine();
-            user = sportsCenter.getUserByUserID(userID);
-        } while (user==null);
-        
-        do {
-            System.out.println("Please input your Password:");
-            userPassword = scanner.nextLine();
-        } while (!user.getUserPasword().equals(userPassword));
+        String action;
+        System.out.println("Please input your action ([r] for Register, [l] for login) :");
+        action = scanner.nextLine();
 
-        AccountController accountController = new AccountController(user);
-        accountController.execute();
-        
+        String userID;
+        String userRole;
+        String userPassword;
+        String userPassword2;
+        User user;
+        AccountController accountController;
+
+        switch (action){
+
+            case "r":
+            
+                System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
+                userRole = scanner.nextLine();
+                System.out.println("Please input your User ID:");
+                userID = scanner.nextLine();
+                System.out.println("Please input your Password:");
+                userPassword = scanner.nextLine();
+                do {
+                    System.out.println("Please input your Password again:");
+                    userPassword2 = scanner.nextLine();
+                } while (!userPassword2.equals(userPassword));
+                
+                user = new User(userID, userRole, userPassword);
+                //sportsCenter.userRegistration(user);
+                System.out.println("Registration Success.");
+                
+                accountController = new AccountController(user);
+                accountController.execute();
+
+                break;
+
+
+            case "l":
+                do {
+                    System.out.println("Please input your User ID:");
+                    userID = scanner.nextLine();
+                    user = sportsCentre.getUserByUserID(userID);
+                } while (user==null);
+                do {
+                    System.out.println("Please input your Password:");
+                    userPassword = scanner.nextLine();
+                } while (!user.getUserPasword().equals(userPassword));
+
+                accountController = new AccountController(user);
+                accountController.execute();
+                
+                break;
+
+        }
+
         scanner.close();
 	}
 

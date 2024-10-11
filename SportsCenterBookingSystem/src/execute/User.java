@@ -1,11 +1,15 @@
 package execute;
 
-public abstract class User {
+import java.util.ArrayList;
+
+public class User {
     private String userID;
+    private String userRole;
     private String userPassword;
 
-    public User(String userID, String userPassword){
+    public User(String userID, String userRole, String userPassword){
         this.userID = userID;
+        this.userRole = userRole;
         this.userPassword = userPassword;
     }
 
@@ -13,13 +17,36 @@ public abstract class User {
         return this.userID;
     }
 
+    public String getUserRole(){
+        return this.userRole;
+    }
+
     public String getUserPasword(){
         return this.userPassword;
     }
 
-    public abstract String getRole();
+    public void viewBooking(){
 
-    public abstract void viewBooking();
+        SportsCenter sportsCenter = SportsCenter.getInstance();
+        ArrayList<Booking> allBookings = sportsCenter.getAllBookings();
 
-    
+        switch(this.userRole){
+            case "A":
+                for (Booking b: allBookings){
+                    System.out.println(b.toString());
+                }
+                break;
+
+            case "N":
+                for (Booking b: allBookings){
+                    if (b.getUserID().equals(this.getUserID())){
+                        System.out.println(b.toString());
+                    }
+                }
+                break;
+        }
+        
+    }
+
+ 
 }
