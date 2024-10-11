@@ -32,13 +32,24 @@ public class Room {
 	}
 	
 	public void removeBooking(String bookingID) { //TODO: add this later
-
+		
 	}
-	
+
+
+	//TODO: pass back to Class bookingsforday
 	public BookingsForDay getBookingsOfDay(String date) {
 		for (BookingsForDay b : this.allbookings) {
 			if (b.getDate().equals(date)) {
 				return b;
+			}
+		}
+		return null;
+	}
+
+	public static Room getRoomById(ArrayList<Room> allRooms, String roomID) {
+		for(Room r: allRooms){
+			if(r.roomID.equals(roomID)){
+				return r;
 			}
 		}
 		return null;

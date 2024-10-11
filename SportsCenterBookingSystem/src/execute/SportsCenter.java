@@ -26,39 +26,134 @@ public class SportsCenter {
     }
     
 	public void init() {
-		// Load all rooms from file
-		// Read from file
-		//TODO: load from room txt 
-		try {
-			File file = new File("src/execute/assets/booking_data");
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine()) {
-				String data = scanner.nextLine();
-				String[] bookingData = data.split(" ");
-				Booking booking = new Booking(bookingData[0], bookingData[1], bookingData[2], Integer.parseInt(bookingData[3]), Integer.parseInt(bookingData[4]), bookingData[5]);
-				if (getRoomByID(booking.getRoomID()) == null) {  //TODO: move out of the if-condition
-					Room area = new Room(booking.getRoomID());
-					area.addBooking(booking);
-					allRooms.add(area);
-				} else {
-					getRoomByID(booking.getRoomID()).addBooking(booking);
-				}
-				
-			}
-			scanner.close();
+		// load room type, room, booking
+
+		String roomTypePath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_type.txt";
+		String roomPath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_data.txt";
+		String bookingPath = "SportsCenterBookingSystem\\src\\execute\\assets\\booking_data";
 		
-		} catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
+		loadRoomType(roomTypePath);
+		loadRoom(roomPath);
+		loadBooking(bookingPath);
 	}
 	
-	public Room getRoomByID(String roomID) {
-		for (Room a : allRooms) {
-			if (a.getRoomID().equals(roomID)) {
-				return a;
+
+
+	//TODO: handle wrong data input (wrong data type/missing info etc)?
+
+
+	private void loadRoomType (String path) {
+		try{
+
+			File file = new File(path);
+			Scanner scanner = new Scanner(file);
+
+			while (scanner.hasNextLine()){
+				String data = scanner.nextLine();
+				String[] splittedData = data.split(" ");
+				//format: TypeID Type Price
+				RoomType roomType = new RoomType(splittedData[0], splittedData[1], Integer.parseInt(splittedData[2]));
+
+				allRoomTypes.add(roomType);
+
 			}
+
+			System.out.println("Finished loading room types.");
+
+			scanner.close();
 		}
-		return null;
+		catch(FileNotFoundException e){
+			System.out.println("Cannot find file at path: "+path);
+		}
+		
 	}
+
+	private void loadRoom (String path) {
+		try{
+
+			File file = new File(path);
+			Scanner scanner = new Scanner(file);
+
+			while (scanner.hasNextLine()){
+				String data = scanner.nextLine();
+				String[] splittedData = data.split(" ");
+				//format: roomID roomTypeID
+				
+				//find roomType by id (pass back to class RoomType)
+				RoomType roomType= getRoomTypeById(splittedData[1]);
+
+				Room room = null;
+				if(roomType != null){
+					room = new Room(splittedData[0],roomType);
+				}
+				else{
+					System.out.println("Cannot find room type: "+splittedData[1]);
+				}
+				
+
+				allRooms.add(room);
+
+			}
+
+			System.out.println("Finished loading rooms.");
+
+			scanner.close();
+		}
+		catch(FileNotFoundException e){
+			System.out.println("Cannot find file at path: "+path);
+		}
+		
+	}
+
+
+	private void loadBooking (String path) {
+		try{
+
+			File file = new File(path);
+			Scanner scanner = new Scanner(file);
+
+			while (scanner.hasNextLine()){
+				String data = scanner.nextLine();
+				String[] splittedData = data.split(" ");
+				//format: AreaID UserID YYMMDD StartingTime EndingTime
+				
+				//find room by id (pass back to class RoomType)
+				Room room= getRoomById(splittedData[0]);
+
+				//TODO: invalid date time exception
+				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
+
+				
+				if(room != null){
+					room.addBooking(booking);
+				}
+				else{
+					System.out.println("Cannot find room: "+splittedData[0]);
+				}
+				
+
+			}
+
+			System.out.println("Finished loading bookings.");
+
+			scanner.close();
+		}
+		catch(FileNotFoundException e){
+			System.out.println("Cannot find file at path: "+path);
+		}
+		
+	}
+
+
+	public Room getRoomById(String roomID) {
+		return Room.getRoomById(allRooms,roomID);
+	}
+
+	public RoomType getRoomTypeById(String roomTypeID) {
+		return RoomType.getRoomTypeById(allRoomTypes,roomTypeID);
+	}
+
+
+
+
 }
