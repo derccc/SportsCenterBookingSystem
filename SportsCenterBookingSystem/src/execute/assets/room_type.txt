@@ -1,0 +1,3 @@
+01 Badminton 20
+02 Basketball 30
+03 Football 50

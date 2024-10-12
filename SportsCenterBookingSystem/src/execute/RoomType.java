@@ -1,5 +1,7 @@
 package execute;
 
+import java.util.ArrayList;
+
 public class RoomType {
 	private String typeID;
 	private String type;
@@ -29,5 +31,13 @@ public class RoomType {
 	
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public static RoomType getRoomTypeById(ArrayList<RoomType> allRoomTypes, String roomTypeID) {
+		for(RoomType r: allRoomTypes){
+			if (r.typeID.equals(roomTypeID)){return r;}
+		}
+
+		return null;
 	}
 }
