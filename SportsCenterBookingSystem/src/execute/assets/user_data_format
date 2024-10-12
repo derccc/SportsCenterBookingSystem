@@ -1,1 +1,1 @@
-UserID Role(A for admin, N for normal user)
+UserID UserRole UserPassword

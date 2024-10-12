@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SportsCenter {
-    private static SportsCenter INSTANCE;
-    private ArrayList<Room> allRooms;
+	private ArrayList<Room> allRooms;
     private ArrayList<User> allUsers;
-    private ArrayList<RoomType> allRoomTypes;
+    private ArrayList<Booking> allBookings;
+    private static SportsCenter INSTANCE;
+    
     
 	private SportsCenter() {
 		this.allRooms = new ArrayList<>();
 		this.allUsers = new ArrayList<>();
-		this.allRoomTypes = new ArrayList<>();
+        this.allBookings = new ArrayList<>();
 	}
     
     public static SportsCenter getInstance() {
@@ -36,8 +37,6 @@ public class SportsCenter {
 		loadRoom(roomPath);
 		loadBooking(bookingPath);
 	}
-	
-
 
 	//TODO: handle wrong data input (wrong data type/missing info etc)?
 
@@ -67,11 +66,15 @@ public class SportsCenter {
 		}
 		
 	}
+  
+  private void loadRoom(String path) {}
 
-	private void loadRoom (String path) {
+	private void loadBooking (String path) {
 		try{
 
 			File file = new File(path);
+		// Load all rooms from file
+		// Read from file
 			Scanner scanner = new Scanner(file);
 
 			while (scanner.hasNextLine()){
@@ -101,8 +104,44 @@ public class SportsCenter {
 		}
 		catch(FileNotFoundException e){
 			System.out.println("Cannot find file at path: "+path);
-		}
+		};
 		
+		
+		try {
+            File file = new File("./assets/User.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()){
+                String data = scanner.nextLine();
+                String[] splittedData = data.split(" ");
+                User user = new User(splittedData[0], splittedData[1], splittedData[2]);
+                allUsers.add(user);
+                
+                
+            }
+            scanner.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("User File Not Found.");
+            e.printStackTrace();
+        }
+		/*
+
+        try {
+            File file = new File("src/execute/assets/booking_data");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()){
+                String data = scanner.nextLine();
+                String[] splittedData = data.split(" ");
+                Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
+                allBookings.add(booking);
+            }
+            scanner.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Booking File Not Found.");
+            e.printStackTrace();
+        }
+        */
 	}
 
 
@@ -152,8 +191,17 @@ public class SportsCenter {
 	public RoomType getRoomTypeById(String roomTypeID) {
 		return RoomType.getRoomTypeById(allRoomTypes,roomTypeID);
 	}
+	
+	public User getUserByUserID(String userID){
+        for (User u: allUsers){
+            if (u.getUserID().equals(userID)){
+                return u;
+            }
+        }
+        return null;
+    }
 
-
-
-
+    public ArrayList<Booking> getAllBookings() {
+        return this.allBookings;
+    }
 }
