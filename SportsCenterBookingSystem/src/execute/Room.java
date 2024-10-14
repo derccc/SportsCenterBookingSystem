@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Room {
 	private String roomID;
 	private RoomType roomType;
-	private ArrayList<BookingsForDay> allbookings;
+	private ArrayList<BookingsForDay> allbookings; //TODO: change name to allbookingsbydate
 	
 	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
@@ -32,7 +32,7 @@ public class Room {
 	}
 	
 	public void removeBooking(String bookingID) { //TODO: add this later
-		
+		// call remove booking in bookingsforday
 	}
 
 
