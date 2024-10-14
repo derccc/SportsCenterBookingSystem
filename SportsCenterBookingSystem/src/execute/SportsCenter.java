@@ -42,7 +42,10 @@ public class SportsCenter {
 		loadUser(userPath);
 	}
 
-	//TODO: handle wrong data input (wrong data type/missing info etc)?
+	//TODO: handle wrong data input (wrong data type/missing info etc)? use exception?
+	//check array size 
+	//check numeric for int attribute
+	//exception for can't find room/room type
 
 
 	private void loadRoomType (String path) {
@@ -55,6 +58,7 @@ public class SportsCenter {
 				String data = scanner.nextLine();
 				String[] splittedData = data.split(" ");
 				//format: TypeID Type Price
+				
 				RoomType roomType = new RoomType(splittedData[0], splittedData[1], Integer.parseInt(splittedData[2]));
 
 				allRoomTypes.add(roomType);
@@ -197,7 +201,7 @@ public class SportsCenter {
 		return RoomType.getRoomTypeById(allRoomTypes,roomTypeID);
 	}
 	
-	public User getUserByUserID(String userID){
+	public User getUserByUserID(String userID){ //TODO: call static function in User instead of check it here
         for (User u: allUsers){
             if (u.getUserID().equals(userID)){
                 return u;
