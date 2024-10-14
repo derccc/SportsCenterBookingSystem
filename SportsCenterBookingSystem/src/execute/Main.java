@@ -9,7 +9,7 @@ import execute.BookingsForDay;
 
 public class Main {
 	public static void main(String[] args) {
-		
+	//TODO: suggestion: move register&login to another function, so can be called again after user login out
 		SportsCenter sportsCentre = SportsCenter.getInstance();
 
         Scanner scanner = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class Main {
         switch (action){
 
             case "r":
-            
+            	//TODO: check if id already exist 
                 System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
                 userRole = scanner.nextLine();
                 System.out.println("Please input your User ID:");
@@ -43,7 +43,8 @@ public class Main {
                 } while (!userPassword2.equals(userPassword));
                 
                 user = new User(userID, userRole, userPassword);
-                //sportsCenter.userRegistration(user);
+		
+                //TODO: sportsCenter.userRegistration(user) //remember to add user to txt;
                 System.out.println("Registration Success.");
                 
                 accountController = new AccountController(user);
