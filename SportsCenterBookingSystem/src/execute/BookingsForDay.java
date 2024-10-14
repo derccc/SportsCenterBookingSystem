@@ -25,8 +25,9 @@ public class BookingsForDay {
 	public void removeBooking(Booking booking) {
 		this.bookings.remove(booking);
 	}
+
 	
-	public boolean checkAvailability(int startTime, int endTime) {
+	public boolean checkAvailability(int startTime, int endTime) { //TODO: apply scheduling and move to bookingService
 		for (Booking b : this.bookings) {
 			int st = b.getStartTime();
 			int et = b.getEndTime();
@@ -36,4 +37,13 @@ public class BookingsForDay {
 		}
 		return true;
 	}
+
+	//TODO: removeBookingById (ArrayList<>, String)
+	//for loop traverse arraylist
+	//call get bookingById in Booking
+	//if not null, call removeBooking here
+	//return boolean for success or use custom exception
+
+
+	
 }
