@@ -9,6 +9,7 @@ public class SportsCenter {
 	private ArrayList<Room> allRooms;
     private ArrayList<User> allUsers;
     private ArrayList<Booking> allBookings;
+    private ArrayList<RoomType> allRoomTypes;
     private static SportsCenter INSTANCE;
     
     
@@ -16,6 +17,7 @@ public class SportsCenter {
 		this.allRooms = new ArrayList<>();
 		this.allUsers = new ArrayList<>();
         this.allBookings = new ArrayList<>();
+        this.allRoomTypes = new ArrayList<>();
 	}
     
     public static SportsCenter getInstance() {
@@ -32,10 +34,12 @@ public class SportsCenter {
 		String roomTypePath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_type.txt";
 		String roomPath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_data.txt";
 		String bookingPath = "SportsCenterBookingSystem\\src\\execute\\assets\\booking_data";
+		String userPath = "SportsCenterBookingSystem\\src\\execute\\assets\\user_data";
 		
 		loadRoomType(roomTypePath);
 		loadRoom(roomPath);
 		loadBooking(bookingPath);
+		loadUser(userPath);
 	}
 
 	//TODO: handle wrong data input (wrong data type/missing info etc)?
@@ -66,10 +70,8 @@ public class SportsCenter {
 		}
 		
 	}
-  
-  private void loadRoom(String path) {}
 
-	private void loadBooking (String path) {
+  private void loadRoom (String path) {
 		try{
 
 			File file = new File(path);
@@ -106,9 +108,12 @@ public class SportsCenter {
 			System.out.println("Cannot find file at path: "+path);
 		};
 		
+    }
+  
+  	private void loadUser(String path) {
 		
 		try {
-            File file = new File("./assets/User.txt");
+            File file = new File(path);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
