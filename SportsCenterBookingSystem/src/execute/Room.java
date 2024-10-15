@@ -54,5 +54,13 @@ public class Room {
 		}
 		return null;
 	}
+
+	
+
+
+	public String toString(){
+		//roomID roomTypeID
+		return roomID+" "+roomType.getType();
+	}
 	
 }

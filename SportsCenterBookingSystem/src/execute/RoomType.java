@@ -40,4 +40,9 @@ public class RoomType {
 
 		return null;
 	}
+
+	public String toString(){
+		//TypeID Type Price
+		return typeID+" "+type+" "+price;
+	}
 }

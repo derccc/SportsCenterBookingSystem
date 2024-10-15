@@ -66,7 +66,8 @@ public class Booking {
 	}
 	
 	public String toString(){
-        return bookingID + " " + roomID + " " + userID + " " +  date + " " + startTime + " " + endTime;
+		//RoomID UserID YYMMDD StartingTime EndingTime
+        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime;
     }
 
     

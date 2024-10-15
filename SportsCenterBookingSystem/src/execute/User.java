@@ -48,5 +48,10 @@ public class User {
         
     }
 
+    public String toString(){
+		//UserID UserRole UserPassword
+		return userID+" "+userRole+" "+userPassword;
+	}
+
  
 }
