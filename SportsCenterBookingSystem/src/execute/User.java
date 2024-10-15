@@ -53,5 +53,13 @@ public class User {
 		return userID+" "+userRole+" "+userPassword;
 	}
 
+    public static User getUserByUserID (ArrayList<User> allUsers, String id){
+        for (User u: allUsers){
+            if(u.userID.equals(id)){return u;}
+        }
+
+        return null;
+    }
+
  
 }

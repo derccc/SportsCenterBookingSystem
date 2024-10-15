@@ -201,13 +201,8 @@ public class SportsCenter {
 		return RoomType.getRoomTypeById(allRoomTypes,roomTypeID);
 	}
 	
-	public User getUserByUserID(String userID){ //TODO: call static function in User instead of check it here
-        for (User u: allUsers){
-            if (u.getUserID().equals(userID)){
-                return u;
-            }
-        }
-        return null;
+	public User getUserByUserID(String userID){ 
+        return User.getUserByUserID(allUsers,userID);
     }
 
     public ArrayList<Booking> getAllBookings() {

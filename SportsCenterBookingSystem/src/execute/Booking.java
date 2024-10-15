@@ -70,5 +70,14 @@ public class Booking {
         return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime;
     }
 
+
+
+	public static Booking removeBookingById(ArrayList<Booking> bookingList, String bookingId){
+		for(Booking b: bookingList){
+			if(b.bookingID==bookingId){return b;}
+		}
+		return null;
+	}
+
     
 }

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Room {
 	private String roomID;
 	private RoomType roomType;
-	private ArrayList<BookingsForDay> allbookings; //TODO: change name to allbookingsbydate
+	private ArrayList<BookingsForDay> allbookingsforday; 
 	
 	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
 		this.roomType=roomType;
-		this.allbookings = new ArrayList<>();
+		this.allbookingsforday = new ArrayList<>();
 	}
 	
 	public String getRoomID() {
@@ -25,25 +25,21 @@ public class Room {
 		if (getBookingsOfDay(booking.getDate()) == null) {
 			BookingsForDay bookingsForDay = new BookingsForDay(booking.getDate());
 			bookingsForDay.addBooking(booking);
-			this.allbookings.add(bookingsForDay);
+			this.allbookingsforday.add(bookingsForDay);
 		} else {
 			getBookingsOfDay(booking.getDate()).addBooking(booking);
 		}
 	}
 	
-	public void removeBooking(String bookingID) { //TODO: add this later
-		// call remove booking in bookingsforday
+	public boolean removeBooking(String bookingID) { 
+		//true if success, otherwise fail
+		return BookingsForDay.removeBookingById(allbookingsforday,bookingID);
 	}
 
 
-	//TODO: pass back to Class bookingsforday
+
 	public BookingsForDay getBookingsOfDay(String date) {
-		for (BookingsForDay b : this.allbookings) {
-			if (b.getDate().equals(date)) {
-				return b;
-			}
-		}
-		return null;
+		return BookingsForDay.getBookingsForDayByDate(allbookingsforday,date);
 	}
 
 	public static Room getRoomById(ArrayList<Room> allRooms, String roomID) {

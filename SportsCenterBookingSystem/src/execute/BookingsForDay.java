@@ -38,11 +38,26 @@ public class BookingsForDay {
 		return true;
 	}
 
-	//TODO: removeBookingById (ArrayList<>, String)
-	//for loop traverse arraylist
-	//call get bookingById in Booking
-	//if not null, call removeBooking here
-	//return boolean for success or use custom exception
+	//TODO: use exception?
+	public boolean removeBookingById(ArrayList<BookingsForDay> allbookingsforday, String bookingId){
+		for(BookingsForDay b: allbookingsforday){
+			Booking booking = Booking.getBookingById(b,bookingId);
+			if(booking!=null){
+				b.remove(booking);
+				return true; //success
+			}
+		}
+		return false; //fail
+	}
+
+	public static BookingsForDay getBookingsForDayByDate (ArrayList<BookingsForDay> allbookingsforday, String d){
+		for (BookingsForDay b : this.allbookingsforday) {
+			if (b.date.equals(d)) {
+				return b;
+			}
+		}
+		return null;
+	}
 
 
 	
