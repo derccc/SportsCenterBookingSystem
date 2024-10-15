@@ -30,11 +30,21 @@ public class Main {
         switch (action){
 
             case "r":
-            	//TODO: check if id already exist 
+            	 
                 System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
                 userRole = scanner.nextLine();
                 System.out.println("Please input your User ID:");
                 userID = scanner.nextLine();
+
+
+                //check if id already exist
+                while (sportsCentre.userIdExist(userID)){
+                    System.out.println();
+                    System.out.println("This ID is not available.");
+                    System.out.println("Please input your User ID:");
+                    userID = scanner.nextLine();
+                }
+
                 System.out.println("Please input your Password:");
                 userPassword = scanner.nextLine();
                 do {
@@ -44,7 +54,7 @@ public class Main {
                 
                 user = new User(userID, userRole, userPassword);
 		
-                //TODO: sportsCenter.userRegistration(user) //remember to add user to txt;
+                //TODO: sportsCenter.addUser(user) //remember to add user to txt;
                 System.out.println("Registration Success.");
                 
                 accountController = new AccountController(user);

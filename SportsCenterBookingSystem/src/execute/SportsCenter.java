@@ -208,4 +208,23 @@ public class SportsCenter {
     public ArrayList<Booking> getAllBookings() {
         return this.allBookings;
     }
+
+	public void printAllRoomType (){
+		System.out.println("All room types:");
+		for(RoomType r: allRoomTypes){
+			System.out.println(r);
+		}
+	}
+
+	public boolean userIdExist(String id){
+		User u = User.getUserByUserID(allUsers,id);
+		if(u!=null){return true;}
+		else{return false;}
+	}
+
+
+	public void addUser (User user){
+		allUsers.add(user);
+		//TODO: write user to txt
+	}
 }

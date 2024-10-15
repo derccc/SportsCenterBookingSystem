@@ -42,7 +42,7 @@ public class AccountController {
                 action = scanner.nextLine();
                 switch (action){
                     case "m":
-                        //sportsCenter.showRoomTypes();
+                        sportsCenter.printAllRoomType();
                         System.out.println("Please input your preferred timeslot (format: badminton 2024-08-10 1000-1200):");
                         
                         break;
