@@ -33,10 +33,10 @@ public class SportsCenter {
 	public void init() {
 		// load room type, room, booking
 
-		String roomTypePath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_type.txt";
-		String roomPath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_data.txt";
-		String bookingPath = "SportsCenterBookingSystem\\src\\execute\\assets\\booking_data";
-		String userPath = "SportsCenterBookingSystem\\src\\execute\\assets\\user_data.txt";
+		String roomTypePath = "src/execute/assets/room_type.txt";
+		String roomPath = "src/execute/assets/room_data.txt";
+		String bookingPath = "src/execute/assets/booking_data";
+		String userPath = "src/execute/assets/user_data.txt";
 		
 		loadRoomType(roomTypePath);
 		loadRoom(roomPath);
@@ -173,14 +173,14 @@ public class SportsCenter {
 				//TODO: invalid date time exception
 				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
 
-				
+				/*
 				if(room != null){
 					room.addBooking(booking);
 				}
 				else{
 					System.out.println("Cannot find room: "+splittedData[0]);
 				}
-				
+			*/
 
 			}
 
@@ -226,11 +226,11 @@ public class SportsCenter {
 
 
 	public void addUser(User user){
-		String userPath = "./assets/user_data.txt";
+		String userPath = "src/execute/assets/user_data.txt";
 		try {
 			File file = new File(userPath);
 			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write(user.toString());
+			fileWriter.write("\n" + user.toString());
 			fileWriter.close();		
 			System.out.println("Can find user_data.txt");
 			
