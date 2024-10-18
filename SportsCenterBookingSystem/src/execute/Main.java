@@ -10,7 +10,7 @@ import execute.BookingsForDay;
 public class Main {
 	public static void main(String[] args) {
 	//TODO: suggestion: move register&login to another function, so can be called again after user login out
-		SportsCenter sportsCentre = SportsCenter.getInstance();
+		SportsCenter sportsCenter = SportsCenter.getInstance();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -38,7 +38,7 @@ public class Main {
 
 
                 //check if id already exist
-                while (sportsCentre.userIdExist(userID)){
+                while (sportsCenter.userIdExist(userID)){
                     System.out.println();
                     System.out.println("This ID is not available.");
                     System.out.println("Please input your User ID:");
@@ -54,7 +54,7 @@ public class Main {
                 
                 user = new User(userID, userRole, userPassword);
 		
-                //TODO: sportsCenter.addUser(user) //remember to add user to txt;
+                sportsCenter.addUser(user); //remember to add user to txt;
                 System.out.println("Registration Success.");
                 
                 accountController = new AccountController(user);
@@ -67,7 +67,7 @@ public class Main {
                 do {
                     System.out.println("Please input your User ID:");
                     userID = scanner.nextLine();
-                    user = sportsCentre.getUserByUserID(userID);
+                    user = sportsCenter.getUserByUserID(userID);
                 } while (user==null);
                 do {
                     System.out.println("Please input your Password:");

@@ -2,6 +2,8 @@ package execute;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,7 +36,7 @@ public class SportsCenter {
 		String roomTypePath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_type.txt";
 		String roomPath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_data.txt";
 		String bookingPath = "SportsCenterBookingSystem\\src\\execute\\assets\\booking_data";
-		String userPath = "SportsCenterBookingSystem\\src\\execute\\assets\\user_data";
+		String userPath = "SportsCenterBookingSystem\\src\\execute\\assets\\user_data.txt";
 		
 		loadRoomType(roomTypePath);
 		loadRoom(roomPath);
@@ -223,8 +225,20 @@ public class SportsCenter {
 	}
 
 
-	public void addUser (User user){
-		allUsers.add(user);
+	public void addUser(User user){
+		String userPath = "./assets/user_data.txt";
+		try {
+			File file = new File(userPath);
+			FileWriter fileWriter = new FileWriter(file, true);
+			fileWriter.write(user.toString());
+			fileWriter.close();		
+			System.out.println("Can find user_data.txt");
+			
+		} catch (IOException e) {
+			System.out.println("Cannot find user_data.txt");
+			e.printStackTrace();
+		}
+		
 		//TODO: write user to txt
 	}
 }
