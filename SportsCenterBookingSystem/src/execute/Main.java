@@ -10,6 +10,7 @@ import execute.BookingsForDay;
 public class Main {
 	public static void main(String[] args) {
 	//TODO: suggestion: move register&login to another function, so can be called again after user login out
+		//move where? accountController?
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 
         Scanner scanner = new Scanner(System.in);
