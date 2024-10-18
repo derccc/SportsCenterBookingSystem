@@ -35,7 +35,7 @@ public class SportsCenter {
 
 		String roomTypePath = "src/execute/assets/room_type.txt";
 		String roomPath = "src/execute/assets/room_data.txt";
-		String bookingPath = "src/execute/assets/booking_data";
+		String bookingPath = "src/execute/assets/booking_data.txt";
 		String userPath = "src/execute/assets/user_data.txt";
 		
 		loadRoomType(roomTypePath);
@@ -67,7 +67,7 @@ public class SportsCenter {
 
 			}
 
-			System.out.println("Finished loading room types.");
+			System.out.println("Finished loading room types.");  //delete after finish coding?
 
 			scanner.close();
 		}
@@ -106,7 +106,7 @@ public class SportsCenter {
 
 			}
 
-			System.out.println("Finished loading rooms.");
+			System.out.println("Finished loading rooms."); //delete after finish coding?
 
 			scanner.close();
 		}
@@ -124,6 +124,7 @@ public class SportsCenter {
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 String[] splittedData = data.split(" ");
+                //format: userID, userRole, userPassword
                 User user = new User(splittedData[0], splittedData[1], splittedData[2]);
                 allUsers.add(user);
                 
@@ -132,27 +133,9 @@ public class SportsCenter {
             scanner.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("User File Not Found.");
-            e.printStackTrace();
+            System.out.println("Cannot find file at path: "+path);
         }
-		/*
-
-        try {
-            File file = new File("src/execute/assets/booking_data");
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
-                String data = scanner.nextLine();
-                String[] splittedData = data.split(" ");
-                Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
-                allBookings.add(booking);
-            }
-            scanner.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Booking File Not Found.");
-            e.printStackTrace();
-        }
-        */
+		
 	}
 
 
@@ -165,14 +148,15 @@ public class SportsCenter {
 			while (scanner.hasNextLine()){
 				String data = scanner.nextLine();
 				String[] splittedData = data.split(" ");
-				//format: AreaID UserID YYMMDD StartingTime EndingTime
+				//format: RoomID UserID YYMMDD StartingTime EndingTime
 				
 				//find room by id (pass back to class RoomType)
 				Room room= getRoomById(splittedData[0]);
 
 				//TODO: invalid date time exception
 				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
-
+				
+				//seems have error in this function so commented
 				/*
 				if(room != null){
 					room.addBooking(booking);
@@ -180,7 +164,9 @@ public class SportsCenter {
 				else{
 					System.out.println("Cannot find room: "+splittedData[0]);
 				}
-			*/
+				 */
+				
+				//also need add booking to user?
 
 			}
 
@@ -231,14 +217,11 @@ public class SportsCenter {
 			File file = new File(userPath);
 			FileWriter fileWriter = new FileWriter(file, true);
 			fileWriter.write("\n" + user.toString());
-			fileWriter.close();		
-			System.out.println("Can find user_data.txt");
+			fileWriter.close();
 			
 		} catch (IOException e) {
-			System.out.println("Cannot find user_data.txt");
-			e.printStackTrace();
+			System.out.println("IO error");
 		}
 		
-		//TODO: write user to txt
 	}
 }

@@ -9,6 +9,7 @@ public class AccountController {
         this.user = user;
     }
 
+    //maybe need change the name of this function?
     public void execute() {
         SportsCenter sportsCenter = SportsCenter.getInstance();
 
