@@ -32,6 +32,7 @@ public class AccountController {
                         break;
 
                     case "l":
+                    	AccountController.userRegisterLogin(sportsCenter);
                         break;
                 
                 }
@@ -39,7 +40,7 @@ public class AccountController {
 
             case "N":
                 
-                System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for quit):");
+                System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
                 action = scanner.nextLine();
                 switch (action){
                     case "m":
@@ -57,6 +58,7 @@ public class AccountController {
                         break;
 
                     case "l":
+                    	AccountController.userRegisterLogin(sportsCenter);
                         break;
         
                 }
