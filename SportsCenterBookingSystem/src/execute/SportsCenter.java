@@ -216,7 +216,7 @@ public class SportsCenter {
 		try {
 			File file = new File(userPath);
 			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write("\n" + user.toString());
+			fileWriter.write(user.toString() + "\n");
 			fileWriter.close();
 			
 		} catch (IOException e) {
