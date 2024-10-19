@@ -13,65 +13,30 @@ public class AccountController {
     public void actionHandler() {
         SportsCenter sportsCenter = SportsCenter.getInstance();
 
-        Scanner scanner = new Scanner(System.in);
-        String action;
-
-        switch(user.getUserRole()){
-            
-            case "A":
-            	do {
-            		System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
-                    action = scanner.nextLine();
-            	} while (!action.equals("v") && !action.equals("c") && !action.equals("l"));
-                
-                switch (action){
-                    case "v":
-                        user.viewBooking();
-                        this.actionHandler();
-                        break;
-
-                    case "c":
-                        break;
-
-                    case "l":
-                    	AccountController.userRegisterLogin(sportsCenter);
-                        break;
-                
-                }
-                break;
-
-            case "N":
-                do {
-                	System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
-                    action = scanner.nextLine();
-                } while (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l"));
-                
-                switch (action){
-                    case "m":
-                        sportsCenter.printAllRoomType();
-                        System.out.println("Please input your preferred timeslot (format: badminton 2024-08-10 1000-1200):");
-                        
-                        break;
-
-                    case "v":
-                        user.viewBooking();
-                        this.actionHandler();
-                        break;
-
-                    case "c":
-                        break;
-
-                    case "l":
-                    	AccountController.userRegisterLogin(sportsCenter);
-                        break;
+        String action = user.showActionMenu();
         
-                }
-
-                break;
-        }
+        switch (action){
+	        case "m":
+	            sportsCenter.printAllRoomType();
+	            System.out.println("Please input your preferred timeslot (format: badminton 2024-08-10 1000-1200):");
+	            
+	            break;
+        
+	        case "v":
+	            user.viewBooking();
+	            this.actionHandler();
+	            break;
+	
+	        case "c":
+	            break;
+	
+	        case "l":
+	        	AccountController.userRegisterLogin(sportsCenter);
+	            break;
+	    
+	    }
         
         
-        scanner.close();
     }
     
     public static void userRegisterLogin(SportsCenter sportsCenter) {
@@ -115,13 +80,24 @@ public class AccountController {
 			        userPassword2 = scanner.nextLine();
 			    } while (!userPassword2.equals(userPassword));
 			     
-			    user = new User(userID, userRole, userPassword);
-		
-			    sportsCenter.addUser(user); //remember to add user to txt;
-		     	System.out.println("Registration Success.");
-			     
-			    accountController = new AccountController(user);
-			    accountController.actionHandler();
+				switch (userRole) {
+					case "A":
+						user = new Admin(userID, userPassword);
+						sportsCenter.addUser(user);
+						System.out.println("Registration Success.");
+					    accountController = new AccountController(user);
+					    accountController.actionHandler();
+						break;
+					case "N":
+						user = new User(userID, userPassword);
+						sportsCenter.addUser(user);
+						System.out.println("Registration Success.");
+					    accountController = new AccountController(user);
+					    accountController.actionHandler();
+						break;
+					}
+			    
+				
 			
 			    break;
 		

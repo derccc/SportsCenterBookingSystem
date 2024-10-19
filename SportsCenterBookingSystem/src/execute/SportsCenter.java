@@ -125,10 +125,17 @@ public class SportsCenter {
                 String data = scanner.nextLine();
                 String[] splittedData = data.split(" ");
                 //format: userID, userRole, userPassword
-                User user = new User(splittedData[0], splittedData[1], splittedData[2]);
-                allUsers.add(user);
-                
-                
+                String userRole = splittedData[1];
+                switch (userRole) {
+                    case "A":
+                        Admin admin = new Admin(splittedData[0], splittedData[2]);
+                        allUsers.add(admin);
+                        break;
+                    case "N":
+                    	User user = new User(splittedData[0], splittedData[2]);
+                    	allUsers.add(user);
+                    	break;
+                }
             }
             scanner.close();
 
