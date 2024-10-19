@@ -203,7 +203,8 @@ public class SportsCenter {
 			System.out.println(r);
 		}
 	}
-
+	
+	//maybe this function is can combine with getUserByUserID?
 	public boolean userIdExist(String id){
 		User u = User.getUserByUserID(allUsers,id);
 		if(u!=null){return true;}

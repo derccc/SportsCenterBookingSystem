@@ -19,9 +19,11 @@ public class AccountController {
         switch(user.getUserRole()){
             
             case "A":
-
-                System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
-                action = scanner.nextLine();
+            	do {
+            		System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
+                    action = scanner.nextLine();
+            	} while (!action.equals("v") && !action.equals("c") && !action.equals("l"));
+                
                 switch (action){
                     case "v":
                         user.viewBooking();
@@ -39,9 +41,11 @@ public class AccountController {
                 break;
 
             case "N":
+                do {
+                	System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
+                    action = scanner.nextLine();
+                } while (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l"));
                 
-                System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
-                action = scanner.nextLine();
                 switch (action){
                     case "m":
                         sportsCenter.printAllRoomType();
@@ -73,8 +77,10 @@ public class AccountController {
     public static void userRegisterLogin(SportsCenter sportsCenter) {
     	Scanner scanner = new Scanner(System.in);
 		String action;
-		System.out.println("Please input your action ([r] for Register, [l] for login) :");
-		action = scanner.nextLine();
+		do {
+			System.out.println("Please input your action ([r] for Register, [l] for login) :");
+			action = scanner.nextLine();
+		} while (!action.equals("r") && !action.equals("l"));
 		
 		String userID;
 		String userRole;
@@ -86,12 +92,13 @@ public class AccountController {
 		switch (action){
 		
 		    case "r":
-		 	 
-			    System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
-			    userRole = scanner.nextLine();
+		    	do {
+		    		System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
+            		userRole = scanner.nextLine();
+            	} while (!userRole.equals("A") && !userRole.equals("N"));
+			
 			    System.out.println("Please input your User ID:");
 			    userID = scanner.nextLine();
-			
 			
 			    //check if id already exist
 			    while (sportsCenter.userIdExist(userID)){
