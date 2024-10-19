@@ -125,10 +125,17 @@ public class SportsCenter {
                 String data = scanner.nextLine();
                 String[] splittedData = data.split(" ");
                 //format: userID, userRole, userPassword
-                User user = new User(splittedData[0], splittedData[1], splittedData[2]);
-                allUsers.add(user);
-                
-                
+                String userRole = splittedData[1];
+                switch (userRole) {
+                    case "A":
+                        Admin admin = new Admin(splittedData[0], splittedData[2]);
+                        allUsers.add(admin);
+                        break;
+                    case "N":
+                    	User user = new User(splittedData[0], splittedData[2]);
+                    	allUsers.add(user);
+                    	break;
+                }
             }
             scanner.close();
 
@@ -203,7 +210,8 @@ public class SportsCenter {
 			System.out.println(r);
 		}
 	}
-
+	
+	//maybe this function is can combine with getUserByUserID?
 	public boolean userIdExist(String id){
 		User u = User.getUserByUserID(allUsers,id);
 		if(u!=null){return true;}
@@ -216,7 +224,7 @@ public class SportsCenter {
 		try {
 			File file = new File(userPath);
 			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write("\n" + user.toString());
+			fileWriter.write(user.toString() + "\n");
 			fileWriter.close();
 			
 		} catch (IOException e) {
