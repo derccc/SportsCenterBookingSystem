@@ -2,6 +2,8 @@ package execute;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,10 +33,10 @@ public class SportsCenter {
 	public void init() {
 		// load room type, room, booking
 
-		String roomTypePath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_type.txt";
-		String roomPath = "SportsCenterBookingSystem\\src\\execute\\assets\\room_data.txt";
-		String bookingPath = "SportsCenterBookingSystem\\src\\execute\\assets\\booking_data";
-		String userPath = "SportsCenterBookingSystem\\src\\execute\\assets\\user_data";
+		String roomTypePath = "src/execute/assets/room_type.txt";
+		String roomPath = "src/execute/assets/room_data.txt";
+		String bookingPath = "src/execute/assets/booking_data.txt";
+		String userPath = "src/execute/assets/user_data.txt";
 		
 		loadRoomType(roomTypePath);
 		loadRoom(roomPath);
@@ -65,7 +67,7 @@ public class SportsCenter {
 
 			}
 
-			System.out.println("Finished loading room types.");
+			System.out.println("Finished loading room types.");  //delete after finish coding?
 
 			scanner.close();
 		}
@@ -104,7 +106,7 @@ public class SportsCenter {
 
 			}
 
-			System.out.println("Finished loading rooms.");
+			System.out.println("Finished loading rooms."); //delete after finish coding?
 
 			scanner.close();
 		}
@@ -122,35 +124,25 @@ public class SportsCenter {
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 String[] splittedData = data.split(" ");
-                User user = new User(splittedData[0], splittedData[1], splittedData[2]);
-                allUsers.add(user);
-                
-                
+                //format: userID, userRole, userPassword
+                String userRole = splittedData[1];
+                switch (userRole) {
+                    case "A":
+                        Admin admin = new Admin(splittedData[0], splittedData[2]);
+                        allUsers.add(admin);
+                        break;
+                    case "N":
+                    	User user = new User(splittedData[0], splittedData[2]);
+                    	allUsers.add(user);
+                    	break;
+                }
             }
             scanner.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("User File Not Found.");
-            e.printStackTrace();
+            System.out.println("Cannot find file at path: "+path);
         }
-		/*
-
-        try {
-            File file = new File("src/execute/assets/booking_data");
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
-                String data = scanner.nextLine();
-                String[] splittedData = data.split(" ");
-                Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
-                allBookings.add(booking);
-            }
-            scanner.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Booking File Not Found.");
-            e.printStackTrace();
-        }
-        */
+		
 	}
 
 
@@ -163,22 +155,25 @@ public class SportsCenter {
 			while (scanner.hasNextLine()){
 				String data = scanner.nextLine();
 				String[] splittedData = data.split(" ");
-				//format: AreaID UserID YYMMDD StartingTime EndingTime
+				//format: RoomID UserID YYMMDD StartingTime EndingTime
 				
 				//find room by id (pass back to class RoomType)
 				Room room= getRoomById(splittedData[0]);
 
 				//TODO: invalid date time exception
 				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
-
 				
+				//seems have error in this function so commented
+				/*
 				if(room != null){
 					room.addBooking(booking);
 				}
 				else{
 					System.out.println("Cannot find room: "+splittedData[0]);
 				}
+				 */
 				
+				//also need add booking to user?
 
 			}
 
@@ -215,7 +210,8 @@ public class SportsCenter {
 			System.out.println(r);
 		}
 	}
-
+	
+	//maybe this function is can combine with getUserByUserID?
 	public boolean userIdExist(String id){
 		User u = User.getUserByUserID(allUsers,id);
 		if(u!=null){return true;}
@@ -223,8 +219,17 @@ public class SportsCenter {
 	}
 
 
-	public void addUser (User user){
-		allUsers.add(user);
-		//TODO: write user to txt
+	public void addUser(User user){
+		String userPath = "src/execute/assets/user_data.txt";
+		try {
+			File file = new File(userPath);
+			FileWriter fileWriter = new FileWriter(file, true);
+			fileWriter.write(user.toString() + "\n");
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			System.out.println("IO error");
+		}
+		
 	}
 }
