@@ -39,11 +39,11 @@ public class BookingsForDay {
 	}
 
 	//TODO: use exception?
-	public boolean removeBookingById(ArrayList<BookingsForDay> allbookingsforday, String bookingId){
+	public static boolean removeBookingById(ArrayList<BookingsForDay> allbookingsforday, String bookingId){
 		for(BookingsForDay b: allbookingsforday){
-			Booking booking = Booking.getBookingById(b,bookingId);
+			Booking booking = Booking.getBookingById(b.bookings,bookingId);
 			if(booking!=null){
-				b.remove(booking);
+				b.removeBooking(booking);
 				return true; //success
 			}
 		}
@@ -51,7 +51,7 @@ public class BookingsForDay {
 	}
 
 	public static BookingsForDay getBookingsForDayByDate (ArrayList<BookingsForDay> allbookingsforday, String d){
-		for (BookingsForDay b : this.allbookingsforday) {
+		for (BookingsForDay b : allbookingsforday) {
 			if (b.date.equals(d)) {
 				return b;
 			}
