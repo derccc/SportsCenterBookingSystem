@@ -9,15 +9,21 @@ public class Admin extends User {
 		super(userID, userPassword);
 	}
 	
-	public String showActionMenu() {
+	public String showActionMenu() throws ExInvalidCommand{
 		Scanner scanner = new Scanner(System.in);
         String action;
+        
+        /*
 
 		do {
     		System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
             action = scanner.nextLine();
     	} while (!action.equals("v") && !action.equals("c") && !action.equals("l"));
+        */
         
+        System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
+        action = scanner.nextLine();
+        if(!action.equals("v") && !action.equals("c") && !action.equals("l")) {throw new ExInvalidCommand();}
         
         scanner.close();
         return action;
