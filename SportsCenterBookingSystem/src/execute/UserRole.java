@@ -14,9 +14,9 @@ public interface UserRole {
         return null;
     }
 	
+	public boolean makeBooking();
     public void viewBooking(ArrayList<Booking> allBookings);
-    public boolean makeBooking();
-    public boolean cancelBooking(User user);
+    public boolean cancelBooking();
     public String showActionMenu();
     public String toString(String userID, String userPassword);
 

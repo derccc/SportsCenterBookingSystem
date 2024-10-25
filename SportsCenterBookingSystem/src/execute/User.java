@@ -27,8 +27,7 @@ public class User {
 		return userRole.toString(userID, userPassword);
 	}
     
-
-    public static User getUserByUserID (ArrayList<User> allUsers, String id){
+	public static User getUserByUserID (ArrayList<User> allUsers, String id){
         for (User u: allUsers){
             if(u.userID.equals(id)){return u;}
         }
@@ -51,7 +50,7 @@ public class User {
 	}
 
 	public void cancelBooking() {
-		userRole.cancelBooking(this);
+		userRole.cancelBooking();
 	}
 	
 	public void addBooking(Booking booking) {

@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NormalUser implements UserRole {
+	
+	@Override
+    public boolean makeBooking() {
+        return false;
+        
+    }
 
     @Override
     public void viewBooking(ArrayList<Booking> allBookings) {
@@ -13,20 +19,17 @@ public class NormalUser implements UserRole {
     }
 
     @Override
-    public boolean makeBooking() {
-        return false;
-        
-    }
-
-    @Override
-    public boolean cancelBooking(User user) {
+    public boolean cancelBooking() {
+    	
     	//TODO: show all bookings with bookingID
+    	SportsCenter sportsCenter = SportsCenter.getInstance();
     	
     	System.out.println("Please input the booking ID you want to cancel:");
     	Scanner scanner = new Scanner(System.in);
     	String bookingID = scanner.nextLine();
-    	Booking booking = SportsCenter.getBookingByBookingID(bookingID);
-    	user.removeBooking(booking);
+    	
+    	Booking booking = sportsCenter.getBookingByBookingID(bookingID);
+    	//user.removeBooking(booking); (use getCurrentUser or pass user object here?)
     	scanner.close();
         return false;
         

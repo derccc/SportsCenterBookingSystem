@@ -34,6 +34,7 @@ public class Main {
 	        				
 	        			case "e":
 	        				isExit = true;
+	        				System.out.println("System exit.");
 	        				break;
 	        				
 	        			default:

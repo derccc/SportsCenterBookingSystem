@@ -196,7 +196,7 @@ public class SportsCenter {
         return User.getUserByUserID(allUsers, userID);
     }
 	
-	public static Booking getBookingByBookingID(String bookingID) {
+	public Booking getBookingByBookingID(String bookingID) {
 		return Booking.getBookingByBookingID(allBookings, bookingID);
 	}
 

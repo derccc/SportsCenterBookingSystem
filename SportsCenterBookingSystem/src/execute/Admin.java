@@ -6,6 +6,13 @@ import java.util.Scanner;
 public class Admin implements UserRole {
 	
 	@Override
+    public boolean makeBooking() {
+    	//TODO: make booking for specific user
+        return false;
+        
+    }
+	
+	@Override
 	public void viewBooking(ArrayList<Booking> allBookings) {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		
@@ -14,15 +21,10 @@ public class Admin implements UserRole {
         sportsCenter.viewAllBookings();
     }
 
-    @Override
-    public boolean makeBooking() {
-    	//TODO: make booking for specific user
-        return false;
-        
-    }
+    
 
     @Override
-    public boolean cancelBooking(User user) {
+    public boolean cancelBooking() {
     	//TODO: cancel booking for specific user
         return false;
        
