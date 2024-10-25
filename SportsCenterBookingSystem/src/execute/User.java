@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User {
-    private String userID;
+	private String userID;
     private String userPassword;
+    private UserRole userRole;
+    private ArrayList<Booking> allBookings;
 
-    public User(String userID, String userPassword){
+    public User (String userID, String userPassword, String userRole){
         this.userID = userID;
         this.userPassword = userPassword;
-    }
+        this.userRole = UserRole.getUserRoleByChar(userRole);
 
     public String getUserID() {
         return this.userID;

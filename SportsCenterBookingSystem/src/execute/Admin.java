@@ -3,8 +3,26 @@ package execute;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Admin extends User {
+public class Admin implements UserRole {
+	
+	@Override
+    public void viewBooking() {
+        
+    }
 
+    @Override
+    public boolean makeBooking() {
+        return false;
+        
+    }
+
+    @Override
+    public boolean cancelBooking(String bookingID) {
+        return false;
+       
+    }
+    
+	/*
 	public Admin(String userID, String userPassword) {
 		super(userID, userPassword);
 	}
@@ -18,13 +36,13 @@ public class Admin extends User {
 		Scanner scanner = new Scanner(System.in);
         String action;
         
-        /*
+        
 
 		do {
     		System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
             action = scanner.nextLine();
     	} while (!action.equals("v") && !action.equals("c") && !action.equals("l"));
-        */
+        
         
         System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
         action = scanner.nextLine();
@@ -76,6 +94,8 @@ public class Admin extends User {
 		}
 
         scanner.close();
+        
     }
+	*/
 
 }
