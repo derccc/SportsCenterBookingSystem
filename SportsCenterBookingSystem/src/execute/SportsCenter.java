@@ -51,8 +51,8 @@ public class SportsCenter {
 
 
 	private void loadRoomType (String path) {
+		
 		try{
-
 			File file = new File(path);
 			Scanner scanner = new Scanner(file);
 
@@ -60,9 +60,7 @@ public class SportsCenter {
 				String data = scanner.nextLine();
 				String[] splittedData = data.split(" ");
 				//format: TypeID Type Price
-				
 				RoomType roomType = new RoomType(splittedData[0], splittedData[1], Integer.parseInt(splittedData[2]));
-
 				allRoomTypes.add(roomType);
 
 			}
@@ -95,7 +93,7 @@ public class SportsCenter {
 
 				Room room = null;
 				if(roomType != null){
-					room = new Room(splittedData[0],roomType);
+					room = new Room(splittedData[0], roomType);
 				}
 				else{
 					System.out.println("Cannot find room type: "+splittedData[1]);
@@ -121,21 +119,14 @@ public class SportsCenter {
 		try {
             File file = new File(path);
             Scanner scanner = new Scanner(file);
+            
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 String[] splittedData = data.split(" ");
                 //format: userID, userRole, userPassword
-                String userRole = splittedData[1];
-                switch (userRole) {
-                    case "A":
-                        Admin admin = new Admin(splittedData[0], splittedData[2]);
-                        allUsers.add(admin);
-                        break;
-                    case "N":
-                    	User user = new User(splittedData[0], splittedData[2]);
-                    	allUsers.add(user);
-                    	break;
-                }
+                User user = new User(splittedData[0], splittedData[1], splittedData[2]);
+                allUsers.add(user);
+                
             }
             scanner.close();
 
@@ -158,22 +149,28 @@ public class SportsCenter {
 				//format: RoomID UserID YYMMDD StartingTime EndingTime
 				
 				//find room by id (pass back to class RoomType)
-				Room room= getRoomById(splittedData[0]);
+				Room room = getRoomByRoomID(splittedData[0]);
+				User user = getUserByUserID(splittedData[1]);
 
 				//TODO: invalid date time exception
 				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
 				
 				//seems have error in this function so commented
-				/*
+				
 				if(room != null){
 					room.addBooking(booking);
 				}
 				else{
 					System.out.println("Cannot find room: "+splittedData[0]);
 				}
-				 */
 				
-				//also need add booking to user?
+				if (user != null) {
+					user.addBooking(booking);
+				} else {
+					System.out.println("Cannot find user: " + splittedData[1]);
+				}
+				
+				allBookings.add(booking);
 
 			}
 
@@ -188,7 +185,7 @@ public class SportsCenter {
 	}
 
 
-	public Room getRoomById(String roomID) {
+	public Room getRoomByRoomID(String roomID) {
 		return Room.getRoomById(allRooms,roomID);
 	}
 
@@ -198,10 +195,6 @@ public class SportsCenter {
 	
 	public User getUserByUserID(String userID){ 
         return User.getUserByUserID(allUsers,userID);
-    }
-
-    public ArrayList<Booking> getAllBookings() {
-        return this.allBookings;
     }
 
 	public void printAllRoomType (){
@@ -231,5 +224,11 @@ public class SportsCenter {
 			System.out.println("IO error");
 		}
 		
+	}
+
+	public void viewAllBookings() {
+		for (Booking b : allBookings) {
+			System.out.println(b.toString());
+		}
 	}
 }

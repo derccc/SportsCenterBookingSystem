@@ -6,7 +6,6 @@ public class CmdLogin implements Command{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please input your User ID:");
@@ -27,6 +26,8 @@ public class CmdLogin implements Command{
 		};
 		
 		Main.setCurrentUser(user);
+		
+		scanner.close();
 	}
 
 }

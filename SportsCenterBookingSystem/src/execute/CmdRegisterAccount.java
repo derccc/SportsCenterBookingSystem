@@ -42,7 +42,7 @@ public class CmdRegisterAccount implements Command {
 		System.out.println("Registration Success.");
 		Main.setCurrentUser(user);
 		
-		
+		scanner.close();
 	}
 
 }

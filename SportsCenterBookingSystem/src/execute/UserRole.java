@@ -1,11 +1,10 @@
 package execute;
 
+import java.util.ArrayList;
+
 public interface UserRole {
-    void viewBooking();
-    boolean makeBooking();
-    boolean cancelBooking(String bookingID);
-    
-    static UserRole getUserRoleByChar(String userRole) {
+	
+	static UserRole getUserRoleByChar(String userRole) {
         switch(userRole){
             case "A":
                 return new Admin();
@@ -14,4 +13,10 @@ public interface UserRole {
         }
         return null;
     }
+	
+    void viewBooking(ArrayList<Booking> allBookings);
+    boolean makeBooking();
+    boolean cancelBooking(String bookingID);
+    String showActionMenu();
+	
 }
