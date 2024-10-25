@@ -13,7 +13,13 @@ public class AccountController {
     public void actionHandler() {
         SportsCenter sportsCenter = SportsCenter.getInstance();
 
-        String action = user.showActionMenu();
+        String action;
+		try {
+			action = user.showActionMenu();
+		} catch (ExInvalidCommand e) {
+			// TODO Auto-generated catch block
+			action=null;
+		}
         
         switch (action){
 	        case "m":
@@ -102,21 +108,21 @@ public class AccountController {
 			    break;
 		
 		
-		    case "l":
-		    	do {
-		    		System.out.println("Please input your User ID:");
-		    		userID = scanner.nextLine();
-		    		user = sportsCenter.getUserByUserID(userID);
-		    	} while (user==null);
-		    	do {
-		    		System.out.println("Please input your Password:");
-		            userPassword = scanner.nextLine();
-		        } while (!user.getUserPasword().equals(userPassword));
-		
-		        accountController = new AccountController(user);
-		        accountController.actionHandler();
-		         
-		        break;
+//		    case "l":
+//		    	do {
+//		    		System.out.println("Please input your User ID:");
+//		    		userID = scanner.nextLine();
+//		    		user = sportsCenter.getUserByUserID(userID);
+//		    	} while (user==null);
+//		    	do {
+//		    		System.out.println("Please input your Password:");
+//		            userPassword = scanner.nextLine();
+//		        } while (!user.getUserPasword().equals(userPassword));
+//		
+//		        accountController = new AccountController(user);
+//		        accountController.actionHandler();
+//		         
+//		        break;
 		
 		}
 	    scanner.close();

@@ -5,12 +5,10 @@ import java.util.ArrayList;
 public class Room {
 	private String roomID;
 	private RoomType roomType;
-	private ArrayList<BookingsForDay> allbookingsforday; 
 	
 	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
 		this.roomType=roomType;
-		this.allbookingsforday = new ArrayList<>();
 	}
 	
 	public String getRoomID() {
@@ -22,25 +20,25 @@ public class Room {
 	}
 	
 	public void addBooking(Booking booking) {
-		if (getBookingsOfDay(booking.getDate()) == null) {
-			BookingsForDay bookingsForDay = new BookingsForDay(booking.getDate());
-			bookingsForDay.addBooking(booking);
-			this.allbookingsforday.add(bookingsForDay);
-		} else {
-			getBookingsOfDay(booking.getDate()).addBooking(booking);
-		}
+//		if (getBookingsOfDay(booking.getDate()) == null) {
+//			BookingsForDay bookingsForDay = new BookingsForDay(booking.getDate());
+//			bookingsForDay.addBooking(booking);
+//			this.allbookingsforday.add(bookingsForDay);
+//		} else {
+//			getBookingsOfDay(booking.getDate()).addBooking(booking);
+//		}
 	}
 	
-	public boolean removeBooking(String bookingID) { 
-		//true if success, otherwise fail
-		return BookingsForDay.removeBookingById(allbookingsforday,bookingID);
-	}
+//	public boolean removeBooking(String bookingID) { 
+//		//true if success, otherwise fail
+//		return BookingsForDay.removeBookingById(allbookingsforday,bookingID);
+//	}
 
 
 
-	public BookingsForDay getBookingsOfDay(String date) {
-		return BookingsForDay.getBookingsForDayByDate(allbookingsforday,date);
-	}
+//	public BookingsForDay getBookingsOfDay(String date) {
+//		return BookingsForDay.getBookingsForDayByDate(allbookingsforday,date);
+//	}
 
 	public static Room getRoomById(ArrayList<Room> allRooms, String roomID) {
 		for(Room r: allRooms){
