@@ -23,7 +23,7 @@ public class User {
         return this.userPassword;
     }
     
-	public String toString(String userID, String userPassword) {
+	public String toString() {
 		return userRole.toString(userID, userPassword);
 	}
     
