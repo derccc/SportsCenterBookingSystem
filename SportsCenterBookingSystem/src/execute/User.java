@@ -13,6 +13,8 @@ public class User {
         this.userID = userID;
         this.userPassword = userPassword;
         this.userRole = UserRole.getUserRoleByChar(userRole);
+        
+    }
 
     public String getUserID() {
         return this.userID;
