@@ -36,5 +36,9 @@ public class NormalUser implements UserRole {
 		scanner.close();
 		return action;
 	}
-    
+
+	@Override
+	public String toString(String userID, String userPassword) {
+		return userID + " N " + userPassword;
+	}
 }

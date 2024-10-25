@@ -39,6 +39,11 @@ public class Admin implements UserRole {
 		return action;
 		
 	}
+
+	@Override
+	public String toString(String userID, String userPassword) {
+		return userID + " A " + userPassword;
+	}
     
 	
 

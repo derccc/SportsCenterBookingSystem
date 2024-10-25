@@ -37,7 +37,7 @@ public class CmdRegisterAccount implements Command {
 	        userPassword2 = scanner.nextLine();
 	    } while (!userPassword2.equals(userPassword));
 	    
-	    user = new User(userID, userPassword, userRole);
+	    user = new User(userID, userRole, userPassword);
 	    sportsCenter.addUser(user);
 		System.out.println("Registration Success.");
 		Main.setCurrentUser(user);

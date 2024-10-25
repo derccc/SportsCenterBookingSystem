@@ -8,18 +8,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SportsCenter {
+	private ArrayList<RoomType> allRoomTypes;
 	private ArrayList<Room> allRooms;
     private ArrayList<User> allUsers;
     private ArrayList<Booking> allBookings;
-    private ArrayList<RoomType> allRoomTypes;
     private static SportsCenter INSTANCE;
     
-    
 	private SportsCenter() {
+		this.allRoomTypes = new ArrayList<>();
 		this.allRooms = new ArrayList<>();
 		this.allUsers = new ArrayList<>();
         this.allBookings = new ArrayList<>();
-        this.allRoomTypes = new ArrayList<>();
 	}
     
     public static SportsCenter getInstance() {
@@ -31,17 +30,16 @@ public class SportsCenter {
     }
     
 	public void init() {
-		// load room type, room, booking
-
 		String roomTypePath = "src/execute/assets/room_type.txt";
 		String roomPath = "src/execute/assets/room_data.txt";
-		String bookingPath = "src/execute/assets/booking_data.txt";
 		String userPath = "src/execute/assets/user_data.txt";
+		String bookingPath = "src/execute/assets/booking_data.txt";
 		
 		loadRoomType(roomTypePath);
 		loadRoom(roomPath);
-		loadBooking(bookingPath);
 		loadUser(userPath);
+		loadBooking(bookingPath);
+		
 	}
 
 	//TODO: handle wrong data input (wrong data type/missing info etc)? use exception?
@@ -128,6 +126,7 @@ public class SportsCenter {
                 allUsers.add(user);
                 
             }
+            System.out.println("Finished loading users.");  //delete after finish coding?
             scanner.close();
 
         } catch (FileNotFoundException e) {
@@ -174,7 +173,7 @@ public class SportsCenter {
 
 			}
 
-			System.out.println("Finished loading bookings.");
+			System.out.println("Finished loading bookings.");//delete after finish coding?
 
 			scanner.close();
 		}

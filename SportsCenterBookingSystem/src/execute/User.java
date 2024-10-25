@@ -22,7 +22,10 @@ public class User {
     public String getUserPasword(){
         return this.userPassword;
     }
-
+    
+	public String toString(String userID, String userPassword) {
+		return userRole.toString(userID, userPassword);
+	}
     
 
     public static User getUserByUserID (ArrayList<User> allUsers, String id){
@@ -44,8 +47,7 @@ public class User {
     }
 
 	public void addBooking(Booking booking) {
-		// TODO Auto-generated method stub
-		
+		allBookings.add(booking);
 	}
 
  

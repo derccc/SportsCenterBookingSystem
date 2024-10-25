@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface UserRole {
 	
-	static UserRole getUserRoleByChar(String userRole) {
+	public static UserRole getUserRoleByChar(String userRole) {
         switch(userRole){
             case "A":
                 return new Admin();
@@ -14,9 +14,10 @@ public interface UserRole {
         return null;
     }
 	
-    void viewBooking(ArrayList<Booking> allBookings);
-    boolean makeBooking();
-    boolean cancelBooking(String bookingID);
-    String showActionMenu();
-	
+    public void viewBooking(ArrayList<Booking> allBookings);
+    public boolean makeBooking();
+    public boolean cancelBooking(String bookingID);
+    public String showActionMenu();
+    public String toString(String userID, String userPassword);
+
 }
