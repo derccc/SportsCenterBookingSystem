@@ -46,8 +46,20 @@ public class User {
 		userRole.viewBooking(allBookings);
     }
 
+	public void makeBooking() {
+		userRole.makeBooking();
+	}
+
+	public void cancelBooking() {
+		userRole.cancelBooking(this);
+	}
+	
 	public void addBooking(Booking booking) {
 		allBookings.add(booking);
+	}
+
+	public void removeBooking(Booking booking) {
+		allBookings.remove(booking);
 	}
 
  

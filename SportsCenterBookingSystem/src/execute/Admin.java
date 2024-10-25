@@ -16,12 +16,14 @@ public class Admin implements UserRole {
 
     @Override
     public boolean makeBooking() {
+    	//TODO: make booking for specific user
         return false;
         
     }
 
     @Override
-    public boolean cancelBooking(String bookingID) {
+    public boolean cancelBooking(User user) {
+    	//TODO: cancel booking for specific user
         return false;
        
     }

@@ -4,8 +4,8 @@ public class CmdCancelBooking implements Command{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		User currentUser = Main.getCurrentUser();
+		currentUser.cancelBooking();
 	}
 
 }

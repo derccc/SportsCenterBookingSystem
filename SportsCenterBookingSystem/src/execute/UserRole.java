@@ -16,7 +16,7 @@ public interface UserRole {
 	
     public void viewBooking(ArrayList<Booking> allBookings);
     public boolean makeBooking();
-    public boolean cancelBooking(String bookingID);
+    public boolean cancelBooking(User user);
     public String showActionMenu();
     public String toString(String userID, String userPassword);
 

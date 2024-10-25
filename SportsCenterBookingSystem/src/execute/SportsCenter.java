@@ -185,16 +185,20 @@ public class SportsCenter {
 
 
 	public Room getRoomByRoomID(String roomID) {
-		return Room.getRoomById(allRooms,roomID);
+		return Room.getRoomById(allRooms, roomID);
 	}
 
 	public RoomType getRoomTypeById(String roomTypeID) {
-		return RoomType.getRoomTypeById(allRoomTypes,roomTypeID);
+		return RoomType.getRoomTypeById(allRoomTypes, roomTypeID);
 	}
 	
 	public User getUserByUserID(String userID){ 
-        return User.getUserByUserID(allUsers,userID);
+        return User.getUserByUserID(allUsers, userID);
     }
+	
+	public static Booking getBookingByBookingID(String bookingID) {
+		return Booking.getBookingByBookingID(allBookings, bookingID);
+	}
 
 	public void printAllRoomType (){
 		System.out.println("All room types:");

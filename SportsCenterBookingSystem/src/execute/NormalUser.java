@@ -19,7 +19,15 @@ public class NormalUser implements UserRole {
     }
 
     @Override
-    public boolean cancelBooking(String bookingID) {
+    public boolean cancelBooking(User user) {
+    	//TODO: show all bookings with bookingID
+    	
+    	System.out.println("Please input the booking ID you want to cancel:");
+    	Scanner scanner = new Scanner(System.in);
+    	String bookingID = scanner.nextLine();
+    	Booking booking = SportsCenter.getBookingByBookingID(bookingID);
+    	user.removeBooking(booking);
+    	scanner.close();
         return false;
         
     }
