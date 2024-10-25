@@ -36,21 +36,11 @@ public class CmdRegisterAccount implements Command {
 	        System.out.println("Please input your Password again:");
 	        userPassword2 = scanner.nextLine();
 	    } while (!userPassword2.equals(userPassword));
-	     
-		switch (userRole) {
-			case "A":
-				user = new Admin(userID, userPassword);
-				sportsCenter.addUser(user);
-				System.out.println("Registration Success.");
-				Main.setCurrentUser(user);
-				break;
-			case "N":
-				user = new User(userID, userPassword);
-				sportsCenter.addUser(user);
-				System.out.println("Registration Success.");
-				Main.setCurrentUser(user);
-				break;
-		}
+	    
+	    user = new User(userID, userPassword, userRole);
+	    sportsCenter.addUser(user);
+		System.out.println("Registration Success.");
+		Main.setCurrentUser(user);
 		
 		
 	}
