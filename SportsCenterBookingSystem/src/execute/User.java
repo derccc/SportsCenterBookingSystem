@@ -46,9 +46,11 @@ public class User {
         return null;
     }
 
-	public String showActionMenu() {
+	public String showActionMenu() throws ExInvalidCommand{
 		Scanner scanner = new Scanner(System.in);
         String action;
+        
+        /*
         
 		do {
         	System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
@@ -56,6 +58,15 @@ public class User {
         } while (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l"));
         
         
+        
+        scanner.close();
+        return action;
+        */
+        
+        
+        System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
+        action = scanner.nextLine();
+        if(!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l")) {throw new ExInvalidCommand();}
         
         scanner.close();
         return action;
