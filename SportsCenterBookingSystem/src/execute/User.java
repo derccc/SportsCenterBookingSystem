@@ -35,7 +35,7 @@ public class User {
 
     public String toString(){
 		//UserID UserRole UserPassword
-		return userID+" "+userPassword;
+		return userID+" N "+userPassword;
 	}
 
     public static User getUserByUserID (ArrayList<User> allUsers, String id){

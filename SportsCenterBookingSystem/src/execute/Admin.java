@@ -9,6 +9,11 @@ public class Admin extends User {
 		super(userID, userPassword);
 	}
 	
+	public String toString() {
+		return this.getUserID()+" A "+this.getUserPasword(); //if admin extends user, turn userID and userPassword to protected?
+															 //or admin extends user and normal user extends user?
+	}
+	
 	public String showActionMenu() throws ExInvalidCommand{
 		Scanner scanner = new Scanner(System.in);
         String action;

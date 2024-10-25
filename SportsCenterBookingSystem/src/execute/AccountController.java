@@ -46,6 +46,7 @@ public class AccountController {
     }
     
     public static void userRegisterLogin(SportsCenter sportsCenter) {
+    	/*
     	Scanner scanner = new Scanner(System.in);
 		String action;
 		do {
@@ -124,8 +125,10 @@ public class AccountController {
 //		         
 //		        break;
 		
+		
 		}
 	    scanner.close();
+	    */
     }
 
 }
