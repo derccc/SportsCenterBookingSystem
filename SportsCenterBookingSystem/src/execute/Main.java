@@ -20,14 +20,14 @@ public class Main {
         //register & login
 		
 		
-
+		boolean isQuit = true;
         
-        while (true) { //not quit
+        while (isQuit) { //not quit
         	
         	try {
         	
         		if(currentUser==null) {
-        			System.out.println("Please input your action ([r] for Register, [l] for login) :");
+        			System.out.println("Please input your action ([r] for Register, [l] for login, [q] for quit system) :");
         			action = scanner.nextLine();
 
         			switch(action) {
@@ -36,6 +36,9 @@ public class Main {
         				break;
         			case "l":
         				(new CmdLogin()).execute();
+        				break;
+        			case "q":
+        				isQuit = false;
         				break;
         			default:
         				throw new ExInvalidCommand();
@@ -75,13 +78,13 @@ public class Main {
         	}
         	catch(ExInvalidCommand e) {System.out.println("Invalid command!");}
         	
-        	scanner.close();
+        	
         	
 
         }
         
         
-        
+        scanner.close();
         
         
         
