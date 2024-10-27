@@ -8,6 +8,19 @@ public class Admin implements UserRole {
 	@Override
     public boolean makeBooking() {
     	//TODO: make booking for specific user
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+    	
+    	Scanner scanner = new Scanner(System.in);
+    	System.out.println("Please input the user ID you want to make the booking for:");
+    	String userID = scanner.nextLine();
+    	User user = sportsCenter.getUserByUserID(userID);
+    	while (user == null) {
+			System.out.println("User ID not found, please input again:");
+			userID = scanner.nextLine();
+			user = sportsCenter.getUserByUserID(userID);
+		};
+		
+		
         return false;
         
     }
@@ -26,6 +39,29 @@ public class Admin implements UserRole {
     @Override
     public boolean cancelBooking() {
     	//TODO: cancel booking for specific user
+    	
+    	SportsCenter sportsCenter = SportsCenter.getInstance();
+    	
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.println("Please input the user ID you want to cancel the booking for:");
+    	String userID = scanner.nextLine();
+    	User user = sportsCenter.getUserByUserID(userID);
+    	
+		while (user == null) {
+			System.out.println("User ID not found, please input again:");
+			userID = scanner.nextLine();
+			user = sportsCenter.getUserByUserID(userID);
+		};
+		user.viewBooking();
+		
+    	System.out.println("Please input the booking ID you want to cancel:");
+    	String bookingID = scanner.nextLine();
+    	
+    	Booking booking = sportsCenter.getBookingByBookingID(bookingID);
+    	user.removeBooking(booking);
+    	//TODO: remove booking from txt file
+    	scanner.close();
         return false;
        
     }

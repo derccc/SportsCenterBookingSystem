@@ -7,6 +7,12 @@ public class NormalUser implements UserRole {
 	
 	@Override
     public boolean makeBooking() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		sportsCenter.printAllRoomType();
+		System.out.println("Please input the room type you want to book:");
+		Scanner scanner = new Scanner(System.in);
+		String roomType = scanner.nextLine();
+		
         return false;
         
     }
@@ -20,16 +26,19 @@ public class NormalUser implements UserRole {
 
     @Override
     public boolean cancelBooking() {
-    	
     	//TODO: show all bookings with bookingID
     	SportsCenter sportsCenter = SportsCenter.getInstance();
+    	User user = Main.getCurrentUser();
+    	
+    	user.viewBooking();
     	
     	System.out.println("Please input the booking ID you want to cancel:");
     	Scanner scanner = new Scanner(System.in);
     	String bookingID = scanner.nextLine();
     	
     	Booking booking = sportsCenter.getBookingByBookingID(bookingID);
-    	//user.removeBooking(booking); (use getCurrentUser or pass user object here?)
+    	user.removeBooking(booking);
+    	//TODO: remove booking from txt file
     	scanner.close();
         return false;
         
