@@ -74,7 +74,7 @@ public class Booking {
 
 
 
-	public static Booking getBookingById(ArrayList<Booking> bookingList, String bookingId){
+	public static Booking getBookingByBookingID(ArrayList<Booking> bookingList, String bookingId){
 		for(Booking b: bookingList){
 			if(b.bookingID==bookingId){return b;}
 		}

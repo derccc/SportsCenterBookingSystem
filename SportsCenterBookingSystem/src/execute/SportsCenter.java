@@ -8,18 +8,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SportsCenter {
+	private ArrayList<RoomType> allRoomTypes;
 	private ArrayList<Room> allRooms;
     private ArrayList<User> allUsers;
     private ArrayList<Booking> allBookings;
-    private ArrayList<RoomType> allRoomTypes;
     private static SportsCenter INSTANCE;
     
-    
 	private SportsCenter() {
+		this.allRoomTypes = new ArrayList<>();
 		this.allRooms = new ArrayList<>();
 		this.allUsers = new ArrayList<>();
         this.allBookings = new ArrayList<>();
-        this.allRoomTypes = new ArrayList<>();
 	}
     
     public static SportsCenter getInstance() {
@@ -31,17 +30,16 @@ public class SportsCenter {
     }
     
 	public void init() {
-		// load room type, room, booking
-
 		String roomTypePath = "src/execute/assets/room_type.txt";
 		String roomPath = "src/execute/assets/room_data.txt";
-		String bookingPath = "src/execute/assets/booking_data.txt";
 		String userPath = "src/execute/assets/user_data.txt";
+		String bookingPath = "src/execute/assets/booking_data.txt";
 		
 		loadRoomType(roomTypePath);
 		loadRoom(roomPath);
-		loadBooking(bookingPath);
 		loadUser(userPath);
+		loadBooking(bookingPath);
+		
 	}
 
 	//TODO: handle wrong data input (wrong data type/missing info etc)? use exception?
@@ -51,8 +49,8 @@ public class SportsCenter {
 
 
 	private void loadRoomType (String path) {
+		
 		try{
-
 			File file = new File(path);
 			Scanner scanner = new Scanner(file);
 
@@ -60,9 +58,7 @@ public class SportsCenter {
 				String data = scanner.nextLine();
 				String[] splittedData = data.split(" ");
 				//format: TypeID Type Price
-				
 				RoomType roomType = new RoomType(splittedData[0], splittedData[1], Integer.parseInt(splittedData[2]));
-
 				allRoomTypes.add(roomType);
 
 			}
@@ -95,7 +91,7 @@ public class SportsCenter {
 
 				Room room = null;
 				if(roomType != null){
-					room = new Room(splittedData[0],roomType);
+					room = new Room(splittedData[0], roomType);
 				}
 				else{
 					System.out.println("Cannot find room type: "+splittedData[1]);
@@ -121,22 +117,16 @@ public class SportsCenter {
 		try {
             File file = new File(path);
             Scanner scanner = new Scanner(file);
+            
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 String[] splittedData = data.split(" ");
                 //format: userID, userRole, userPassword
-                String userRole = splittedData[1];
-                switch (userRole) {
-                    case "A":
-                        Admin admin = new Admin(splittedData[0], splittedData[2]);
-                        allUsers.add(admin);
-                        break;
-                    case "N":
-                    	User user = new User(splittedData[0], splittedData[2]);
-                    	allUsers.add(user);
-                    	break;
-                }
+                User user = new User(splittedData[0], splittedData[1], splittedData[2]);
+                allUsers.add(user);
+                
             }
+            System.out.println("Finished loading users.");  //delete after finish coding?
             scanner.close();
 
         } catch (FileNotFoundException e) {
@@ -158,26 +148,32 @@ public class SportsCenter {
 				//format: RoomID UserID YYMMDD StartingTime EndingTime
 				
 				//find room by id (pass back to class RoomType)
-				Room room= getRoomById(splittedData[0]);
+				Room room = getRoomByRoomID(splittedData[0]);
+				User user = getUserByUserID(splittedData[1]);
 
 				//TODO: invalid date time exception
 				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
 				
 				//seems have error in this function so commented
-				/*
+				
 				if(room != null){
 					room.addBooking(booking);
 				}
 				else{
 					System.out.println("Cannot find room: "+splittedData[0]);
 				}
-				 */
 				
-				//also need add booking to user?
+				if (user != null) {
+					user.addBooking(booking);
+				} else {
+					System.out.println("Cannot find user: " + splittedData[1]);
+				}
+				
+				allBookings.add(booking);
 
 			}
 
-			System.out.println("Finished loading bookings.");
+			System.out.println("Finished loading bookings.");//delete after finish coding?
 
 			scanner.close();
 		}
@@ -188,21 +184,21 @@ public class SportsCenter {
 	}
 
 
-	public Room getRoomById(String roomID) {
-		return Room.getRoomById(allRooms,roomID);
+	public Room getRoomByRoomID(String roomID) {
+		return Room.getRoomById(allRooms, roomID);
 	}
 
 	public RoomType getRoomTypeById(String roomTypeID) {
-		return RoomType.getRoomTypeById(allRoomTypes,roomTypeID);
+		return RoomType.getRoomTypeById(allRoomTypes, roomTypeID);
 	}
 	
 	public User getUserByUserID(String userID){ 
-        return User.getUserByUserID(allUsers,userID);
+        return User.getUserByUserID(allUsers, userID);
     }
-
-    public ArrayList<Booking> getAllBookings() {
-        return this.allBookings;
-    }
+	
+	public Booking getBookingByBookingID(String bookingID) {
+		return Booking.getBookingByBookingID(allBookings, bookingID);
+	}
 
 	public void printAllRoomType (){
 		System.out.println("All room types:");
@@ -231,5 +227,11 @@ public class SportsCenter {
 			System.out.println("IO error");
 		}
 		
+	}
+
+	public void viewAllBookings() {
+		for (Booking b : allBookings) {
+			System.out.println(b.toString());
+		}
 	}
 }
