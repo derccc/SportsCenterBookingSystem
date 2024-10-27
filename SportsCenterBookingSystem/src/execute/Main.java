@@ -11,7 +11,7 @@ public class Main {
 		System.out.println("Welcome to the Sports Centre Booking System!");
         
 		boolean isExit = false;
-    	Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		String action;
 		
         
@@ -20,9 +20,10 @@ public class Main {
         	try {
         		
         		if(currentUser==null) {
+        			
         			System.out.println("Please input your action ([r] for Register, [l] for login, [e] for exit system) :");
         			action = scanner.nextLine();
-
+        			
         			switch(action) {
 	        			case "r":
 	        				(new CmdRegisterAccount()).execute();
@@ -40,6 +41,7 @@ public class Main {
 	        			default:
 	        				throw new ExInvalidCommand();
         			}
+        			
 
         		}
         		else {
@@ -75,8 +77,8 @@ public class Main {
         }
         
         
-        scanner.close();
         
+        scanner.close();
         
         
         //booking actions

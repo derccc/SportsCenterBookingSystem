@@ -27,7 +27,7 @@ public class CmdLogin implements Command{
 		
 		Main.setCurrentUser(user);
 		
-		scanner.close();
+		
 	}
 
 }

@@ -61,7 +61,7 @@ public class Admin implements UserRole {
     	Booking booking = sportsCenter.getBookingByBookingID(bookingID);
     	user.removeBooking(booking);
     	//TODO: remove booking from txt file
-    	scanner.close();
+    	
         return false;
        
     }
@@ -75,7 +75,7 @@ public class Admin implements UserRole {
 		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l")) {
 			// throw new ExInvalidCommand();
 		}
-		scanner.close();
+		
 		return action;
 		
 	}
