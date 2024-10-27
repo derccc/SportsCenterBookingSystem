@@ -6,6 +6,20 @@ import java.util.Scanner;
 public class Admin implements UserRole {
 	
 	@Override
+	public String showActionMenu() {
+		Scanner scanner = new Scanner(System.in);
+		String action;
+		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
+		action = scanner.nextLine();
+		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l")) {
+			// throw new ExInvalidCommand();
+		}
+		
+		return action;
+		
+	}
+	
+	@Override
     public boolean makeBooking() {
     	//TODO: make booking for specific user
 		SportsCenter sportsCenter = SportsCenter.getInstance();
@@ -13,11 +27,11 @@ public class Admin implements UserRole {
     	Scanner scanner = new Scanner(System.in);
     	System.out.println("Please input the user ID you want to make the booking for:");
     	String userID = scanner.nextLine();
-    	User user = sportsCenter.getUserByUserID(userID);
+    	User user = sportsCenter.getUserByID(userID);
     	while (user == null) {
 			System.out.println("User ID not found, please input again:");
 			userID = scanner.nextLine();
-			user = sportsCenter.getUserByUserID(userID);
+			user = sportsCenter.getUserByID(userID);
 		};
 		
 		
@@ -46,19 +60,19 @@ public class Admin implements UserRole {
     	
     	System.out.println("Please input the user ID you want to cancel the booking for:");
     	String userID = scanner.nextLine();
-    	User user = sportsCenter.getUserByUserID(userID);
+    	User user = sportsCenter.getUserByID(userID);
     	
 		while (user == null) {
 			System.out.println("User ID not found, please input again:");
 			userID = scanner.nextLine();
-			user = sportsCenter.getUserByUserID(userID);
+			user = sportsCenter.getUserByID(userID);
 		};
 		user.viewBooking();
 		
     	System.out.println("Please input the booking ID you want to cancel:");
     	String bookingID = scanner.nextLine();
     	
-    	Booking booking = sportsCenter.getBookingByBookingID(bookingID);
+    	Booking booking = sportsCenter.getBookingByID(bookingID);
     	user.removeBooking(booking);
     	//TODO: remove booking from txt file
     	
@@ -66,19 +80,7 @@ public class Admin implements UserRole {
        
     }
 
-	@Override
-	public String showActionMenu() {
-		Scanner scanner = new Scanner(System.in);
-		String action;
-		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
-		action = scanner.nextLine();
-		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l")) {
-			// throw new ExInvalidCommand();
-		}
-		
-		return action;
-		
-	}
+	
 
 	@Override
 	public String toString(String userID, String userPassword) {

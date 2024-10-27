@@ -40,7 +40,7 @@ public class Room {
 //		return BookingsForDay.getBookingsForDayByDate(allbookingsforday,date);
 //	}
 
-	public static Room getRoomById(ArrayList<Room> allRooms, String roomID) {
+	public static Room getRoomByID(ArrayList<Room> allRooms, String roomID) {
 		for(Room r: allRooms){
 			if(r.roomID.equals(roomID)){
 				return r;

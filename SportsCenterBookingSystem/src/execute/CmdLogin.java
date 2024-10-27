@@ -10,12 +10,12 @@ public class CmdLogin implements Command{
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please input your User ID:");
     	String userID = scanner.nextLine();
-    	User user = sportsCenter.getUserByUserID(userID);
+    	User user = sportsCenter.getUserByID(userID);
     	
 		while (user == null) {
 			System.out.println("User ID not found, please input again:");
 			userID = scanner.nextLine();
-			user = sportsCenter.getUserByUserID(userID);
+			user = sportsCenter.getUserByID(userID);
 		};
 		
 		System.out.println("Please input your Password:");

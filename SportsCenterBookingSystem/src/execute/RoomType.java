@@ -33,7 +33,7 @@ public class RoomType {
 		this.price = price;
 	}
 
-	public static RoomType getRoomTypeById(ArrayList<RoomType> allRoomTypes, String roomTypeID) {
+	public static RoomType getRoomTypeByID(ArrayList<RoomType> allRoomTypes, String roomTypeID) {
 		for(RoomType r: allRoomTypes){
 			if (r.typeID.equals(roomTypeID)){return r;}
 		}
@@ -43,6 +43,6 @@ public class RoomType {
 
 	public String toString(){
 		//TypeID Type Price
-		return typeID+" "+type+" "+price;
+		return "ID: "+ typeID+" Name: "+type+" Price: "+price;
 	}
 }

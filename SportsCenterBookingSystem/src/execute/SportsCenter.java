@@ -49,7 +49,6 @@ public class SportsCenter {
 
 
 	private void loadRoomType (String path) {
-		
 		try{
 			File file = new File(path);
 			Scanner scanner = new Scanner(file);
@@ -77,8 +76,6 @@ public class SportsCenter {
 		try{
 
 			File file = new File(path);
-		// Load all rooms from file
-		// Read from file
 			Scanner scanner = new Scanner(file);
 
 			while (scanner.hasNextLine()){
@@ -87,7 +84,7 @@ public class SportsCenter {
 				//format: roomID roomTypeID
 				
 				//find roomType by id (pass back to class RoomType)
-				RoomType roomType= getRoomTypeById(splittedData[1]);
+				RoomType roomType = getRoomTypeByID(splittedData[1]);
 
 				Room room = null;
 				if(roomType != null){
@@ -148,8 +145,8 @@ public class SportsCenter {
 				//format: RoomID UserID YYMMDD StartingTime EndingTime
 				
 				//find room by id (pass back to class RoomType)
-				Room room = getRoomByRoomID(splittedData[0]);
-				User user = getUserByUserID(splittedData[1]);
+				Room room = getRoomByID(splittedData[0]);
+				User user = getUserByID(splittedData[1]);
 
 				//TODO: invalid date time exception
 				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
@@ -158,8 +155,7 @@ public class SportsCenter {
 				
 				if(room != null){
 					room.addBooking(booking);
-				}
-				else{
+				} else{
 					System.out.println("Cannot find room: "+splittedData[0]);
 				}
 				
@@ -183,25 +179,23 @@ public class SportsCenter {
 		
 	}
 
-
-	public Room getRoomByRoomID(String roomID) {
-		return Room.getRoomById(allRooms, roomID);
+	public RoomType getRoomTypeByID(String roomTypeID) {
+		return RoomType.getRoomTypeByID(allRoomTypes, roomTypeID);
 	}
 
-	public RoomType getRoomTypeById(String roomTypeID) {
-		return RoomType.getRoomTypeById(allRoomTypes, roomTypeID);
+	public Room getRoomByID(String roomID) {
+		return Room.getRoomByID(allRooms, roomID);
 	}
-	
-	public User getUserByUserID(String userID){ 
-        return User.getUserByUserID(allUsers, userID);
+
+	public User getUserByID(String userID){ 
+        return User.getUserByID(allUsers, userID);
     }
 	
-	public Booking getBookingByBookingID(String bookingID) {
-		return Booking.getBookingByBookingID(allBookings, bookingID);
+	public Booking getBookingByID(String bookingID) {
+		return Booking.getBookingByID(allBookings, bookingID);
 	}
 
 	public void printAllRoomType (){
-		System.out.println("All room types:");
 		for(RoomType r: allRoomTypes){
 			System.out.println(r);
 		}
@@ -209,7 +203,7 @@ public class SportsCenter {
 	
 	//maybe this function is can combine with getUserByUserID?
 	public boolean userIdExist(String id){
-		User u = User.getUserByUserID(allUsers,id);
+		User u = User.getUserByID(allUsers,id);
 		if(u!=null){return true;}
 		else{return false;}
 	}

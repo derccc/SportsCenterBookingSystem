@@ -6,14 +6,28 @@ import java.util.Scanner;
 public class NormalUser implements UserRole {
 	
 	@Override
+	public String showActionMenu() {
+		Scanner scanner = new Scanner(System.in);
+		String action;
+		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
+		action = scanner.nextLine();
+		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l")) {
+			// throw new ExInvalidCommand(); 
+		}
+		
+		return action;
+	}
+	
+	@Override
     public boolean makeBooking() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
+		System.out.println("Here are all the room types available:");
 		sportsCenter.printAllRoomType();
-		System.out.println("Please input the room type you want to book:");
+		System.out.println("Please input the room type ID you want to book:");
 		Scanner scanner = new Scanner(System.in);
 		String roomType = scanner.nextLine();
 		
-        return false;
+		return false;
         
     }
 
@@ -36,7 +50,7 @@ public class NormalUser implements UserRole {
     	Scanner scanner = new Scanner(System.in);
     	String bookingID = scanner.nextLine();
     	
-    	Booking booking = sportsCenter.getBookingByBookingID(bookingID);
+    	Booking booking = sportsCenter.getBookingByID(bookingID);
     	user.removeBooking(booking);
     	//TODO: remove booking from txt file
     	
@@ -44,18 +58,7 @@ public class NormalUser implements UserRole {
         
     }
 
-	@Override
-	public String showActionMenu() {
-		Scanner scanner = new Scanner(System.in);
-		String action;
-		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
-		action = scanner.nextLine();
-		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l")) {
-			// throw new ExInvalidCommand(); 
-		}
-		
-		return action;
-	}
+	
 
 	@Override
 	public String toString(String userID, String userPassword) {

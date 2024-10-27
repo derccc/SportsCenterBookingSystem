@@ -14,10 +14,10 @@ public interface UserRole {
         return null;
     }
 	
+	public String showActionMenu();
 	public boolean makeBooking();
     public void viewBooking(ArrayList<Booking> allBookings);
     public boolean cancelBooking();
-    public String showActionMenu();
     public String toString(String userID, String userPassword);
 
 }
