@@ -92,6 +92,14 @@ public class Booking {
 		return null;
 	}
 
-
+	public static ArrayList<Booking> getBoookingsOfSpecificDate(ArrayList<Booking> bookingList, String date) {
+		ArrayList<Booking> result = new ArrayList<>();
+		for (Booking b : bookingList) {
+			if (b.date.equals(date)) {
+				result.add(b);
+			}
+		}
+		return result;
+	}
     
 }

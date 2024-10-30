@@ -225,7 +225,16 @@ public class SportsCenter {
 
 	public String checkAvailability(String roomTypeID, String date, int startTime, int endTime) {
 		//TODO: if room available, return roomID, else return null
-		
+		for (Room r: allRooms) {
+            if (r.getRoomType().getTypeID().equals(roomTypeID)) {
+				ArrayList<Booking> bookings = r.getAllBookings();
+				ArrayList<Booking> bookingsOfSpecificDate = Booking.getBoookingsOfSpecificDate(bookings, date);
+				for (Booking b: bookingsOfSpecificDate) {
+					//TODO: check if booking time overlap
+				}
+				
+            }
+		}
 		return null;
 	}
 
