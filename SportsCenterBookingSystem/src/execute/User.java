@@ -23,6 +23,10 @@ public class User {
         return this.userPassword;
     }
     
+	public ArrayList<Booking> getAllBookings() {
+		return allBookings;
+	}
+    
 	public String toString() {
 		return userRole.toString(userID, userPassword);
 	}
@@ -42,7 +46,7 @@ public class User {
 	}
 	
 	public void viewBooking(){
-		userRole.viewBooking(allBookings);
+		userRole.viewBooking();
     }
 
 	public void makeBooking() {

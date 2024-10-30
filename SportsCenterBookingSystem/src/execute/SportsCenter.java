@@ -223,9 +223,5 @@ public class SportsCenter {
 		
 	}
 
-	public void viewAllBookings() {
-		for (Booking b : allBookings) {
-			System.out.println(b.toString());
-		}
-	}
+	
 }

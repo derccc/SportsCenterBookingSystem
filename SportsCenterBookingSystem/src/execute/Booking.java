@@ -71,6 +71,17 @@ public class Booking {
 		//RoomID UserID YYMMDD StartingTime EndingTime
         return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime;
     }
+	
+	public String viewUserBookingString() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		Room room = sportsCenter.getRoomByID(roomID);
+		RoomType roomType = room.getRoomType();
+		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: " + roomType.getPrice();
+	}
+	
+	public String viewRoomBookingString() {
+		return "Booking ID: " + bookingID + " User ID: " + userID + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime;
+	}
 
 
 

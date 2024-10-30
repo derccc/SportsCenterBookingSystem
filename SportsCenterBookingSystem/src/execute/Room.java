@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Room {
 	private String roomID;
 	private RoomType roomType;
+	private ArrayList<Booking> allBookings;
 	
 	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
 		this.roomType=roomType;
+		this.allBookings = new ArrayList<>();
 	}
 	
 	public String getRoomID() {
@@ -17,6 +19,10 @@ public class Room {
 
 	public RoomType getRoomType(){
 		return roomType;
+	}
+	
+	public ArrayList<Booking> getAllBookings() {
+		return allBookings;
 	}
 	
 	public void addBooking(Booking booking) {

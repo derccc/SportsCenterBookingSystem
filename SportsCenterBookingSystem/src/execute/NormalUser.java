@@ -32,9 +32,12 @@ public class NormalUser implements UserRole {
     }
 
     @Override
-    public void viewBooking(ArrayList<Booking> allBookings) {
-        for (Booking b: allBookings) {
-        	System.out.println(b.toString());
+    public void viewBooking() {
+    	User user = Main.getCurrentUser();
+    	System.out.println("Here are all your bookings:"); 
+    	//TODO: show bookingID, roomID, roomType, date, startTime, endTime, price paid
+        for (Booking b: user.getAllBookings()) {
+        	System.out.println(b.viewUserBookingString());
         }
     }
 
