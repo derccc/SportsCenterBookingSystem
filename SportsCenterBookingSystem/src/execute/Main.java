@@ -20,7 +20,6 @@ public class Main {
         	try {
         		
         		if(currentUser==null) {
-        			
         			System.out.println("Please input your action ([r] for Register, [l] for login, [e] for exit system) :");
         			action = scanner.nextLine();
         			
@@ -42,7 +41,6 @@ public class Main {
 	        				throw new ExInvalidCommand();
         			}
         			
-
         		}
         		else {
         			action = currentUser.showActionMenu();
@@ -72,23 +70,11 @@ public class Main {
         	
         	}
         	catch(ExInvalidCommand e) {System.out.println("Invalid command!");}
-        	
 
         }
         
-        
-        
         scanner.close();
         
-        
-        //booking actions
-        
-        
-        
-        
-        
-        
-       
 	}
 	
 	public static User getCurrentUser() {

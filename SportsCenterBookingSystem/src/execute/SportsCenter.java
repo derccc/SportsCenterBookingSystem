@@ -222,6 +222,23 @@ public class SportsCenter {
 		}
 		
 	}
+	
+	public void addBooking(Booking booking) {
+		String bookingPath = "src/execute/assets/booking_data.txt";
+		try {
+			File file = new File(bookingPath);
+			FileWriter fileWriter = new FileWriter(file, true);
+			fileWriter.write(booking.toString() + "\n");
+			fileWriter.close();
+
+		} catch (IOException e) {
+			System.out.println("IO error");
+		}
+	}
+	
+	public void removeBooking(Booking booking) {
+		//TODO: remove booking from txt file
+	}
 
 	public String checkAvailability(String roomTypeID, String date, int startTime, int endTime) {
 		//TODO: if room available, return roomID, else return null
