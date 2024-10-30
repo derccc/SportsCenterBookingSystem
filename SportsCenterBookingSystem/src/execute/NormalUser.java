@@ -25,8 +25,46 @@ public class NormalUser implements UserRole {
 		sportsCenter.printAllRoomType();
 		System.out.println("Please input the room type ID you want to book:");
 		Scanner scanner = new Scanner(System.in);
-		String roomType = scanner.nextLine();
+		String roomTypeID = scanner.nextLine();
+		RoomType roomType = sportsCenter.getRoomTypeByID(roomTypeID);
+		User user = Main.getCurrentUser();
 		
+		System.out.println("Please input the date, start time, end time for the booking (format: 241001 15 20):");
+		String userInput = scanner.nextLine();
+		String[] splittedUserInput = userInput.split(" ");
+		String date = splittedUserInput[0];
+		int startTime = Integer.parseInt(splittedUserInput[1]);
+		int endTime = Integer.parseInt(splittedUserInput[2]);
+		
+		String roomID = sportsCenter.checkAvailability(roomTypeID, date, startTime, endTime);
+		if (roomID != null) {
+			System.out.println("Room available, are you confirm to book? (Y/N):");
+			String action = scanner.nextLine();
+			switch(action) {
+				case "Y":
+					System.out.println("");
+					//TODO: collect payment, maybe need record payment method in booking class?
+					int nextBookingID = sportsCenter.getNextBookingID();
+					Booking booking = new Booking(roomID, user.getUserID(), date, startTime, endTime, String.valueOf(nextBookingID));
+					user.addBooking(booking);
+					//TODO: add booking to txt file
+					break;
+				case "N":
+					System.out.println("Sorry, the room is ");
+			}
+			
+		} else {
+			System.out.println("Sorry, the room is not available at the time you want. Would you like to book another time or room? (Y/N):");
+			String action = scanner.nextLine();
+			switch(action) {
+                case "Y":
+                    makeBooking();
+                    break;
+                case "N":
+                    showActionMenu();
+                    break;
+			}
+		}
 		return false;
         
     }
@@ -44,7 +82,6 @@ public class NormalUser implements UserRole {
     @Override
     public boolean cancelBooking() {
     	//TODO: show all bookings with bookingID
-    	SportsCenter sportsCenter = SportsCenter.getInstance();
     	User user = Main.getCurrentUser();
     	
     	user.viewBooking();
@@ -52,9 +89,8 @@ public class NormalUser implements UserRole {
     	System.out.println("Please input the booking ID you want to cancel:");
     	Scanner scanner = new Scanner(System.in);
     	String bookingID = scanner.nextLine();
-    	
-    	Booking booking = sportsCenter.getBookingByID(bookingID);
-    	user.removeBooking(booking);
+  
+    	user.removeBookingByID(bookingID);
     	//TODO: remove booking from txt file
     	
         return false;

@@ -223,5 +223,15 @@ public class SportsCenter {
 		
 	}
 
+	public String checkAvailability(String roomTypeID, String date, int startTime, int endTime) {
+		//TODO: if room available, return roomID, else return null
+		
+		return null;
+	}
+
+	public int getNextBookingID() {
+		return allBookings.size() + 1;
+	}
+
 	
 }

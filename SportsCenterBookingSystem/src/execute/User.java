@@ -61,8 +61,13 @@ public class User {
 		allBookings.add(booking);
 	}
 
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
+	public void removeBookingByID(String bookingID) {
+		for (Booking b : allBookings) {
+			if (b.getBookingID().equals(bookingID)) {
+				allBookings.remove(b);
+				break;
+			}
+		}
 	}
 
  

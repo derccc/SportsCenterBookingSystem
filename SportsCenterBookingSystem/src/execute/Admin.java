@@ -34,7 +34,7 @@ public class Admin implements UserRole {
 			user = sportsCenter.getUserByID(userID);
 		};
 		
-		
+		//TODO: add booking to txt file
         return false;
         
     }
@@ -113,8 +113,7 @@ public class Admin implements UserRole {
     	System.out.println("Please input the booking ID you want to cancel:");
     	String bookingID = scanner.nextLine();
     	
-    	Booking booking = sportsCenter.getBookingByID(bookingID);
-    	user.removeBooking(booking);
+    	user.removeBookingByID(bookingID);
     	//TODO: remove booking from txt file
     	
         return false;
