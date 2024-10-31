@@ -136,7 +136,7 @@ public class SportsCenter {
 
 				//TODO: invalid date time exception
 				if (room != null && user != null) {
-					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
+					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6]);
 					room.addBooking(booking);
 					user.addBooking(booking);
 					allBookings.add(booking);

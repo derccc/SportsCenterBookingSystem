@@ -83,7 +83,7 @@ public class User {
 		}
 		
 		System.out.println("Please input the Date and Time you would like to book (format: yyMMdd HH-HH (e.g.241001 15-20)):");
-		//TODO: handle wrong input format
+		//TODO: handle wrong input format, date and time
 		String dateAndTime = scanner.nextLine();
 		String[] splittedDateAndTime = dateAndTime.split(" ");
 		String date = splittedDateAndTime[0];
@@ -96,13 +96,15 @@ public class User {
 		Room room = sportsCenter.checkAvailability(roomType, date, startTime, endTime);
 		
 		if (room != null) {
-			System.out.printf("Room available (Price: %d), are you confirmed to book and pay? (Y/N):\n", roomType.getPrice());
+			//TODO: handle endTime-startTime (e.g. 23-00)
+			int bookingPrice = roomType.getPrice()*(endTime-startTime);
+			System.out.printf("Room available (Price: %d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
 			String action = scanner.nextLine();
 			switch(action) {
 				case "Y":
 					System.out.println("Payment collected. Booking Success.");
 					int nextBookingID = sportsCenter.getNextBookingID();
-					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, String.valueOf(nextBookingID));
+					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, bookingPrice, String.valueOf(nextBookingID));
 					this.addBooking(booking);
 					room.addBooking(booking);
 					sportsCenter.addBooking(booking);

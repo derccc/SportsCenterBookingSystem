@@ -41,7 +41,7 @@ public class RoomType {
 	}
 	
 	public String printAllRoomTypeString() {
-		return "ID: " + typeID + " Name: " + type + " Price: " + price;
+		return "ID: " + typeID + " Name: " + type + " Price: $" + price + "/hr";
 	}
 
 	public String toString(){

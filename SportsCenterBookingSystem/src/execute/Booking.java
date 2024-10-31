@@ -8,14 +8,16 @@ public class Booking {
 	private String date;
 	private int startTime;
 	private int endTime;
+	private int pricePaid;
 	private String bookingID;
 	
-	public Booking(String roomID, String userID, String date, int startTime, int endTime, String bookingID) {
+	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String bookingID) {
         this.roomID = roomID;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.pricePaid = pricePaid;
         this.bookingID = bookingID;
     }
 	
@@ -70,13 +72,13 @@ public class Booking {
 	public String toString(){
 		//String saved to txt file
 		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
-        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + bookingID;
+        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + bookingID;
     }
 	
 	public String viewUserBookingString() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		RoomType roomType = sportsCenter.getRoomByID(roomID).getRoomType();
-		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: " + roomType.getPrice();
+		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: " + pricePaid;
 	}
 	
 	public String viewRoomBookingString() {
