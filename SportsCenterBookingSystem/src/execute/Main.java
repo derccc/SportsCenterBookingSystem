@@ -13,7 +13,6 @@ public class Main {
 		boolean isExit = false;
 		Scanner scanner = new Scanner(System.in);
 		String action;
-		
         
         while (!isExit) {
         	

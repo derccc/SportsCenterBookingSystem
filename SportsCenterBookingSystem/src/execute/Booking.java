@@ -68,14 +68,14 @@ public class Booking {
 	}
 	
 	public String toString(){
+		//String saved to txt file
 		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
         return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + bookingID;
     }
 	
 	public String viewUserBookingString() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-		Room room = sportsCenter.getRoomByID(roomID);
-		RoomType roomType = room.getRoomType();
+		RoomType roomType = sportsCenter.getRoomByID(roomID).getRoomType();
 		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: " + roomType.getPrice();
 	}
 	
@@ -85,14 +85,15 @@ public class Booking {
 
 
 
-	public static Booking getBookingByID(ArrayList<Booking> bookingList, String bookingId){
-		for(Booking b: bookingList){
-			if(b.bookingID==bookingId){return b;}
+	public static Booking getBookingByID(ArrayList<Booking> allBookings, String bookingID){
+		for(Booking b: allBookings){
+			if(b.bookingID.equals(bookingID)){return b;}
 		}
 		return null;
 	}
 
 	public static ArrayList<Booking> getBoookingsOfSpecificDate(ArrayList<Booking> bookingList, String date) {
+		//may help checkAvailability?
 		ArrayList<Booking> result = new ArrayList<>();
 		for (Booking b : bookingList) {
 			if (b.date.equals(date)) {

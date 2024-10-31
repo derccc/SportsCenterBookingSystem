@@ -1,12 +1,14 @@
 package execute;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class User {
 	private String userID;
 	private UserRole userRole;
     private String userPassword;
     private ArrayList<Booking> allBookings;
+    //may add wallet attribute to handle the price payment
 
     public User (String userID, String userRole, String userPassword){
         this.userID = userID;
@@ -28,14 +30,14 @@ public class User {
 	}
     
 	public String toString() {
+		//String save to txt file
 		return userRole.toString(userID, userPassword);
 	}
     
-	public static User getUserByID (ArrayList<User> allUsers, String id){
+	public static User getUserByID (ArrayList<User> allUsers, String userID){
         for (User u: allUsers){
-            if(u.userID.equals(id)){return u;}
+            if(u.userID.equals(userID)){return u;}
         }
-
         return null;
     }
 
@@ -45,13 +47,13 @@ public class User {
 		
 	}
 	
-	public void viewBooking(){
-		userRole.viewBooking();
-    }
-
 	public void makeBooking() {
 		userRole.makeBooking();
 	}
+	
+	public void viewBooking(){
+		userRole.viewBooking();
+    }
 
 	public void cancelBooking() {
 		userRole.cancelBooking();
@@ -61,14 +63,112 @@ public class User {
 		allBookings.add(booking);
 	}
 
-	public void removeBookingByID(String bookingID) {
-		for (Booking b : allBookings) {
-			if (b.getBookingID().equals(bookingID)) {
-				allBookings.remove(b);
-				break;
+	public void removeBooking(Booking booking) {
+		allBookings.remove(booking);
+	}
+	
+	public void makeUserBooking() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+    	Scanner scanner = new Scanner(System.in);
+		System.out.println("The followings are all the room type available:");
+		sportsCenter.printAllRoomType();
+		
+		System.out.println("Please input the Room Type ID you would like to book:");
+		String roomTypeID = scanner.nextLine();
+		RoomType roomType = sportsCenter.getRoomTypeByID(roomTypeID);
+		while (roomType == null) {
+			System.out.println("Room Type ID not found, please input again:");
+			roomTypeID = scanner.nextLine();
+			roomType = sportsCenter.getRoomTypeByID(roomTypeID);
+		}
+		
+		System.out.println("Please input the Date and Time you would like to book (format: yyMMdd HH-HH (e.g.241001 15-20)):");
+		//TODO: handle wrong input format
+		String dateAndTime = scanner.nextLine();
+		String[] splittedDateAndTime = dateAndTime.split(" ");
+		String date = splittedDateAndTime[0];
+		String time = splittedDateAndTime[1];
+		String[] splittedTime = time.split("-");
+		int startTime = Integer.parseInt(splittedTime[0]);
+		int endTime = Integer.parseInt(splittedTime[1]);
+		
+		//TODO: checkAvailability
+		Room room = sportsCenter.checkAvailability(roomType, date, startTime, endTime);
+		
+		if (room != null) {
+			System.out.printf("Room available (Price: %d), are you confirmed to book and pay? (Y/N):\n", roomType.getPrice());
+			String action = scanner.nextLine();
+			switch(action) {
+				case "Y":
+					System.out.println("Payment collected. Booking Success.");
+					int nextBookingID = sportsCenter.getNextBookingID();
+					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, String.valueOf(nextBookingID));
+					this.addBooking(booking);
+					room.addBooking(booking);
+					sportsCenter.addBooking(booking);
+					break;
+					
+				case "N":
+					System.out.println("Booking Cancelled.");
+					break;
+					
+				default:
+					//TODO: handle wrong input
+					break;
+			}
+			
+		} else {
+			System.out.println("Sorry, the room is not available at the time you want. Would you like to book another time or room? (Y/N):");
+			String action = scanner.nextLine();
+			switch(action) {
+                case "Y":
+                    makeBooking();
+                    break;
+                    
+                case "N":
+                    break;
+                    
+                default:
+                	//TODO: handle wrong input
+                	break;
 			}
 		}
+		
 	}
+
+	public void viewUserBooking() {
+		if (allBookings.size()>0) {
+			System.out.println("The followings are all the booking:");
+			for (Booking b: allBookings) {
+				System.out.println(b.viewUserBookingString());
+			}
+		} else {
+			System.out.println("No booking records.");
+		}
+	}
+
+	public void cancelUserBooking() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+    	Scanner scanner = new Scanner(System.in);
+    	this.viewUserBooking();
+		System.out.println("Please input the Booking ID you would like to cancel:");
+    	String bookingID = scanner.nextLine();
+    	Booking booking = sportsCenter.getBookingByID(bookingID);
+    	while (booking == null) {
+			System.out.println("Booking ID not found, please input again:");
+			bookingID = scanner.nextLine();
+			booking = sportsCenter.getBookingByID(bookingID);
+		}
+    	
+    	Room room = sportsCenter.getRoomByID(booking.getRoomID());
+    	
+    	this.removeBooking(booking);
+    	room.removeBooking(booking);
+    	sportsCenter.removeBooking(booking);
+		
+	}
+
+	
 
  
 }

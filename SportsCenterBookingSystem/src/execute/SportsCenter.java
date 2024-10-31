@@ -47,8 +47,7 @@ public class SportsCenter {
 	//check numeric for int attribute
 	//exception for can't find room/room type
 
-
-	private void loadRoomType (String path) {
+	private void loadRoomType(String path) {
 		try{
 			File file = new File(path);
 			Scanner scanner = new Scanner(file);
@@ -59,11 +58,9 @@ public class SportsCenter {
 				//format: TypeID Type Price
 				RoomType roomType = new RoomType(splittedData[0], splittedData[1], Integer.parseInt(splittedData[2]));
 				allRoomTypes.add(roomType);
-
 			}
-
-			System.out.println("Finished loading room types.");  //delete after finish coding?
-
+			
+			System.out.println("Finished loading room types.");
 			scanner.close();
 		}
 		catch(FileNotFoundException e){
@@ -72,9 +69,8 @@ public class SportsCenter {
 		
 	}
 
-  private void loadRoom (String path) {
+	private void loadRoom(String path) {
 		try{
-
 			File file = new File(path);
 			Scanner scanner = new Scanner(file);
 
@@ -85,32 +81,24 @@ public class SportsCenter {
 				
 				//find roomType by id (pass back to class RoomType)
 				RoomType roomType = getRoomTypeByID(splittedData[1]);
-
-				Room room = null;
 				if(roomType != null){
-					room = new Room(splittedData[0], roomType);
-				}
-				else{
+					Room room = new Room(splittedData[0], roomType);
+					allRooms.add(room);
+				} else{
 					System.out.println("Cannot find room type: "+splittedData[1]);
 				}
-				
-
-				allRooms.add(room);
-
 			}
 
-			System.out.println("Finished loading rooms."); //delete after finish coding?
-
+			System.out.println("Finished loading rooms.");
 			scanner.close();
 		}
 		catch(FileNotFoundException e){
 			System.out.println("Cannot find file at path: "+path);
-		};
+		}
 		
     }
   
   	private void loadUser(String path) {
-		
 		try {
             File file = new File(path);
             Scanner scanner = new Scanner(file);
@@ -121,9 +109,9 @@ public class SportsCenter {
                 //format: userID, userRole, userPassword
                 User user = new User(splittedData[0], splittedData[1], splittedData[2]);
                 allUsers.add(user);
-                
             }
-            System.out.println("Finished loading users.");  //delete after finish coding?
+            
+            System.out.println("Finished loading users.");
             scanner.close();
 
         } catch (FileNotFoundException e) {
@@ -132,45 +120,36 @@ public class SportsCenter {
 		
 	}
 
-
-	private void loadBooking (String path) {
+	private void loadBooking(String path) {
 		try{
-
 			File file = new File(path);
 			Scanner scanner = new Scanner(file);
 
 			while (scanner.hasNextLine()){
 				String data = scanner.nextLine();
 				String[] splittedData = data.split(" ");
-				//format: RoomID UserID YYMMDD StartingTime EndingTime
+				//format: RoomID UserID YYMMDD StartingTime EndingTime BookingID
 				
 				//find room by id (pass back to class RoomType)
 				Room room = getRoomByID(splittedData[0]);
 				User user = getUserByID(splittedData[1]);
 
 				//TODO: invalid date time exception
-				Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
-				
-				//seems have error in this function so commented
-				
-				if(room != null){
+				if (room != null && user != null) {
+					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), splittedData[5]);
 					room.addBooking(booking);
-				} else{
-					System.out.println("Cannot find room: "+splittedData[0]);
-				}
-				
-				if (user != null) {
 					user.addBooking(booking);
-				} else {
-					System.out.println("Cannot find user: " + splittedData[1]);
+					allBookings.add(booking);
+					
+				} else if (room == null) {
+					System.out.println("Cannot find room: "+splittedData[0]);
+					
+				} else if (user == null) {
+					System.out.println("Cannot find user: "+splittedData[1]);
 				}
-				
-				allBookings.add(booking);
-
 			}
 
-			System.out.println("Finished loading bookings.");//delete after finish coding?
-
+			System.out.println("Finished loading bookings.");
 			scanner.close();
 		}
 		catch(FileNotFoundException e){
@@ -195,21 +174,8 @@ public class SportsCenter {
 		return Booking.getBookingByID(allBookings, bookingID);
 	}
 
-	public void printAllRoomType (){
-		for(RoomType r: allRoomTypes){
-			System.out.println(r);
-		}
-	}
-	
-	//maybe this function is can combine with getUserByUserID?
-	public boolean userIdExist(String id){
-		User u = User.getUserByID(allUsers,id);
-		if(u!=null){return true;}
-		else{return false;}
-	}
-
-
 	public void addUser(User user){
+		allUsers.add(user);
 		String userPath = "src/execute/assets/user_data.txt";
 		try {
 			File file = new File(userPath);
@@ -220,10 +186,10 @@ public class SportsCenter {
 		} catch (IOException e) {
 			System.out.println("IO error");
 		}
-		
 	}
 	
 	public void addBooking(Booking booking) {
+		allBookings.add(booking);
 		String bookingPath = "src/execute/assets/booking_data.txt";
 		try {
 			File file = new File(bookingPath);
@@ -237,26 +203,28 @@ public class SportsCenter {
 	}
 	
 	public void removeBooking(Booking booking) {
-		//TODO: remove booking from txt file
+		allBookings.remove(booking);
+		//TODO: delete specific line from txt file by bookingID
+		String bookingPath = "src/execute/assets/booking_data.txt";
+		
 	}
 
-	public String checkAvailability(String roomTypeID, String date, int startTime, int endTime) {
-		//TODO: if room available, return roomID, else return null
-		for (Room r: allRooms) {
-            if (r.getRoomType().getTypeID().equals(roomTypeID)) {
-				ArrayList<Booking> bookings = r.getAllBookings();
-				ArrayList<Booking> bookingsOfSpecificDate = Booking.getBoookingsOfSpecificDate(bookings, date);
-				for (Booking b: bookingsOfSpecificDate) {
-					//TODO: check if booking time overlap
-				}
-				
-            }
-		}
-		return null;
+	public Room checkAvailability(RoomType roomType, String date, int startTime, int endTime) {
+		//TODO: if room available, return room, else return null
+		
+		return Room.getRoomByID(allRooms, "1");
 	}
 
+	//TODO: need handle case that after delete bookingID 1, then the next bookingID will be repeated
+	//maybe seperate two booking list: one current booking, one all history booking
 	public int getNextBookingID() {
 		return allBookings.size() + 1;
+	}
+	
+	public void printAllRoomType (){
+		for(RoomType r: allRoomTypes){
+			System.out.println(r.printAllRoomTypeString());
+		}
 	}
 
 	

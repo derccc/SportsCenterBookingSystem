@@ -37,12 +37,15 @@ public class RoomType {
 		for(RoomType r: allRoomTypes){
 			if (r.typeID.equals(roomTypeID)){return r;}
 		}
-
 		return null;
+	}
+	
+	public String printAllRoomTypeString() {
+		return "ID: " + typeID + " Name: " + type + " Price: " + price;
 	}
 
 	public String toString(){
 		//TypeID Type Price
-		return "ID: "+ typeID+" Name: "+type+" Price: "+price;
+		return typeID + " " + type + " " + price;
 	}
 }
