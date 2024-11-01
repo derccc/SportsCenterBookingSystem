@@ -9,15 +9,21 @@ public class Booking {
 	private int startTime;
 	private int endTime;
 	private int pricePaid;
+	private boolean isCancelled;
 	private String bookingID;
 	
-	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String bookingID) {
+	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String isCancelled, String bookingID) {
         this.roomID = roomID;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.pricePaid = pricePaid;
+        if (isCancelled.equals("N")) {
+        	this.isCancelled = false;
+        } else if (isCancelled.equals("Y")) {
+        	this.isCancelled = true;
+        }
         this.bookingID = bookingID;
     }
 	
@@ -45,6 +51,11 @@ public class Booking {
 		return this.endTime;
 	}
 	
+	public int getPricePaid() {
+		return this.pricePaid;
+		
+	}
+	
 	public void setRoomID(String roomID) {
 		this.roomID = roomID;
 	}
@@ -69,6 +80,11 @@ public class Booking {
 		this.endTime = endTime;
 	}
 	
+	public void cancelBooking() {
+		this.isCancelled = true;
+		this.pricePaid = pricePaid/2;
+	}
+	
 	public String toString(){
 		//String saved to txt file
 		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
@@ -78,7 +94,7 @@ public class Booking {
 	public String viewUserBookingString() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		RoomType roomType = sportsCenter.getRoomByID(roomID).getRoomType();
-		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: " + pricePaid;
+		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: $" + pricePaid;
 	}
 	
 	public String viewRoomBookingString() {
@@ -104,5 +120,9 @@ public class Booking {
 		}
 		return result;
 	}
+
+	
+
+	
     
 }

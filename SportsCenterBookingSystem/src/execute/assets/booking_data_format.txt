@@ -1,1 +1,1 @@
-RoomID UserID YYMMDD StartingTime EndingTime PricePaid BookingID
+RoomID UserID YYMMDD StartingTime EndingTime PricePaid isCancelled BookingID

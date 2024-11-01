@@ -104,7 +104,7 @@ public class User {
 				case "Y":
 					System.out.println("Payment collected. Booking Success.");
 					int nextBookingID = sportsCenter.getNextBookingID();
-					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, bookingPrice, String.valueOf(nextBookingID));
+					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, bookingPrice, "N", String.valueOf(nextBookingID));
 					this.addBooking(booking);
 					room.addBooking(booking);
 					sportsCenter.addBooking(booking);
@@ -161,6 +161,22 @@ public class User {
 			bookingID = scanner.nextLine();
 			booking = sportsCenter.getBookingByID(bookingID);
 		}
+    	
+    	int refund = booking.getPricePaid()/2;
+    	System.out.printf("Refund for cancelled booking: $%d, are you confirmed to cancel booking? (Y/N):\n", refund);
+    	String action = scanner.nextLine();
+    	switch(action) {
+    		case "Y":
+    			booking.cancelBooking();
+    			System.out.println("Booking cancelled.");
+    			break;
+    			
+    		case "N":
+    			break;
+    			
+    		default:
+    			//TODO: handle wrong input
+    	}
     	
     	Room room = sportsCenter.getRoomByID(booking.getRoomID());
     	

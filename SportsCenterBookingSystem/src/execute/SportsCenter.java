@@ -136,7 +136,7 @@ public class SportsCenter {
 
 				//TODO: invalid date time exception
 				if (room != null && user != null) {
-					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6]);
+					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6], splittedData[7]);
 					room.addBooking(booking);
 					user.addBooking(booking);
 					allBookings.add(booking);
@@ -204,7 +204,7 @@ public class SportsCenter {
 	
 	public void removeBooking(Booking booking) {
 		allBookings.remove(booking);
-		//TODO: delete specific line from txt file by bookingID
+		//TODO: change N to Y in booking.txt
 		String bookingPath = "src/execute/assets/booking_data.txt";
 		
 	}
