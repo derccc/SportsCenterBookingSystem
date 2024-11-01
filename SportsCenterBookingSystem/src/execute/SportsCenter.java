@@ -215,8 +215,6 @@ public class SportsCenter {
 		return Room.getRoomByID(allRooms, "1");
 	}
 
-	//TODO: need handle case that after delete bookingID 1, then the next bookingID will be repeated
-	//maybe seperate two booking list: one current booking, one all history booking
 	public int getNextBookingID() {
 		return allBookings.size() + 1;
 	}
