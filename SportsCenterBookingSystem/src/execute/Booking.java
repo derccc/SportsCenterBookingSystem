@@ -9,7 +9,7 @@ public class Booking {
 	private int startTime;
 	private int endTime;
 	private int pricePaid;
-	private boolean isCancelled;
+	private String isCancelled;
 	private String bookingID;
 	
 	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String isCancelled, String bookingID) {
@@ -19,11 +19,7 @@ public class Booking {
         this.startTime = startTime;
         this.endTime = endTime;
         this.pricePaid = pricePaid;
-        if (isCancelled.equals("N")) {
-        	this.isCancelled = false;
-        } else if (isCancelled.equals("Y")) {
-        	this.isCancelled = true;
-        }
+        this.isCancelled = isCancelled;
         this.bookingID = bookingID;
     }
 	
@@ -56,6 +52,15 @@ public class Booking {
 		
 	}
 	
+	public boolean getIsCancelled() {
+		if (isCancelled.equals("Y")) {
+			return true;
+		} else if (isCancelled.equals("N")){
+			return false;
+		}
+		return false;
+	}
+	
 	public void setRoomID(String roomID) {
 		this.roomID = roomID;
 	}
@@ -81,14 +86,14 @@ public class Booking {
 	}
 	
 	public void cancelBooking() {
-		this.isCancelled = true;
+		this.isCancelled = "Y";
 		this.pricePaid = pricePaid/2;
 	}
 	
 	public String toString(){
 		//String saved to txt file
 		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
-        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + bookingID;
+        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + isCancelled + " " + bookingID;
     }
 	
 	public String viewUserBookingString() {
@@ -120,6 +125,8 @@ public class Booking {
 		}
 		return result;
 	}
+
+	
 
 	
 

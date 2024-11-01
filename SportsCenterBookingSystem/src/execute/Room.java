@@ -49,7 +49,9 @@ public class Room {
 		if (allBookings.size()>0) {
 			System.out.println("The followings are all the booking:");
 			for (Booking b: allBookings) {
-				System.out.println(b.viewRoomBookingString());
+				if (!b.getIsCancelled()) {
+					System.out.println(b.viewRoomBookingString());
+				}
 			}
 		} else {
 			System.out.println("No booking records.");

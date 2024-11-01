@@ -98,7 +98,7 @@ public class User {
 		if (room != null) {
 			//TODO: handle endTime-startTime (e.g. 23-00)
 			int bookingPrice = roomType.getPrice()*(endTime-startTime);
-			System.out.printf("Room available (Price: %d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
+			System.out.printf("Room available (Price: $%d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
 			String action = scanner.nextLine();
 			switch(action) {
 				case "Y":
@@ -142,7 +142,9 @@ public class User {
 		if (allBookings.size()>0) {
 			System.out.println("The followings are all the booking:");
 			for (Booking b: allBookings) {
-				System.out.println(b.viewUserBookingString());
+				if (!b.getIsCancelled()){
+					System.out.println(b.viewUserBookingString());
+				}
 			}
 		} else {
 			System.out.println("No booking records.");
@@ -180,9 +182,12 @@ public class User {
     	
     	Room room = sportsCenter.getRoomByID(booking.getRoomID());
     	
+    	/*
     	this.removeBooking(booking);
     	room.removeBooking(booking);
+    	*/
     	sportsCenter.removeBooking(booking);
+    	
 		
 	}
 

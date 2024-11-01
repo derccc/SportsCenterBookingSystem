@@ -203,7 +203,7 @@ public class SportsCenter {
 	}
 	
 	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
+		//allBookings.remove(booking);
 		//TODO: change N to Y in booking.txt
 		String bookingPath = "src/execute/assets/booking_data.txt";
 		
