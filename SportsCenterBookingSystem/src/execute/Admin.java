@@ -49,7 +49,7 @@ public class Admin implements UserRole {
 		
 		switch (action) {
 			case "u":
-				System.out.println("Please input the User ID you want to view booking for:"); //maybe all this ask for user ID can be put in a function
+				System.out.println("Please input the User ID you would like to view booking for:"); //maybe all this ask for user ID can be put in a function
 				String userID = scanner.nextLine();
 				User user = sportsCenter.getUserByID(userID);
 		    	while (user == null) {
@@ -63,7 +63,7 @@ public class Admin implements UserRole {
 				break;
 				
 			case "r":
-				System.out.println("Please input the Room ID you want to view booking for:");
+				System.out.println("Please input the Room ID you would like to view booking for:");
 				String roomID = scanner.nextLine();
 				Room room = sportsCenter.getRoomByID(roomID);
 				while (room == null) {
@@ -89,7 +89,7 @@ public class Admin implements UserRole {
     	SportsCenter sportsCenter = SportsCenter.getInstance();
     	Scanner scanner = new Scanner(System.in);
     	
-    	System.out.println("Please input the User ID you want to cancel the booking for:");
+    	System.out.println("Please input the User ID you would like to cancel booking for:");
     	String userID = scanner.nextLine();
     	User user = sportsCenter.getUserByID(userID);
     	
