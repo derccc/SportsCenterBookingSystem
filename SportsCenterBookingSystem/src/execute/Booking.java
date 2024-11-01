@@ -8,14 +8,16 @@ public class Booking {
 	private String date;
 	private int startTime;
 	private int endTime;
+	private int pricePaid;
 	private String bookingID;
 	
-	public Booking(String roomID, String userID, String date, int startTime, int endTime, String bookingID) {
+	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String bookingID) {
         this.roomID = roomID;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.pricePaid = pricePaid;
         this.bookingID = bookingID;
     }
 	
@@ -68,19 +70,39 @@ public class Booking {
 	}
 	
 	public String toString(){
-		//RoomID UserID YYMMDD StartingTime EndingTime
-        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime;
+		//String saved to txt file
+		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
+        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + bookingID;
     }
+	
+	public String viewUserBookingString() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		RoomType roomType = sportsCenter.getRoomByID(roomID).getRoomType();
+		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: " + pricePaid;
+	}
+	
+	public String viewRoomBookingString() {
+		return "Booking ID: " + bookingID + " User ID: " + userID + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime;
+	}
 
 
 
-	public static Booking getBookingByBookingID(ArrayList<Booking> bookingList, String bookingId){
-		for(Booking b: bookingList){
-			if(b.bookingID==bookingId){return b;}
+	public static Booking getBookingByID(ArrayList<Booking> allBookings, String bookingID){
+		for(Booking b: allBookings){
+			if(b.bookingID.equals(bookingID)){return b;}
 		}
 		return null;
 	}
 
-
+	public static ArrayList<Booking> getBoookingsOfSpecificDate(ArrayList<Booking> bookingList, String date) {
+		//may help checkAvailability?
+		ArrayList<Booking> result = new ArrayList<>();
+		for (Booking b : bookingList) {
+			if (b.date.equals(date)) {
+				result.add(b);
+			}
+		}
+		return result;
+	}
     
 }
