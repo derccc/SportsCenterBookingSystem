@@ -68,6 +68,7 @@ public class User {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
     	Scanner scanner = new Scanner(System.in);
     	
+    	//TODO: handle no closing date
     	System.out.println("Notice:\nThe followings are all closing date of the sports center:");
     	sportsCenter.printAllClosingDate();
     	
