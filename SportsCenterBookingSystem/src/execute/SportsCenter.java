@@ -279,14 +279,6 @@ public class SportsCenter {
 		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
 		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		
-		if (bookingForDay.isEmpty() || bookingOfRoomsForDay.isEmpty()) {
-			for (Room r:allRooms){
-                if(r.getRoomType().getType().equals(roomType.getType())){
-                    return r;
-                }
-            }
-		}
-		
 		for (Booking b: bookingForDay) {
 			Room room = b.getRoom();
 			if(room.getRoomType().getType().equals(roomType.getType())) {
@@ -299,6 +291,14 @@ public class SportsCenter {
 				}
 			};
 			
+		}
+		
+		if (bookingForDay.isEmpty() || bookingOfRoomsForDay.isEmpty()) {
+			for (Room r:allRooms){
+                if(r.getRoomType().getType().equals(roomType.getType())){
+                    return r;
+                }
+            }
 		}
 		
 		
