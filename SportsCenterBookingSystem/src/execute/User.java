@@ -170,7 +170,6 @@ public class User {
     	this.viewUserBooking();
 		System.out.println("Please input the Booking ID you would like to cancel:");
     	String bookingID = scanner.nextLine();
-    	//TODO: sportsCenter.getBookingByID cause can cancel others' booking
     	Booking booking = this.getBookingByID(bookingID);
     	while (booking == null) {
 			System.out.println("Booking ID not found, please input again:");
