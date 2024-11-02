@@ -136,7 +136,7 @@ public class SportsCenter {
 
 				//TODO: invalid date time exception
 				if (room != null && user != null) {
-					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6]);
+					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6], splittedData[7]);
 					room.addBooking(booking);
 					user.addBooking(booking);
 					allBookings.add(booking);
@@ -203,8 +203,8 @@ public class SportsCenter {
 	}
 	
 	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-		//TODO: delete specific line from txt file by bookingID
+		//allBookings.remove(booking);
+		//TODO: change N to Y in booking.txt
 		String bookingPath = "src/execute/assets/booking_data.txt";
 		
 	}
@@ -215,8 +215,6 @@ public class SportsCenter {
 		return Room.getRoomByID(allRooms, "1");
 	}
 
-	//TODO: need handle case that after delete bookingID 1, then the next bookingID will be repeated
-	//maybe seperate two booking list: one current booking, one all history booking
 	public int getNextBookingID() {
 		return allBookings.size() + 1;
 	}

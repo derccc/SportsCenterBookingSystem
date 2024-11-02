@@ -98,13 +98,13 @@ public class User {
 		if (room != null) {
 			//TODO: handle endTime-startTime (e.g. 23-00)
 			int bookingPrice = roomType.getPrice()*(endTime-startTime);
-			System.out.printf("Room available (Price: %d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
+			System.out.printf("Room available (Price: $%d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
 			String action = scanner.nextLine();
 			switch(action) {
 				case "Y":
 					System.out.println("Payment collected. Booking Success.");
 					int nextBookingID = sportsCenter.getNextBookingID();
-					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, bookingPrice, String.valueOf(nextBookingID));
+					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, bookingPrice, "N", String.valueOf(nextBookingID));
 					this.addBooking(booking);
 					room.addBooking(booking);
 					sportsCenter.addBooking(booking);
@@ -142,7 +142,9 @@ public class User {
 		if (allBookings.size()>0) {
 			System.out.println("The followings are all the booking:");
 			for (Booking b: allBookings) {
-				System.out.println(b.viewUserBookingString());
+				if (!b.getIsCancelled()){
+					System.out.println(b.viewUserBookingString());
+				}
 			}
 		} else {
 			System.out.println("No booking records.");
@@ -162,11 +164,30 @@ public class User {
 			booking = sportsCenter.getBookingByID(bookingID);
 		}
     	
+    	int refund = booking.getPricePaid()/2;
+    	System.out.printf("Refund for cancelled booking: $%d, are you confirmed to cancel booking? (Y/N):\n", refund);
+    	String action = scanner.nextLine();
+    	switch(action) {
+    		case "Y":
+    			booking.cancelBooking();
+    			System.out.println("Booking cancelled.");
+    			break;
+    			
+    		case "N":
+    			break;
+    			
+    		default:
+    			//TODO: handle wrong input
+    	}
+    	
     	Room room = sportsCenter.getRoomByID(booking.getRoomID());
     	
+    	/*
     	this.removeBooking(booking);
     	room.removeBooking(booking);
+    	*/
     	sportsCenter.removeBooking(booking);
+    	
 		
 	}
 

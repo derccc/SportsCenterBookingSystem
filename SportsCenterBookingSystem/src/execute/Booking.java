@@ -9,15 +9,17 @@ public class Booking {
 	private int startTime;
 	private int endTime;
 	private int pricePaid;
+	private String isCancelled;
 	private String bookingID;
 	
-	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String bookingID) {
+	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String isCancelled, String bookingID) {
         this.roomID = roomID;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.pricePaid = pricePaid;
+        this.isCancelled = isCancelled;
         this.bookingID = bookingID;
     }
 	
@@ -45,6 +47,20 @@ public class Booking {
 		return this.endTime;
 	}
 	
+	public int getPricePaid() {
+		return this.pricePaid;
+		
+	}
+	
+	public boolean getIsCancelled() {
+		if (isCancelled.equals("Y")) {
+			return true;
+		} else if (isCancelled.equals("N")){
+			return false;
+		}
+		return false;
+	}
+	
 	public void setRoomID(String roomID) {
 		this.roomID = roomID;
 	}
@@ -69,16 +85,21 @@ public class Booking {
 		this.endTime = endTime;
 	}
 	
+	public void cancelBooking() {
+		this.isCancelled = "Y";
+		this.pricePaid = pricePaid/2;
+	}
+	
 	public String toString(){
 		//String saved to txt file
 		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
-        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + bookingID;
+        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + isCancelled + " " + bookingID;
     }
 	
 	public String viewUserBookingString() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		RoomType roomType = sportsCenter.getRoomByID(roomID).getRoomType();
-		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: " + pricePaid;
+		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: $" + pricePaid;
 	}
 	
 	public String viewRoomBookingString() {
@@ -104,5 +125,11 @@ public class Booking {
 		}
 		return result;
 	}
+
+	
+
+	
+
+	
     
 }
