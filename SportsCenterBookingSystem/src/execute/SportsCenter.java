@@ -243,8 +243,10 @@ public class SportsCenter {
 			//TODO: need change the booking info string
 			System.out.println("The followings are all the booking affected by the closing date, please contact all the relevant users:");
 			for (Booking b: bookingForDay) {
-				System.out.println(b);
-				b.cancelBookingByClosingDate();
+				if (!b.getIsCancelled()) {
+					System.out.println(b);
+					b.cancelBookingByClosingDate();
+				}
 			}
 		}
 		
