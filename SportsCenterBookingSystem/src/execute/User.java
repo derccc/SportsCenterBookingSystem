@@ -9,7 +9,6 @@ public class User {
 	private UserRole userRole;
     private String userPassword;
     private ArrayList<Booking> allBookings;
-    //may add wallet attribute to handle the price payment
 
     public User (String userID, String userRole, String userPassword){
         this.userID = userID;
@@ -147,16 +146,20 @@ public class User {
 	}
 
 	public void viewUserBooking() {
-		if (allBookings.size()>0) {
-			System.out.println("The followings are all the booking:");
-			for (Booking b: allBookings) {
-				if (!b.getIsCancelled()){
-					System.out.println(b.viewUserBookingString());
+		int count = 0;
+		for (Booking b: allBookings) {
+			if (!b.getIsCancelled()){
+				if (count==0) {
+					System.out.println("The followings are all the booking:");
 				}
+				System.out.println(b.viewUserBookingString());
+				count++;
 			}
-		} else {
+		}
+		if (count==0) {
 			System.out.println("No booking records.");
 		}
+		
 	}
 
 	public void cancelUserBooking() {
