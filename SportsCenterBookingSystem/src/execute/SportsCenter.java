@@ -5,7 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.Collections;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+
 import java.util.Scanner;
 
 public class SportsCenter {
@@ -212,11 +218,70 @@ public class SportsCenter {
 	}
 
 	public Room checkAvailability(RoomType roomType, String date, int startTime, int endTime) {
-		//TODO: if room available, return room, else return null
 		
-		return Room.getRoomByID(allRooms, "1");
+		//TODO: if room available, return room, else return null
+		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
+		for (Booking b: bookingForDay) {
+			String roomID = b.getRoomID();
+			if(Room.getRoomByID(allRooms, roomID).getRoomType().getType().equals(roomType.getType())) {
+				if (bookingOfRoomsForDay.containsKey(roomID)) {
+					bookingOfRoomsForDay.get(roomID).add(b);
+				} else {
+					ArrayList<Booking> bookingList = new ArrayList<>();
+					bookingList.add(b);
+					bookingOfRoomsForDay.put(roomID, bookingList);	
+				}
+			};
+			
+		}
+		
+	    Room bestRoom = null;
+	    int minIdleTime = Integer.MAX_VALUE;
+
+	    for (Map.Entry<String, ArrayList<Booking>> entry : bookingOfRoomsForDay.entrySet()) {
+	        String roomID = entry.getKey();
+	        ArrayList<Booking> bookings = entry.getValue();
+
+	        if (!isOverlapping(bookings, startTime, endTime)) {
+	            int idleTime = calculateIdleTime(bookings, startTime, endTime);
+
+	            if (idleTime < minIdleTime) {
+	                minIdleTime = idleTime;
+	                bestRoom = Room.getRoomByID(allRooms, roomID);
+	            }
+	        }
+	    }
+
+	    return bestRoom;
+	}
+	
+	public boolean isOverlapping(ArrayList<Booking> bookings, int startTime, int endTime) {
+	    for (Booking booking : bookings) {
+	        if (startTime < booking.getEndTime() && endTime > booking.getStartTime()) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
+	public int calculateIdleTime(ArrayList<Booking> bookings, int newStartTime, int newEndTime) {
+	    int idleTime = 0;
+	    bookings.sort(Comparator.comparingInt(Booking::getStartTime));
+
+	    int previousEndTime = 0;
+	    for (Booking booking : bookings) {
+	        idleTime += booking.getStartTime() - previousEndTime;
+	        previousEndTime = booking.getEndTime();
+	    }
+
+	    idleTime += newStartTime - previousEndTime;
+	    idleTime += 24 * 60 - newEndTime;
+
+	    return idleTime;
+	}
+
+	
 	public int getNextBookingID() {
 		return allBookings.size() + 1;
 	}

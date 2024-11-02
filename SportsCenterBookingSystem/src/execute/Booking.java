@@ -119,7 +119,7 @@ public class Booking implements Comparable<Booking> {
 		//may help checkAvailability?
 		ArrayList<Booking> result = new ArrayList<>();
 		for (Booking b : bookingList) {
-			if (b.date.equals(date)) {
+			if (b.getDate().equals(date)) {
 				result.add(b);
 			}
 		}
