@@ -70,6 +70,7 @@ public class User {
     	
     	sportsCenter.printAllClosingDate();
     	
+    	//TODO: maybe need handle if no roomTypes?
 		System.out.println("The followings are all the room type available:");
 		sportsCenter.printAllRoomType();
 		

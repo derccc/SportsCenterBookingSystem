@@ -64,6 +64,14 @@ public class Main {
 	        	        case "d":
 	        	        	(new CmdMarkClosingDate()).execute();
 	        	        	break;
+	        	        	
+	        	        case "a":
+	        	        	
+	        	        	break;
+	        	        
+	        	        case "p":
+	        	        	
+	        	        	break;
 	        	            
 	        			default:
 	        				throw new ExInvalidCommand();
