@@ -171,6 +171,7 @@ public class User {
 		System.out.println("Please input the Booking ID you would like to cancel:");
     	String bookingID = scanner.nextLine();
     	Booking booking = this.getBookingByID(bookingID);
+    	//TODO: handle case that the booking found is already cancelled, otherwise the pricePaid will divide by 2 again
     	while (booking == null) {
 			System.out.println("Booking ID not found, please input again:");
 			bookingID = scanner.nextLine();
