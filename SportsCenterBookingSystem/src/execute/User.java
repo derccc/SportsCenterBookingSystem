@@ -68,8 +68,6 @@ public class User {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
     	Scanner scanner = new Scanner(System.in);
     	
-    	//TODO: handle no closing date
-    	System.out.println("Notice:\nThe followings are all closing date of the sports center:");
     	sportsCenter.printAllClosingDate();
     	
 		System.out.println("The followings are all the room type available:");
@@ -85,8 +83,12 @@ public class User {
 		}
 		
 		System.out.println("Please input the Date and Time you would like to book (format: yyMMdd HH-HH (e.g.241001 15-20)):");
-		//TODO: handle wrong input format, date and time
+		//TODO: handle wrong input format (e.g. only input date)
 		String dateAndTime = scanner.nextLine();
+		while (!DateAndTime.isDateAndTimeValid(dateAndTime)) {
+			System.out.println("Invalid Date or Time, please input again:");
+			dateAndTime = scanner.nextLine();
+		}
 		String[] splittedDateAndTime = dateAndTime.split(" ");
 		String date = splittedDateAndTime[0];
 		while (sportsCenter.isClosingDate(date)) {
@@ -104,8 +106,7 @@ public class User {
 		Room room = sportsCenter.checkAvailability(roomType, date, startTime, endTime);
 		
 		if (room != null) {
-			//TODO: handle endTime-startTime (e.g. 23-00)
-			int bookingPrice = roomType.getPrice()*(endTime-startTime);
+			int bookingPrice = roomType.getPrice()*DateAndTime.calculateHours(startTime, endTime);
 			System.out.printf("Room available (Price: $%d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
 			String action = scanner.nextLine();
 			switch(action) {
@@ -146,7 +147,7 @@ public class User {
 		
 	}
 
-	public void viewUserBooking() {
+	public int viewUserBooking() {
 		int count = 0;
 		for (Booking b: allBookings) {
 			if (!b.getIsCancelled()){
@@ -160,37 +161,39 @@ public class User {
 		if (count==0) {
 			System.out.println("No booking records.");
 		}
+		return count;
 		
 	}
 
 	public void cancelUserBooking() {
     	Scanner scanner = new Scanner(System.in);
-    	this.viewUserBooking();
-		System.out.println("Please input the Booking ID you would like to cancel:");
-    	String bookingID = scanner.nextLine();
-    	Booking booking = this.getNotCancelledBookingByID(bookingID);
-    	while (booking == null) {
-			System.out.println("Booking ID not found, please input again:");
-			bookingID = scanner.nextLine();
-			booking = this.getNotCancelledBookingByID(bookingID);
-		}
-    	
-    	int refund = booking.getPricePaid()/2;
-    	System.out.printf("Refund for cancelled booking: $%d, are you confirmed to cancel booking? (Y/N):\n", refund);
-    	String action = scanner.nextLine();
-    	switch(action) {
-    		case "Y":
-    			booking.cancelBookingByUser();
-    			System.out.println("Booking cancelled.");
-    			break;
-    			
-    		case "N":
-    			break;
-    			
-    		default:
-    			//TODO: handle wrong input
+    	int bookingCount = this.viewUserBooking();
+    	if (bookingCount>0) {
+    		System.out.println("Please input the Booking ID you would like to cancel:");
+        	String bookingID = scanner.nextLine();
+        	Booking booking = this.getNotCancelledBookingByID(bookingID);
+        	while (booking == null) {
+    			System.out.println("Booking ID not found, please input again:");
+    			bookingID = scanner.nextLine();
+    			booking = this.getNotCancelledBookingByID(bookingID);
+    		}
+        	
+        	int refund = booking.getPricePaid()/2;
+        	System.out.printf("Refund for cancelled booking: $%d, are you confirmed to cancel booking? (Y/N):\n", refund);
+        	String action = scanner.nextLine();
+        	switch(action) {
+        		case "Y":
+        			booking.cancelBookingByUser();
+        			System.out.println("Booking cancelled.");
+        			break;
+        			
+        		case "N":
+        			break;
+        			
+        		default:
+        			//TODO: handle wrong input
+        	}
     	}
-    	
 		
 	}
 
