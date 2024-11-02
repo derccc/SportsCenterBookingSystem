@@ -17,6 +17,7 @@ public class SportsCenter {
 	private ArrayList<Room> allRooms;
     private ArrayList<User> allUsers;
     private ArrayList<Booking> allBookings;
+    private ArrayList<String> allClosingDates;
     private static SportsCenter INSTANCE;
     
 	private SportsCenter() {
@@ -24,6 +25,7 @@ public class SportsCenter {
 		this.allRooms = new ArrayList<>();
 		this.allUsers = new ArrayList<>();
         this.allBookings = new ArrayList<>();
+        this.allClosingDates = new ArrayList<>();
 	}
     
     public static SportsCenter getInstance() {
@@ -39,11 +41,13 @@ public class SportsCenter {
 		String roomPath = "src/execute/assets/room_data.txt";
 		String userPath = "src/execute/assets/user_data.txt";
 		String bookingPath = "src/execute/assets/booking_data.txt";
+		String closingDatePath = "src/execute/assets/closing_date_data.txt";
 		
 		loadRoomType(roomTypePath);
 		loadRoom(roomPath);
 		loadUser(userPath);
 		loadBooking(bookingPath);
+		loadClosingDate(closingDatePath);
 		
 	}
 
@@ -162,6 +166,25 @@ public class SportsCenter {
 		}
 		
 	}
+	
+	private void loadClosingDate(String path) {
+		try {
+            File file = new File(path);
+            Scanner scanner = new Scanner(file);
+            
+            while (scanner.hasNextLine()){
+                String date = scanner.nextLine();
+                allClosingDates.add(date);
+            }
+            
+            System.out.println("Finished loading users.");
+            scanner.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find file at path: "+path);
+        }
+		
+	}
 
 	public RoomType getRoomTypeByID(String roomTypeID) {
 		return RoomType.getRoomTypeByID(allRoomTypes, roomTypeID);
@@ -201,6 +224,21 @@ public class SportsCenter {
 			File file = new File(bookingPath);
 			FileWriter fileWriter = new FileWriter(file, true);
 			fileWriter.write(booking.toString() + "\n");
+			fileWriter.close();
+
+		} catch (IOException e) {
+			System.out.println("IO error");
+		}
+	}
+	
+	public void addClosingDate(String date) {
+		allClosingDates.add(date);
+		//TODO:Collections.sort();
+		String closingDatePath = "src/execute/assets/closing_date_data.txt";
+		try {
+			File file = new File(closingDatePath);
+			FileWriter fileWriter = new FileWriter(file, true);
+			fileWriter.write(date + "\n");
 			fileWriter.close();
 
 		} catch (IOException e) {
