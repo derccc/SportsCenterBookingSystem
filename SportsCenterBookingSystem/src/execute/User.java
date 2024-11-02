@@ -74,6 +74,10 @@ public class User {
 	public void makeUserBooking() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
     	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.println("Notice:\nThe followings are all closing date of the sports center:");
+    	sportsCenter.printAllClosingDate();
+    	
 		System.out.println("The followings are all the room type available:");
 		sportsCenter.printAllRoomType();
 		
@@ -92,7 +96,7 @@ public class User {
 		String[] splittedDateAndTime = dateAndTime.split(" ");
 		String date = splittedDateAndTime[0];
 		while (sportsCenter.isClosingDate(date)) {
-			System.out.printf("Sorry, sports center will be closed on %s, please input again:\n", date);
+			System.out.printf("Sorry, the sports center will be closed on %s, please input again:\n", date);
 			dateAndTime = scanner.nextLine();
 			splittedDateAndTime = dateAndTime.split(" ");
 			date = splittedDateAndTime[0];
@@ -162,16 +166,16 @@ public class User {
 	}
 
 	public void cancelUserBooking() {
-		SportsCenter sportsCenter = SportsCenter.getInstance();
     	Scanner scanner = new Scanner(System.in);
     	this.viewUserBooking();
 		System.out.println("Please input the Booking ID you would like to cancel:");
     	String bookingID = scanner.nextLine();
-    	Booking booking = sportsCenter.getBookingByID(bookingID);
+    	//TODO: sportsCenter.getBookingByID cause can cancel others' booking
+    	Booking booking = this.getBookingByID(bookingID);
     	while (booking == null) {
 			System.out.println("Booking ID not found, please input again:");
 			bookingID = scanner.nextLine();
-			booking = sportsCenter.getBookingByID(bookingID);
+			booking = this.getBookingByID(bookingID);
 		}
     	
     	int refund = booking.getPricePaid()/2;
@@ -190,13 +194,14 @@ public class User {
     			//TODO: handle wrong input
     	}
     	
-    	/*
-    	this.removeBooking(booking);
-    	room.removeBooking(booking);
-    	sportsCenter.removeBooking(booking);
-    	*/
-    	
 		
+	}
+
+	private Booking getBookingByID(String bookingID) {
+		for(Booking b: allBookings){
+			if(b.getBookingID().equals(bookingID)){return b;}
+		}
+		return null;
 	}
 
 	

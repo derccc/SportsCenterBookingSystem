@@ -360,6 +360,13 @@ public class SportsCenter {
 		}
 	}
 
+	public void printAllClosingDate() {
+		for (String d: allClosingDates) {
+			System.out.println(d);
+		}
+		
+	}
+
 	
 
 	
