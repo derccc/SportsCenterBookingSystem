@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class SportsCenter {
@@ -190,6 +191,7 @@ public class SportsCenter {
 	
 	public void addBooking(Booking booking) {
 		allBookings.add(booking);
+		Collections.sort(allBookings);
 		String bookingPath = "src/execute/assets/booking_data.txt";
 		try {
 			File file = new File(bookingPath);

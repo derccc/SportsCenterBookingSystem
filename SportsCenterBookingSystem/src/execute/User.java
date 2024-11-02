@@ -1,6 +1,7 @@
 package execute;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class User {
@@ -61,6 +62,7 @@ public class User {
 	
 	public void addBooking(Booking booking) {
 		allBookings.add(booking);
+		Collections.sort(allBookings);
 	}
 
 	public void removeBooking(Booking booking) {

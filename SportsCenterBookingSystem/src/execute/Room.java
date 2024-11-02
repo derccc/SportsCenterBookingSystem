@@ -1,6 +1,7 @@
 package execute;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Room {
 	private String roomID;
@@ -34,6 +35,7 @@ public class Room {
 	
 	public void addBooking(Booking booking) {
 		allBookings.add(booking);
+		Collections.sort(allBookings);
 	}
 
 	public void removeBooking(Booking booking) {

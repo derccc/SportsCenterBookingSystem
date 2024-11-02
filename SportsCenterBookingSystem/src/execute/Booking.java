@@ -2,7 +2,7 @@ package execute;
 
 import java.util.ArrayList;
 
-public class Booking {
+public class Booking implements Comparable<Booking> {
 	private String roomID;
 	private String userID;
 	private String date;
@@ -124,6 +124,33 @@ public class Booking {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public int compareTo(Booking another) {
+		if (Integer.parseInt(this.date)<Integer.parseInt(another.date)) {
+			return -1;
+			
+		} else if (Integer.parseInt(this.date)>Integer.parseInt(another.date)) {
+			return 1;
+			
+		} else {
+			if (this.startTime<another.startTime) {
+				return -1;
+				
+			} else if (this.startTime>another.startTime) {
+				return 1;
+				
+			} else {
+				if (this.endTime<another.endTime) {
+					return -1;
+				} else if (this.endTime>another.endTime) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		}
 	}
 
 	
