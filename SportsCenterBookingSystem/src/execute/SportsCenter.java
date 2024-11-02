@@ -1,7 +1,10 @@
 package execute;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -213,31 +216,11 @@ public class SportsCenter {
 
 	public void addUser(User user){
 		allUsers.add(user);
-		String userPath = "src/execute/assets/user_data.txt";
-		try {
-			File file = new File(userPath);
-			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write(user.toString() + "\n");
-			fileWriter.close();
-			
-		} catch (IOException e) {
-			System.out.println("IO error");
-		}
 	}
 	
 	public void addBooking(Booking booking) {
 		allBookings.add(booking);
 		Collections.sort(allBookings);
-		String bookingPath = "src/execute/assets/booking_data.txt";
-		try {
-			File file = new File(bookingPath);
-			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write(booking.toString() + "\n");
-			fileWriter.close();
-
-		} catch (IOException e) {
-			System.out.println("IO error");
-		}
 	}
 	
 	public void addClosingDate(String date) {
@@ -268,18 +251,40 @@ public class SportsCenter {
 	}
 	
 	public void removeBooking(Booking booking) {
-		//allBookings.remove(booking);
-		//TODO: change N to Y in booking.txt
-		String bookingPath = "src/execute/assets/booking_data.txt";
+		allBookings.remove(booking);
+		Collections.sort(allBookings);
+	}
+	
+	public void saveData() {
+		String userPath = "src/execute/assets/user_data.txt";
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(userPath))) {
+            for (User user : allUsers) {
+                writer.write(user.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		
+	    String bookingPath = "src/execute/assets/booking_data.txt";
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(bookingPath))) {
+	        for (Booking booking : allBookings) {
+	            writer.write(booking.toString());
+	            writer.newLine();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    
 	}
 
 	public Room checkAvailability(RoomType roomType, String date, int startTime, int endTime) {
 		
 		//TODO: if room available, return room, else return null
 		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		
-		if (bookingForDay.isEmpty()) {
+		if (bookingForDay.isEmpty() || bookingOfRoomsForDay.isEmpty()) {
 			for (Room r:allRooms){
                 if(r.getRoomType().getType().equals(roomType.getType())){
                     return r;
@@ -287,8 +292,6 @@ public class SportsCenter {
             }
 		}
 		
-		
-		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		for (Booking b: bookingForDay) {
 			Room room = b.getRoom();
 			if(room.getRoomType().getType().equals(roomType.getType())) {
@@ -302,6 +305,7 @@ public class SportsCenter {
 			};
 			
 		}
+		
 		
 	    Room bestRoom = null;
 	    int minIdleTime = Integer.MAX_VALUE;
