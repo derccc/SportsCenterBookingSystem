@@ -114,7 +114,7 @@ public class User {
 				case "Y":
 					System.out.println("Payment collected. Booking Success.");
 					int nextBookingID = sportsCenter.getNextBookingID();
-					Booking booking = new Booking(room.getRoomID(), this.userID, date, startTime, endTime, bookingPrice, "N", String.valueOf(nextBookingID));
+					Booking booking = new Booking(room, this.userID, date, startTime, endTime, bookingPrice, "N", String.valueOf(nextBookingID));
 					this.addBooking(booking);
 					room.addBooking(booking);
 					sportsCenter.addBooking(booking);
@@ -190,7 +190,7 @@ public class User {
     			//TODO: handle wrong input
     	}
     	
-    	Room room = sportsCenter.getRoomByID(booking.getRoomID());
+    	Room room = sportsCenter.getRoomByID(booking.getRoom().getRoomID());
     	
     	/*
     	this.removeBooking(booking);
