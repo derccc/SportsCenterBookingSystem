@@ -190,13 +190,11 @@ public class User {
     			//TODO: handle wrong input
     	}
     	
-    	Room room = sportsCenter.getRoomByID(booking.getRoom().getRoomID());
-    	
     	/*
     	this.removeBooking(booking);
     	room.removeBooking(booking);
-    	*/
     	sportsCenter.removeBooking(booking);
+    	*/
     	
 		
 	}

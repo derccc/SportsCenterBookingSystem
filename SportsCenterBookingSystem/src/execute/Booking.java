@@ -88,11 +88,15 @@ public class Booking implements Comparable<Booking> {
 	public void cancelBookingByUser() {
 		this.isCancelled = "Y";
 		this.pricePaid = pricePaid/2;
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		sportsCenter.removeBooking(this);
 	}
 	
 	public void cancelBookingByClosingDate() {
 		this.isCancelled = "Y";
 		this.pricePaid = 0;
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		sportsCenter.removeBooking(this);
 	}
 	
 	public String toString(){
