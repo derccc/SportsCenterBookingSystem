@@ -91,6 +91,12 @@ public class User {
 		String dateAndTime = scanner.nextLine();
 		String[] splittedDateAndTime = dateAndTime.split(" ");
 		String date = splittedDateAndTime[0];
+		while (sportsCenter.isClosingDate(date)) {
+			System.out.printf("Sorry, sports center will be closed on %s, please input again:\n", date);
+			dateAndTime = scanner.nextLine();
+			splittedDateAndTime = dateAndTime.split(" ");
+			date = splittedDateAndTime[0];
+		}
 		String time = splittedDateAndTime[1];
 		String[] splittedTime = time.split("-");
 		int startTime = Integer.parseInt(splittedTime[0]);
@@ -173,7 +179,7 @@ public class User {
     	String action = scanner.nextLine();
     	switch(action) {
     		case "Y":
-    			booking.cancelBooking();
+    			booking.cancelBookingByUser();
     			System.out.println("Booking cancelled.");
     			break;
     			

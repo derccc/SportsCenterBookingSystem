@@ -11,10 +11,26 @@ public class CmdMarkClosingDate implements Command{
 		
 		System.out.println("Please input the Date you would like to mark closing (format: yyMMdd (e.g.241001)):");
 		String date = scanner.nextLine();
-		sportsCenter.addClosingDate(date);
-		//TODO: handle those already booked bookings on closingDate
-		//TODO: do we need to add command view closingDate?
-		//makeBooking side need to check with closingDate
+		if (sportsCenter.isClosingDate(date)) {
+			System.out.println("The date was already marked as closing date.");
+		} else {
+			System.out.printf("The date you would like to mark as closing date is %s, are you confirmed to mark? (Y/N):\n", date);
+			String action = scanner.nextLine();
+			switch (action) {
+				case "Y":
+					sportsCenter.addClosingDate(date);
+					break;
+					
+				case "N":
+					break;
+					
+				default:
+					//TODO: handle wrong input
+					break;
+				}
+			
+		}
+		
 	}
 
 }

@@ -177,7 +177,7 @@ public class SportsCenter {
                 allClosingDates.add(date);
             }
             
-            System.out.println("Finished loading users.");
+            System.out.println("Finished loading closing dates.");
             scanner.close();
 
         } catch (FileNotFoundException e) {
@@ -200,6 +200,15 @@ public class SportsCenter {
 	
 	public Booking getBookingByID(String bookingID) {
 		return Booking.getBookingByID(allBookings, bookingID);
+	}
+	
+	public boolean isClosingDate(String date) {
+		for (String d: allClosingDates) {
+			if (d.equals(date)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void addUser(User user){
@@ -244,6 +253,18 @@ public class SportsCenter {
 		} catch (IOException e) {
 			System.out.println("IO error");
 		}
+		
+		//handle those already booked bookings on closingDate
+		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		if (bookingForDay.size()>0) {
+			//TODO: need change the booking info string
+			System.out.println("The followings are all the booking affected by the closing date, please contact all the relevant users:");
+			for (Booking b: bookingForDay) {
+				System.out.println(b);
+				b.cancelBookingByClosingDate();
+			}
+		}
+		
 	}
 	
 	public void removeBooking(Booking booking) {
@@ -327,6 +348,8 @@ public class SportsCenter {
 			System.out.println(r.printAllRoomTypeString());
 		}
 	}
+
+	
 
 	
 }
