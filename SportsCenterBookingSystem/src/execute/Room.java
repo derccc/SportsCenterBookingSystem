@@ -37,12 +37,6 @@ public class Room {
 		allBookings.add(booking);
 		Collections.sort(allBookings);
 	}
-
-	/*
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-	}
-	*/
 	
 	public String toString(){
 		//roomID roomTypeID

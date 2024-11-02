@@ -64,12 +64,6 @@ public class User {
 		allBookings.add(booking);
 		Collections.sort(allBookings);
 	}
-
-	/*
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-	}
-	*/
 	
 	public void makeUserBooking() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();

@@ -250,16 +250,11 @@ public class SportsCenter {
 		
 	}
 	
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-		Collections.sort(allBookings);
-	}
-	
 	public void saveData() {
 		String userPath = "src/execute/assets/user_data.txt";
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(userPath))) {
-            for (User user : allUsers) {
-                writer.write(user.toString());
+            for (User u: allUsers) {
+                writer.write(u.toString());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -268,8 +263,8 @@ public class SportsCenter {
 		
 	    String bookingPath = "src/execute/assets/booking_data.txt";
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(bookingPath))) {
-	        for (Booking booking : allBookings) {
-	            writer.write(booking.toString());
+	        for (Booking b: allBookings) {
+	            writer.write(b.toString());
 	            writer.newLine();
 	        }
 	    } catch (IOException e) {
