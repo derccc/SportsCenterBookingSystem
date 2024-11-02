@@ -139,7 +139,7 @@ public class SportsCenter {
 
 				//TODO: invalid date time exception
 				if (room != null && user != null) {
-					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6], splittedData[7]);
+					Booking booking = new Booking(room, splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6], splittedData[7]);
 					room.addBooking(booking);
 					user.addBooking(booking);
 					allBookings.add(booking);
@@ -228,14 +228,14 @@ public class SportsCenter {
 		
 		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		for (Booking b: bookingForDay) {
-			String roomID = b.getRoomID();
-			if(Room.getRoomByID(allRooms, roomID).getRoomType().getType().equals(roomType.getType())) {
-				if (bookingOfRoomsForDay.containsKey(roomID)) {
-					bookingOfRoomsForDay.get(roomID).add(b);
+			Room room = b.getRoom();
+			if(room.getRoomType().getType().equals(roomType.getType())) {
+				if (bookingOfRoomsForDay.containsKey(room.getRoomID())) {
+					bookingOfRoomsForDay.get(room.getRoomID()).add(b);
 				} else {
 					ArrayList<Booking> bookingList = new ArrayList<>();
 					bookingList.add(b);
-					bookingOfRoomsForDay.put(roomID, bookingList);	
+					bookingOfRoomsForDay.put(room.getRoomID(), bookingList);	
 				}
 			};
 			

@@ -3,7 +3,7 @@ package execute;
 import java.util.ArrayList;
 
 public class Booking {
-	private String roomID;
+	private Room room;
 	private String userID;
 	private String date;
 	private int startTime;
@@ -12,8 +12,8 @@ public class Booking {
 	private String isCancelled;
 	private String bookingID;
 	
-	public Booking(String roomID, String userID, String date, int startTime, int endTime, int pricePaid, String isCancelled, String bookingID) {
-        this.roomID = roomID;
+	public Booking(Room room, String userID, String date, int startTime, int endTime, int pricePaid, String isCancelled, String bookingID) {
+        this.room = room;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
@@ -23,8 +23,8 @@ public class Booking {
         this.bookingID = bookingID;
     }
 	
-	public String getRoomID() {
-		return this.roomID;
+	public Room getRoom() {
+		return this.room;
 	}
 	
 	public String getUserID() {
@@ -61,8 +61,8 @@ public class Booking {
 		return false;
 	}
 	
-	public void setRoomID(String roomID) {
-		this.roomID = roomID;
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 	
 //	public void setUserID(String UserID) {
@@ -93,13 +93,13 @@ public class Booking {
 	public String toString(){
 		//String saved to txt file
 		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
-        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + isCancelled + " " + bookingID;
+        return room.getRoomID() + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + isCancelled + " " + bookingID;
     }
 	
 	public String viewUserBookingString() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-		RoomType roomType = sportsCenter.getRoomByID(roomID).getRoomType();
-		return "Booking ID: " + bookingID + " Room ID: " + roomID + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: $" + pricePaid;
+		RoomType roomType = room.getRoomType();
+		return "Booking ID: " + bookingID + " Room ID: " + room.getRoomID() + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: $" + pricePaid;
 	}
 	
 	public String viewRoomBookingString() {
