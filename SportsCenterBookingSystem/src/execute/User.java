@@ -167,12 +167,11 @@ public class User {
     	this.viewUserBooking();
 		System.out.println("Please input the Booking ID you would like to cancel:");
     	String bookingID = scanner.nextLine();
-    	Booking booking = this.getBookingByID(bookingID);
-    	//TODO: handle case that the booking found is already cancelled, otherwise the pricePaid will divide by 2 again
+    	Booking booking = this.getNotCancelledBookingByID(bookingID);
     	while (booking == null) {
 			System.out.println("Booking ID not found, please input again:");
 			bookingID = scanner.nextLine();
-			booking = this.getBookingByID(bookingID);
+			booking = this.getNotCancelledBookingByID(bookingID);
 		}
     	
     	int refund = booking.getPricePaid()/2;
@@ -194,9 +193,11 @@ public class User {
 		
 	}
 
-	private Booking getBookingByID(String bookingID) {
+	private Booking getNotCancelledBookingByID(String bookingID) {
 		for(Booking b: allBookings){
-			if(b.getBookingID().equals(bookingID)){return b;}
+			if (!b.getIsCancelled()) {
+				if(b.getBookingID().equals(bookingID)){return b;}
+			}			
 		}
 		return null;
 	}
