@@ -1,16 +1,17 @@
 package execute;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Room {
 	private String roomID;
 	private RoomType roomType;
-	private ArrayList<BookingsForDay> allbookingsforday; 
+	private ArrayList<Booking> allBookings;
 	
 	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
 		this.roomType=roomType;
-		this.allbookingsforday = new ArrayList<>();
+		this.allBookings = new ArrayList<>();
 	}
 	
 	public String getRoomID() {
@@ -21,42 +22,43 @@ public class Room {
 		return roomType;
 	}
 	
-	public void addBooking(Booking booking) {
-		if (getBookingsOfDay(booking.getDate()) == null) {
-			BookingsForDay bookingsForDay = new BookingsForDay(booking.getDate());
-			bookingsForDay.addBooking(booking);
-			this.allbookingsforday.add(bookingsForDay);
-		} else {
-			getBookingsOfDay(booking.getDate()).addBooking(booking);
-		}
+	public ArrayList<Booking> getAllBookings() {
+		return allBookings;
 	}
 	
-	public boolean removeBooking(String bookingID) { 
-		//true if success, otherwise fail
-		return BookingsForDay.removeBookingById(allbookingsforday,bookingID);
-	}
-
-
-
-	public BookingsForDay getBookingsOfDay(String date) {
-		return BookingsForDay.getBookingsForDayByDate(allbookingsforday,date);
-	}
-
-	public static Room getRoomById(ArrayList<Room> allRooms, String roomID) {
+	public static Room getRoomByID(ArrayList<Room> allRooms, String roomID) {
 		for(Room r: allRooms){
-			if(r.roomID.equals(roomID)){
-				return r;
-			}
+			if(r.roomID.equals(roomID)){return r;}
 		}
 		return null;
 	}
-
 	
+	public void addBooking(Booking booking) {
+		allBookings.add(booking);
+		Collections.sort(allBookings);
+	}
 
-
+	/*
+	public void removeBooking(Booking booking) {
+		allBookings.remove(booking);
+	}
+	*/
+	
 	public String toString(){
 		//roomID roomTypeID
-		return roomID+" "+roomType.getType();
+		return roomID + " " + roomType.getType();
 	}
-	
+
+	public void viewRoomBooking() {
+		if (allBookings.size()>0) {
+			System.out.println("The followings are all the booking:");
+			for (Booking b: allBookings) {
+				if (!b.getIsCancelled()) {
+					System.out.println(b.viewRoomBookingString());
+				}
+			}
+		} else {
+			System.out.println("No booking records.");
+		}
+	}
 }

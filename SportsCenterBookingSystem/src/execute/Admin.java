@@ -3,74 +3,110 @@ package execute;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Admin extends User {
-
-	public Admin(String userID, String userPassword) {
-		super(userID, userPassword);
-	}
+public class Admin implements UserRole {
 	
-	public String showActionMenu() throws ExInvalidCommand{
-		Scanner scanner = new Scanner(System.in);
-        String action;
-        
-        /*
-
-		do {
-    		System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
-            action = scanner.nextLine();
-    	} while (!action.equals("v") && !action.equals("c") && !action.equals("l"));
-        */
-        
-        System.out.println("Please input your action ([v] for view booking, [c] for cancel booking, [l] for logout):");
-        action = scanner.nextLine();
-        if(!action.equals("v") && !action.equals("c") && !action.equals("l")) {throw new ExInvalidCommand();}
-        
-        scanner.close();
-        return action;
-	}
-	
-	public void viewBooking(){
-		
-		
+	@Override
+	public String showActionMenu() {
 		Scanner scanner = new Scanner(System.in);
 		String action;
-		do {
-			System.out.println("Please input your action ([1] for view specific user's booking(s), [2] for view specific room's booking(s), [3] for view all bookings):");
-			action = scanner.nextLine();
-			
-		} while (!action.equals("1") && !action.equals("2") && !action.equals("3"));
-	
-		SportsCenter sportsCenter = SportsCenter.getInstance();
-		ArrayList<Booking> allBookings = sportsCenter.getAllBookings();
-		switch (action) {
-		case "1":
-			System.out.println("Please input the user ID:");
-			String userID = scanner.nextLine();
-			for (Booking b : allBookings) {
-				if (b.getUserID().equals(userID)) {
-					System.out.println(b.toString());
-				}
-			}
-			break;
-			
-		case "2":
-			System.out.println("Please input the room ID:");
-			String roomID = scanner.nextLine();
-			for (Booking b : allBookings) {
-				if (b.getRoomID().equals(roomID)) {
-					System.out.println(b.toString());
-				}
-			}
-			break;
-			
-		case "3":
-			for (Booking b : allBookings) {
-				System.out.println(b.toString());
-			}
-			break;
+		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center):");
+		action = scanner.nextLine();
+		//TODO: handle invalid Command
+		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l") && !action.equals("d")) {
+			// throw new ExInvalidCommand();
 		}
-
-        scanner.close();
+		
+		return action;
+	}
+	
+	@Override
+    public boolean makeBooking() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.println("Please input the User ID you would like to make booking for:");
+    	String userID = scanner.nextLine();
+    	User user = sportsCenter.getUserByID(userID);
+    	while (user == null) {
+			System.out.println("User ID not found, please input again:");
+			userID = scanner.nextLine();
+			user = sportsCenter.getUserByID(userID);
+		};
+		
+		user.makeUserBooking();
+		
+        return false; 
     }
+	
+	@Override
+	public void viewBooking() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		Scanner scanner = new Scanner(System.in);
+		String action;
+		
+		System.out.println("Please input your action ([u] for view specific user booking, [r] for view specific room booking):");
+		action = scanner.nextLine();
+		
+		switch (action) {
+			case "u":
+				System.out.println("Please input the User ID you would like to view booking for:"); //maybe all this ask for user ID can be put in a function
+				String userID = scanner.nextLine();
+				User user = sportsCenter.getUserByID(userID);
+		    	while (user == null) {
+					System.out.println("User ID not found, please input again:");
+					userID = scanner.nextLine();
+					user = sportsCenter.getUserByID(userID);
+				};
+				
+				user.viewUserBooking();
+				
+				break;
+				
+			case "r":
+				System.out.println("Please input the Room ID you would like to view booking for:");
+				String roomID = scanner.nextLine();
+				Room room = sportsCenter.getRoomByID(roomID);
+				while (room == null) {
+					System.out.println("Room ID not found, please input again:");
+					roomID = scanner.nextLine();
+					room = sportsCenter.getRoomByID(roomID);
+				}
+				
+				room.viewRoomBooking();
+				
+			    break;
+			    
+			default:
+				//TODO: handle invalid Command
+				break;
+		
+		}
+        
+    }
+
+    @Override
+    public boolean cancelBooking() {
+    	SportsCenter sportsCenter = SportsCenter.getInstance();
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	System.out.println("Please input the User ID you would like to cancel booking for:");
+    	String userID = scanner.nextLine();
+    	User user = sportsCenter.getUserByID(userID);
+    	
+		while (user == null) {
+			System.out.println("User ID not found, please input again:");
+			userID = scanner.nextLine();
+			user = sportsCenter.getUserByID(userID);
+		};
+		
+		user.cancelUserBooking();
+		
+        return false;
+    }
+
+	@Override
+	public String toString(String userID, String userPassword) {
+		return userID + " A " + userPassword;
+	}
 
 }

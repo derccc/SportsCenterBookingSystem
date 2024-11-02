@@ -2,25 +2,29 @@ package execute;
 
 import java.util.ArrayList;
 
-public class Booking {
-	private String roomID;
+public class Booking implements Comparable<Booking> {
+	private Room room;
 	private String userID;
 	private String date;
 	private int startTime;
 	private int endTime;
+	private int pricePaid;
+	private String isCancelled;
 	private String bookingID;
 	
-	public Booking(String roomID, String userID, String date, int startTime, int endTime, String bookingID) {
-        this.roomID = roomID;
+	public Booking(Room room, String userID, String date, int startTime, int endTime, int pricePaid, String isCancelled, String bookingID) {
+        this.room = room;
         this.userID = userID;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.pricePaid = pricePaid;
+        this.isCancelled = isCancelled;
         this.bookingID = bookingID;
     }
 	
-	public String getRoomID() {
-		return this.roomID;
+	public Room getRoom() {
+		return this.room;
 	}
 	
 	public String getUserID() {
@@ -43,8 +47,22 @@ public class Booking {
 		return this.endTime;
 	}
 	
-	public void setRoomID(String roomID) {
-		this.roomID = roomID;
+	public int getPricePaid() {
+		return this.pricePaid;
+		
+	}
+	
+	public boolean getIsCancelled() {
+		if (isCancelled.equals("Y")) {
+			return true;
+		} else if (isCancelled.equals("N")){
+			return false;
+		}
+		return false;
+	}
+	
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 	
 //	public void setUserID(String UserID) {
@@ -67,20 +85,78 @@ public class Booking {
 		this.endTime = endTime;
 	}
 	
+	public void cancelBooking() {
+		this.isCancelled = "Y";
+		this.pricePaid = pricePaid/2;
+	}
+	
 	public String toString(){
-		//RoomID UserID YYMMDD StartingTime EndingTime
-        return roomID + " " + userID + " " +  date + " " + startTime + " " + endTime;
+		//String saved to txt file
+		//RoomID UserID YYMMDD StartingTime EndingTime bookingID
+        return room.getRoomID() + " " + userID + " " +  date + " " + startTime + " " + endTime + " " + pricePaid + " " + isCancelled + " " + bookingID;
     }
+	
+	public String viewUserBookingString() {
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		RoomType roomType = room.getRoomType();
+		return "Booking ID: " + bookingID + " Room ID: " + room.getRoomID() + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: $" + pricePaid;
+	}
+	
+	public String viewRoomBookingString() {
+		return "Booking ID: " + bookingID + " User ID: " + userID + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime;
+	}
 
 
 
-	public static Booking getBookingById(ArrayList<Booking> bookingList, String bookingId){
-		for(Booking b: bookingList){
-			if(b.bookingID==bookingId){return b;}
+	public static Booking getBookingByID(ArrayList<Booking> allBookings, String bookingID){
+		for(Booking b: allBookings){
+			if(b.bookingID.equals(bookingID)){return b;}
 		}
 		return null;
 	}
 
+	public static ArrayList<Booking> getBoookingsOfSpecificDate(ArrayList<Booking> bookingList, String date) {
+		//may help checkAvailability?
+		ArrayList<Booking> result = new ArrayList<>();
+		for (Booking b : bookingList) {
+			if (b.getDate().equals(date)) {
+				result.add(b);
+			}
+		}
+		return result;
+	}
 
+	@Override
+	public int compareTo(Booking another) {
+		if (Integer.parseInt(this.date)<Integer.parseInt(another.date)) {
+			return -1;
+			
+		} else if (Integer.parseInt(this.date)>Integer.parseInt(another.date)) {
+			return 1;
+			
+		} else {
+			if (this.startTime<another.startTime) {
+				return -1;
+				
+			} else if (this.startTime>another.startTime) {
+				return 1;
+				
+			} else {
+				if (this.endTime<another.endTime) {
+					return -1;
+				} else if (this.endTime>another.endTime) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		}
+	}
+
+	
+
+	
+
+	
     
 }
