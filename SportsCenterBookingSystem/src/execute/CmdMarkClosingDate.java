@@ -13,7 +13,8 @@ public class CmdMarkClosingDate implements Command{
 		String date = scanner.nextLine();
 		sportsCenter.addClosingDate(date);
 		//TODO: handle those already booked bookings on closingDate
-		
+		//TODO: do we need to add command view closingDate?
+		//makeBooking side need to check with closingDate
 	}
 
 }
