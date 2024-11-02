@@ -61,6 +61,10 @@ public class Main {
 	        	        	(new CmdLogout()).execute();
 	        	            break;
 	        	            
+	        	        case "d":
+	        	        	(new CmdMarkClosingDate()).execute();
+	        	        	break;
+	        	            
 	        			default:
 	        				throw new ExInvalidCommand();
         	        }
