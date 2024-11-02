@@ -9,7 +9,6 @@ public class User {
 	private UserRole userRole;
     private String userPassword;
     private ArrayList<Booking> allBookings;
-    //may add wallet attribute to handle the price payment
 
     public User (String userID, String userRole, String userPassword){
         this.userID = userID;
@@ -64,16 +63,15 @@ public class User {
 		allBookings.add(booking);
 		Collections.sort(allBookings);
 	}
-
-	/*
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-	}
-	*/
 	
 	public void makeUserBooking() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
     	Scanner scanner = new Scanner(System.in);
+    	
+    	//TODO: handle no closing date
+    	System.out.println("Notice:\nThe followings are all closing date of the sports center:");
+    	sportsCenter.printAllClosingDate();
+    	
 		System.out.println("The followings are all the room type available:");
 		sportsCenter.printAllRoomType();
 		
@@ -91,6 +89,12 @@ public class User {
 		String dateAndTime = scanner.nextLine();
 		String[] splittedDateAndTime = dateAndTime.split(" ");
 		String date = splittedDateAndTime[0];
+		while (sportsCenter.isClosingDate(date)) {
+			System.out.printf("Sorry, the sports center will be closed on %s, please input again:\n", date);
+			dateAndTime = scanner.nextLine();
+			splittedDateAndTime = dateAndTime.split(" ");
+			date = splittedDateAndTime[0];
+		}
 		String time = splittedDateAndTime[1];
 		String[] splittedTime = time.split("-");
 		int startTime = Integer.parseInt(splittedTime[0]);
@@ -143,29 +147,32 @@ public class User {
 	}
 
 	public void viewUserBooking() {
-		if (allBookings.size()>0) {
-			System.out.println("The followings are all the booking:");
-			for (Booking b: allBookings) {
-				if (!b.getIsCancelled()){
-					System.out.println(b.viewUserBookingString());
+		int count = 0;
+		for (Booking b: allBookings) {
+			if (!b.getIsCancelled()){
+				if (count==0) {
+					System.out.println("The followings are all the booking:");
 				}
+				System.out.println(b.viewUserBookingString());
+				count++;
 			}
-		} else {
+		}
+		if (count==0) {
 			System.out.println("No booking records.");
 		}
+		
 	}
 
 	public void cancelUserBooking() {
-		SportsCenter sportsCenter = SportsCenter.getInstance();
     	Scanner scanner = new Scanner(System.in);
     	this.viewUserBooking();
 		System.out.println("Please input the Booking ID you would like to cancel:");
     	String bookingID = scanner.nextLine();
-    	Booking booking = sportsCenter.getBookingByID(bookingID);
+    	Booking booking = this.getNotCancelledBookingByID(bookingID);
     	while (booking == null) {
 			System.out.println("Booking ID not found, please input again:");
 			bookingID = scanner.nextLine();
-			booking = sportsCenter.getBookingByID(bookingID);
+			booking = this.getNotCancelledBookingByID(bookingID);
 		}
     	
     	int refund = booking.getPricePaid()/2;
@@ -173,7 +180,7 @@ public class User {
     	String action = scanner.nextLine();
     	switch(action) {
     		case "Y":
-    			booking.cancelBooking();
+    			booking.cancelBookingByUser();
     			System.out.println("Booking cancelled.");
     			break;
     			
@@ -184,15 +191,16 @@ public class User {
     			//TODO: handle wrong input
     	}
     	
-    	Room room = sportsCenter.getRoomByID(booking.getRoom().getRoomID());
-    	
-    	/*
-    	this.removeBooking(booking);
-    	room.removeBooking(booking);
-    	*/
-    	sportsCenter.removeBooking(booking);
-    	
 		
+	}
+
+	private Booking getNotCancelledBookingByID(String bookingID) {
+		for(Booking b: allBookings){
+			if (!b.getIsCancelled()) {
+				if(b.getBookingID().equals(bookingID)){return b;}
+			}			
+		}
+		return null;
 	}
 
 	

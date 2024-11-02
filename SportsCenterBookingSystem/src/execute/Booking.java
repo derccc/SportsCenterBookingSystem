@@ -85,9 +85,14 @@ public class Booking implements Comparable<Booking> {
 		this.endTime = endTime;
 	}
 	
-	public void cancelBooking() {
+	public void cancelBookingByUser() {
 		this.isCancelled = "Y";
 		this.pricePaid = pricePaid/2;
+	}
+	
+	public void cancelBookingByClosingDate() {
+		this.isCancelled = "Y";
+		this.pricePaid = 0;
 	}
 	
 	public String toString(){
@@ -115,11 +120,10 @@ public class Booking implements Comparable<Booking> {
 		return null;
 	}
 
-	public static ArrayList<Booking> getBoookingsOfSpecificDate(ArrayList<Booking> bookingList, String date) {
-		//may help checkAvailability?
+	public static ArrayList<Booking> getBoookingsOfSpecificDate(ArrayList<Booking> allBookings, String date) {
 		ArrayList<Booking> result = new ArrayList<>();
-		for (Booking b : bookingList) {
-			if (b.getDate().equals(date)) {
+		for (Booking b: allBookings) {
+			if (b.date.equals(date)) {
 				result.add(b);
 			}
 		}

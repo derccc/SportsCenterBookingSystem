@@ -37,12 +37,6 @@ public class Room {
 		allBookings.add(booking);
 		Collections.sort(allBookings);
 	}
-
-	/*
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-	}
-	*/
 	
 	public String toString(){
 		//roomID roomTypeID
@@ -50,14 +44,17 @@ public class Room {
 	}
 
 	public void viewRoomBooking() {
-		if (allBookings.size()>0) {
-			System.out.println("The followings are all the booking:");
-			for (Booking b: allBookings) {
-				if (!b.getIsCancelled()) {
-					System.out.println(b.viewRoomBookingString());
+		int count = 0;
+		for (Booking b: allBookings) {
+			if (!b.getIsCancelled()) {
+				if (count==0) {
+					System.out.println("The followings are all the booking:");
 				}
+				System.out.println(b.viewRoomBookingString());
+				count++;
 			}
-		} else {
+		}
+		if (count==0) {
 			System.out.println("No booking records.");
 		}
 	}

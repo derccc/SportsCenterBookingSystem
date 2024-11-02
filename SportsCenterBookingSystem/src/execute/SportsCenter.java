@@ -180,7 +180,7 @@ public class SportsCenter {
                 allClosingDates.add(date);
             }
             
-            System.out.println("Finished loading users.");
+            System.out.println("Finished loading closing dates.");
             scanner.close();
 
         } catch (FileNotFoundException e) {
@@ -203,6 +203,15 @@ public class SportsCenter {
 	
 	public Booking getBookingByID(String bookingID) {
 		return Booking.getBookingByID(allBookings, bookingID);
+	}
+	
+	public boolean isClosingDate(String date) {
+		for (String d: allClosingDates) {
+			if (d.equals(date)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void addUser(User user){
@@ -227,18 +236,27 @@ public class SportsCenter {
 		} catch (IOException e) {
 			System.out.println("IO error");
 		}
-	}
-	
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-		Collections.sort(allBookings);
+		
+		//handle those already booked bookings on closingDate
+		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		if (bookingForDay.size()>0) {
+			//TODO: need change the booking info string
+			System.out.println("The followings are all the booking affected by the closing date, please contact all the relevant users:");
+			for (Booking b: bookingForDay) {
+				if (!b.getIsCancelled()) {
+					System.out.println(b);
+					b.cancelBookingByClosingDate();
+				}
+			}
+		}
+		
 	}
 	
 	public void saveData() {
 		String userPath = "src/execute/assets/user_data.txt";
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(userPath))) {
-            for (User user : allUsers) {
-                writer.write(user.toString());
+            for (User u: allUsers) {
+                writer.write(u.toString());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -247,8 +265,8 @@ public class SportsCenter {
 		
 	    String bookingPath = "src/execute/assets/booking_data.txt";
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(bookingPath))) {
-	        for (Booking booking : allBookings) {
-	            writer.write(booking.toString());
+	        for (Booking b: allBookings) {
+	            writer.write(b.toString());
 	            writer.newLine();
 	        }
 	    } catch (IOException e) {
@@ -342,6 +360,15 @@ public class SportsCenter {
 			System.out.println(r.printAllRoomTypeString());
 		}
 	}
+
+	public void printAllClosingDate() {
+		for (String d: allClosingDates) {
+			System.out.println(d);
+		}
+		
+	}
+
+	
 
 	
 }
