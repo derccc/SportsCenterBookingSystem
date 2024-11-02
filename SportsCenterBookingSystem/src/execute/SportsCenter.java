@@ -145,7 +145,7 @@ public class SportsCenter {
 
 				//TODO: invalid date time exception
 				if (room != null && user != null) {
-					Booking booking = new Booking(splittedData[0], splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6], splittedData[7]);
+					Booking booking = new Booking(room, splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6], splittedData[7]);
 					room.addBooking(booking);
 					user.addBooking(booking);
 					allBookings.add(booking);
@@ -257,16 +257,26 @@ public class SportsCenter {
 		
 		//TODO: if room available, return room, else return null
 		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		
+		if (bookingForDay.isEmpty()) {
+			for (Room r:allRooms){
+                if(r.getRoomType().getType().equals(roomType.getType())){
+                    return r;
+                }
+            }
+		}
+		
+		
 		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		for (Booking b: bookingForDay) {
-			String roomID = b.getRoomID();
-			if(Room.getRoomByID(allRooms, roomID).getRoomType().getType().equals(roomType.getType())) {
-				if (bookingOfRoomsForDay.containsKey(roomID)) {
-					bookingOfRoomsForDay.get(roomID).add(b);
+			Room room = b.getRoom();
+			if(room.getRoomType().getType().equals(roomType.getType())) {
+				if (bookingOfRoomsForDay.containsKey(room.getRoomID())) {
+					bookingOfRoomsForDay.get(room.getRoomID()).add(b);
 				} else {
 					ArrayList<Booking> bookingList = new ArrayList<>();
 					bookingList.add(b);
-					bookingOfRoomsForDay.put(roomID, bookingList);	
+					bookingOfRoomsForDay.put(room.getRoomID(), bookingList);	
 				}
 			};
 			
@@ -288,6 +298,7 @@ public class SportsCenter {
 	            }
 	        }
 	    }
+	    
 
 	    return bestRoom;
 	}
@@ -301,7 +312,7 @@ public class SportsCenter {
 	    return false;
 	}
 
-	public int calculateIdleTime(ArrayList<Booking> bookings, int newStartTime, int newEndTime) {
+	public int calculateIdleTime(ArrayList<Booking> bookings, int startTime, int endTime) {
 	    int idleTime = 0;
 	    bookings.sort(Comparator.comparingInt(Booking::getStartTime));
 
@@ -311,8 +322,8 @@ public class SportsCenter {
 	        previousEndTime = booking.getEndTime();
 	    }
 
-	    idleTime += newStartTime - previousEndTime;
-	    idleTime += 24 * 60 - newEndTime;
+	    idleTime += startTime - previousEndTime;
+	    idleTime += 24 * 60 - endTime;
 
 	    return idleTime;
 	}
