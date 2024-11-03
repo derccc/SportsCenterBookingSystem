@@ -225,7 +225,7 @@ public class SportsCenter {
 	
 	public void addClosingDate(String date) {
 		allClosingDates.add(date);
-		//TODO:Collections.sort();
+		//TODO: sorting needed for allClosingDates
 		String closingDatePath = "src/execute/assets/closing_date_data.txt";
 		try {
 			File file = new File(closingDatePath);
@@ -362,9 +362,13 @@ public class SportsCenter {
 	}
 
 	public void printAllClosingDate() {
-		for (String d: allClosingDates) {
-			System.out.println(d);
+		if (allClosingDates.size()>0) {
+			System.out.println("Notice:\nThe followings are all closing date of the sports center:");
+			for (String d: allClosingDates) {
+				System.out.println(d);
+			}
 		}
+		
 		
 	}
 

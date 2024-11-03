@@ -11,6 +11,10 @@ public class CmdMarkClosingDate implements Command{
 		
 		System.out.println("Please input the Date you would like to mark closing (format: yyMMdd (e.g.241001)):");
 		String date = scanner.nextLine();
+		while (!DateAndTime.isDateValid(date)) {
+			System.out.println("Invalid Date, please input again:");
+			date = scanner.nextLine();
+		}
 		if (sportsCenter.isClosingDate(date)) {
 			System.out.println("The date was already marked as closing date.");
 		} else {
