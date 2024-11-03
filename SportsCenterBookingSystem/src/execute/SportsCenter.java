@@ -348,10 +348,17 @@ public class SportsCenter {
 		return allBookings.size() + 1;
 	}
 	
-	public void printAllRoomType (){
-		for(RoomType r: allRoomTypes){
-			System.out.println(r.printAllRoomTypeString());
+	public int printAllRoomType (){
+		if (allRoomTypes.size()>0) {
+			System.out.println("The followings are all the room type available:");
+			for(RoomType r: allRoomTypes){
+				System.out.println(r.printAllRoomTypeString());
+			}
+		} else {
+			System.out.println("No room type available.");
 		}
+		return allRoomTypes.size();
+		
 	}
 
 	public void printAllClosingDate() {
