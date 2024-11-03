@@ -110,6 +110,10 @@ public class User {
 			int bookingPrice = roomType.getPrice()*DateAndTime.calculateHours(startTime, endTime);
 			System.out.printf("Room available (Price: $%d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
 			String action = scanner.nextLine();
+			while (!action.equals("Y") && !action.equals("N")) {
+        		System.out.println("Invalid command, please input again:");
+        		action = scanner.nextLine();
+        	}
 			switch(action) {
 				case "Y":
 					System.out.println("Payment collected. Booking Success.");
@@ -121,17 +125,16 @@ public class User {
 					break;
 					
 				case "N":
-					System.out.println("Booking Cancelled.");
-					break;
-					
-				default:
-					//TODO: handle wrong input
 					break;
 			}
 			
 		} else {
 			System.out.println("Sorry, the room is not available at the time you want. Would you like to book another time or room? (Y/N):");
 			String action = scanner.nextLine();
+			while (!action.equals("Y") && !action.equals("N")) {
+        		System.out.println("Invalid command, please input again:");
+        		action = scanner.nextLine();
+        	}
 			switch(action) {
                 case "Y":
                     makeBooking();
@@ -139,10 +142,6 @@ public class User {
                     
                 case "N":
                     break;
-                    
-                default:
-                	//TODO: handle wrong input
-                	break;
 			}
 		}
 		
@@ -182,6 +181,10 @@ public class User {
         	int refund = booking.getPricePaid()/2;
         	System.out.printf("Refund for cancelled booking: $%d, are you confirmed to cancel booking? (Y/N):\n", refund);
         	String action = scanner.nextLine();
+        	while (!action.equals("Y") && !action.equals("N")) {
+        		System.out.println("Invalid command, please input again:");
+        		action = scanner.nextLine();
+        	}
         	switch(action) {
         		case "Y":
         			booking.cancelBookingByUser();
@@ -190,9 +193,6 @@ public class User {
         			
         		case "N":
         			break;
-        			
-        		default:
-        			//TODO: handle wrong input
         	}
     	}
 		

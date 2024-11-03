@@ -20,16 +20,16 @@ public class CmdMarkClosingDate implements Command{
 		} else {
 			System.out.printf("The date you would like to mark as closing date is %s, are you confirmed to mark? (Y/N):\n", date);
 			String action = scanner.nextLine();
+			while (!action.equals("Y") && !action.equals("N")) {
+        		System.out.println("Invalid command, please input again:");
+        		action = scanner.nextLine();
+        	}
 			switch (action) {
 				case "Y":
 					sportsCenter.addClosingDate(date);
 					break;
 					
 				case "N":
-					break;
-					
-				default:
-					//TODO: handle wrong input
 					break;
 				}
 			

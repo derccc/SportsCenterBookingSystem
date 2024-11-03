@@ -70,7 +70,7 @@ public class Main {
 	        	        	break;
 	        	        
 	        	        case "p":
-	        	        	
+	        	        	(new CmdModifyRoomTypePrice()).execute();
 	        	        	break;
 	        	            
 	        			default:
