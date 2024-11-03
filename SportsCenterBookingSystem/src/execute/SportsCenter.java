@@ -226,16 +226,6 @@ public class SportsCenter {
 	public void addClosingDate(String date) {
 		allClosingDates.add(date);
 		//TODO: sorting needed for allClosingDates
-		String closingDatePath = "src/execute/assets/closing_date_data.txt";
-		try {
-			File file = new File(closingDatePath);
-			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write(date + "\n");
-			fileWriter.close();
-
-		} catch (IOException e) {
-			System.out.println("IO error");
-		}
 		
 		//handle those already booked bookings on closingDate
 		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
@@ -272,6 +262,16 @@ public class SportsCenter {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	    
+	    String closingDatePath = "src/execute/assets/closing_date_data.txt";
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(closingDatePath))) {
+			for (String d : allClosingDates) {
+				writer.write(d);
+				writer.newLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	    
 	}
 
