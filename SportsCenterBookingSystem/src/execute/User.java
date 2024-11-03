@@ -71,7 +71,9 @@ public class User {
     	sportsCenter.printAllClosingDate();
     	
 		int roomTypeCount = sportsCenter.printAllRoomType();
+		
 		if (roomTypeCount>0) {
+			
 			System.out.println("Please input the Room Type ID you would like to book:");
 			String roomTypeID = scanner.nextLine();
 			RoomType roomType = sportsCenter.getRoomTypeByID(roomTypeID);
@@ -166,8 +168,11 @@ public class User {
 
 	public void cancelUserBooking() {
     	Scanner scanner = new Scanner(System.in);
+    	
     	int bookingCount = this.viewUserBooking();
+    	
     	if (bookingCount>0) {
+    		
     		System.out.println("Please input the Booking ID you would like to cancel:");
         	String bookingID = scanner.nextLine();
         	Booking booking = this.getNotCancelledBookingByID(bookingID);

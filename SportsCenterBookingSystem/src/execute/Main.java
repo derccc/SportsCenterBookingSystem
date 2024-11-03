@@ -66,7 +66,7 @@ public class Main {
 	        	        	break;
 	        	        	
 	        	        case "a":
-	        	        	
+	        	        	(new CmdAddNewRoom()).execute();
 	        	        	break;
 	        	        
 	        	        case "p":
