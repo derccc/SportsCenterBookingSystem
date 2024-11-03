@@ -40,7 +40,7 @@ public class SportsCenter {
     }
     
 	public void init() {
-		String roomTypePath = "src/execute/assets/room_type.txt";
+		String roomTypePath = "src/execute/assets/room_type_data.txt";
 		String roomPath = "src/execute/assets/room_data.txt";
 		String userPath = "src/execute/assets/user_data.txt";
 		String bookingPath = "src/execute/assets/booking_data.txt";
@@ -243,6 +243,26 @@ public class SportsCenter {
 	}
 	
 	public void saveData() {
+		String roomTypePath = "src/execute/assets/room_type_data.txt";
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(roomTypePath))) {
+	        for (RoomType r: allRoomTypes) {
+	            writer.write(r.toString());
+	            writer.newLine();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    String roomPath = "src/execute/assets/room_data.txt";
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(roomPath))) {
+	        for (Room r: allRooms) {
+	            writer.write(r.toString());
+	            writer.newLine();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		
 		String userPath = "src/execute/assets/user_data.txt";
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(userPath))) {
             for (User u: allUsers) {
@@ -265,7 +285,7 @@ public class SportsCenter {
 	    
 	    String closingDatePath = "src/execute/assets/closing_date_data.txt";
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(closingDatePath))) {
-			for (String d : allClosingDates) {
+			for (String d: allClosingDates) {
 				writer.write(d);
 				writer.newLine();
 			}

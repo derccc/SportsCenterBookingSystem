@@ -40,9 +40,19 @@ public class Room {
 	
 	public String toString(){
 		//roomID roomTypeID
-		return roomID + " " + roomType.getType();
+		return roomID + " " + roomType.getTypeID();
 	}
 
+	public void viewRoomBookingCalendar() {
+		if (allBookings.size()>0) {
+			ViewBookingService viewBookingService = new ViewBookingService();
+			viewBookingService.viewBooking(allBookings);
+		} else {
+			System.out.println("No booking records.");
+		}
+	}
+	
+	/*
 	public void viewRoomBooking() {
 		int count = 0;
 		for (Booking b: allBookings) {
@@ -58,4 +68,5 @@ public class Room {
 			System.out.println("No booking records.");
 		}
 	}
+	*/
 }

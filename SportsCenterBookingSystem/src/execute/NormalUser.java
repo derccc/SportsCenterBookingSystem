@@ -30,7 +30,7 @@ public class NormalUser implements UserRole {
     @Override
     public void viewBooking() {
     	User user = Main.getCurrentUser();
-    	user.viewUserBooking();
+    	user.viewUserBookingCalendar();
     }
 
     @Override

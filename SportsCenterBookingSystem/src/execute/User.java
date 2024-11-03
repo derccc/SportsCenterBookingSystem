@@ -148,6 +148,17 @@ public class User {
 		
 	}
 
+	
+	public void viewUserBookingCalendar() {
+		if (allBookings.size()>0) {
+			ViewBookingService viewBookingService = new ViewBookingService();
+			viewBookingService.viewBooking(allBookings);
+		} else {
+			System.out.println("No booking records.");
+		}	
+	}
+
+	
 	public int viewUserBooking() {
 		int count = 0;
 		for (Booking b: allBookings) {
