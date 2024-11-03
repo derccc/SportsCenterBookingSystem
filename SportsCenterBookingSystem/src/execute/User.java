@@ -147,6 +147,26 @@ public class User {
 		}
 		
 	}
+	
+	/*
+	public int viewUserBooking() {
+		int count = 0;
+		for (Booking b: allBookings) {
+			if (!b.getIsCancelled()){
+				if (count==0) {
+					System.out.println("The followings are all the booking:");
+				}
+				System.out.println(b.viewUserBookingString());
+				count++;
+			}
+		}
+		if (count==0) {
+			System.out.println("No booking records.");
+		}
+		return count;
+		
+	}
+	*/
 
 	public int viewUserBooking() {
 		int count = 0;
