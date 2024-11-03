@@ -144,12 +144,16 @@ public class User {
 
 	public void viewUserBooking() {
 		if (allBookings.size()>0) {
+			/*
 			System.out.println("The followings are all the booking:");
 			for (Booking b: allBookings) {
 				if (!b.getIsCancelled()){
 					System.out.println(b.viewUserBookingString());
 				}
 			}
+			*/
+			ViewBookingService viewBookingService = new ViewBookingService();
+			viewBookingService.viewBooking(allBookings);
 		} else {
 			System.out.println("No booking records.");
 		}
