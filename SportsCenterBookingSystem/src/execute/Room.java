@@ -40,7 +40,7 @@ public class Room {
 	
 	public String toString(){
 		//roomID roomTypeID
-		return roomID + " " + roomType.getType();
+		return roomID + " " + roomType.getTypeID();
 	}
 
 	public void viewRoomBooking() {

@@ -31,7 +31,7 @@ public class CmdMarkClosingDate implements Command{
 					
 				case "N":
 					break;
-				}
+			}
 			
 		}
 		

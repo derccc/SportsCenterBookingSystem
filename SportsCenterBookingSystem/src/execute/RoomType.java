@@ -49,8 +49,5 @@ public class RoomType {
 		return typeID + " " + type + " " + price;
 	}
 
-	public void modifyPrice(int newPrice) {
-		
-		
-	}
+	
 }

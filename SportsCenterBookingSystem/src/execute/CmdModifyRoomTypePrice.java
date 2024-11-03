@@ -24,13 +24,32 @@ public class CmdModifyRoomTypePrice implements Command{
 			
 			//TODO: need validate price input
 			System.out.println("Please input the new Price you would like to modify to:");
-			int price = scanner.nextInt();
-			while (price<0) {
+			String price = scanner.nextLine();
+			int intPrice = Integer.parseInt(price);
+			while (intPrice<0) {
 				System.out.println("Invalid price, please input again:");
-				price = scanner.nextInt();
+				price = scanner.nextLine();
+				intPrice = Integer.parseInt(price);
 			}
-			//TODO: ask confirm?
-			roomType.modifyPrice(price);
+			if (roomType.getPrice()==intPrice) {
+				System.out.println("The price is same as the original.");
+			} else {
+				System.out.printf("The price is changed to $%d/hr, are you confirmed to modify? (Y/N):\n", intPrice);
+				String action = scanner.nextLine();
+				while (!action.equals("Y") && !action.equals("N")) {
+	        		System.out.println("Invalid command, please input again:");
+	        		action = scanner.nextLine();
+	        	}
+				switch (action) {
+					case "Y":
+						roomType.setPrice(intPrice);
+						break;
+						
+					case "N":
+						break;
+				}
+			}
+			
 			
 		}
 		
