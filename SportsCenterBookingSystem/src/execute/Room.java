@@ -44,21 +44,15 @@ public class Room {
 	}
 
 	public void viewRoomBooking() {
-		int count = 0;
-		for (Booking b: allBookings) {
-			if (!b.getIsCancelled()) {
-				if (count==0) {
-					System.out.println("The followings are all the booking:");
-				}
-				System.out.println(b.viewRoomBookingString());
-				count++;
-			}
-		}
-		if (count==0) {
+		if (allBookings.size()>0) {
+			ViewBookingService viewBookingService = new ViewBookingService();
+			viewBookingService.viewBooking(allBookings);
+		} else {
 			System.out.println("No booking records.");
 		}
 	}
-	 /*
+	
+	/*
 	public void viewRoomBooking() {
 		int count = 0;
 		for (Booking b: allBookings) {
