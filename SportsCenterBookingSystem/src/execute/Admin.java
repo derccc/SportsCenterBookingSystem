@@ -9,7 +9,7 @@ public class Admin implements UserRole {
 	public String showActionMenu() {
 		Scanner scanner = new Scanner(System.in);
 		String action;
-		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] add room, [p] for modify room price):");
+		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] add room, [p] for modify room type price):");
 		action = scanner.nextLine();
 		//TODO: handle invalid Command
 		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l") && !action.equals("d") && !action.equals("a") && !action.equals("p")) {

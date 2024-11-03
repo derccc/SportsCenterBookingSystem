@@ -228,7 +228,7 @@ public class SportsCenter {
 		//TODO: sorting needed for allClosingDates
 		
 		//handle those already booked bookings on closingDate
-		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		ArrayList<Booking> bookingForDay = Booking.getBookingsOfSpecificDate(allBookings, date);
 		if (bookingForDay.size()>0) {
 			//TODO: need change the booking info string
 			System.out.println("The followings are all the booking affected by the closing date, please contact all the relevant users:");
@@ -278,7 +278,7 @@ public class SportsCenter {
 	public Room checkAvailability(RoomType roomType, String date, int startTime, int endTime) {
 		
 		//TODO: if room available, return room, else return null
-		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		ArrayList<Booking> bookingForDay = Booking.getBookingsOfSpecificDate(allBookings, date);
 		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		
 		for (Room r:allRooms){
@@ -348,10 +348,17 @@ public class SportsCenter {
 		return allBookings.size() + 1;
 	}
 	
-	public void printAllRoomType (){
-		for(RoomType r: allRoomTypes){
-			System.out.println(r.printAllRoomTypeString());
+	public int printAllRoomType (){
+		if (allRoomTypes.size()>0) {
+			System.out.println("The followings are all the room type available:");
+			for(RoomType r: allRoomTypes){
+				System.out.println(r.printAllRoomTypeString());
+			}
+		} else {
+			System.out.println("No room type available.");
 		}
+		return allRoomTypes.size();
+		
 	}
 
 	public void printAllClosingDate() {

@@ -1,3 +1,1 @@
-1 Badminton 20
-2 Basketball 30
-3 Football 50
+1 badminton 30
