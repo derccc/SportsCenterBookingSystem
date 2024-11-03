@@ -43,7 +43,7 @@ public class Room {
 		return roomID + " " + roomType.getTypeID();
 	}
 
-	public void viewRoomBooking() {
+	public void viewRoomBookingCalendar() {
 		if (allBookings.size()>0) {
 			ViewBookingService viewBookingService = new ViewBookingService();
 			viewBookingService.viewBooking(allBookings);

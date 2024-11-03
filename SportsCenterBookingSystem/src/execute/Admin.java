@@ -58,7 +58,7 @@ public class Admin implements UserRole {
 					user = sportsCenter.getUserByID(userID);
 				};
 				
-				user.viewUserBooking();
+				user.viewUserBookingCalendar();
 				
 				break;
 				
@@ -72,7 +72,7 @@ public class Admin implements UserRole {
 					room = sportsCenter.getRoomByID(roomID);
 				}
 				
-				room.viewRoomBooking();
+				room.viewRoomBookingCalendar();
 				
 			    break;
 			    

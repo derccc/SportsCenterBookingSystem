@@ -149,7 +149,7 @@ public class User {
 	}
 
 	
-	public void viewUserBooking() {
+	public void viewUserBookingCalendar() {
 		if (allBookings.size()>0) {
 			ViewBookingService viewBookingService = new ViewBookingService();
 			viewBookingService.viewBooking(allBookings);
@@ -158,7 +158,7 @@ public class User {
 		}	
 	}
 
-	/*
+	
 	public int viewUserBooking() {
 		int count = 0;
 		for (Booking b: allBookings) {
@@ -176,7 +176,6 @@ public class User {
 		return count;
 		
 	}
-	*/
 
 	public void cancelUserBooking() {
     	Scanner scanner = new Scanner(System.in);
