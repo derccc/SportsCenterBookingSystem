@@ -228,7 +228,7 @@ public class SportsCenter {
 		//TODO: sorting needed for allClosingDates
 		
 		//handle those already booked bookings on closingDate
-		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		ArrayList<Booking> bookingForDay = Booking.getBookingsOfSpecificDate(allBookings, date);
 		if (bookingForDay.size()>0) {
 			//TODO: need change the booking info string
 			System.out.println("The followings are all the booking affected by the closing date, please contact all the relevant users:");
