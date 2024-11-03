@@ -278,7 +278,7 @@ public class SportsCenter {
 	public Room checkAvailability(RoomType roomType, String date, int startTime, int endTime) {
 		
 		//TODO: if room available, return room, else return null
-		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		ArrayList<Booking> bookingForDay = Booking.getBookingsOfSpecificDate(allBookings, date);
 		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		
 		for (Room r:allRooms){

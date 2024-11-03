@@ -120,7 +120,7 @@ public class Booking implements Comparable<Booking> {
 		return null;
 	}
 
-	public static ArrayList<Booking> getBoookingsOfSpecificDate(ArrayList<Booking> allBookings, String date) {
+	public static ArrayList<Booking> getBookingsOfSpecificDate(ArrayList<Booking> allBookings, String date) {
 		ArrayList<Booking> result = new ArrayList<>();
 		for (Booking b: allBookings) {
 			if (b.date.equals(date)) {
