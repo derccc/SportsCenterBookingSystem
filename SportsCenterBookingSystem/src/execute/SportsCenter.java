@@ -281,28 +281,21 @@ public class SportsCenter {
 		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
 		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		
+		for (Room r:allRooms){
+            if(r.getRoomType().getType().equals(roomType.getType())){
+                bookingOfRoomsForDay.put(r.getRoomID(), new ArrayList<Booking>());
+            }
+		}
+		
 		for (Booking b: bookingForDay) {
 			Room room = b.getRoom();
 			if(room.getRoomType().getType().equals(roomType.getType())) {
 				if (bookingOfRoomsForDay.containsKey(room.getRoomID())) {
 					bookingOfRoomsForDay.get(room.getRoomID()).add(b);
-				} else {
-					ArrayList<Booking> bookingList = new ArrayList<>();
-					bookingList.add(b);
-					bookingOfRoomsForDay.put(room.getRoomID(), bookingList);	
 				}
 			};
 			
 		}
-		
-		if (bookingForDay.isEmpty() || bookingOfRoomsForDay.isEmpty()) {
-			for (Room r:allRooms){
-                if(r.getRoomType().getType().equals(roomType.getType())){
-                    return r;
-                }
-            }
-		}
-		
 		
 	    Room bestRoom = null;
 	    int minIdleTime = Integer.MAX_VALUE;
