@@ -213,6 +213,14 @@ public class SportsCenter {
 		}
 		return false;
 	}
+	
+	public void addRoomType(RoomType roomType){
+		allRoomTypes.add(roomType);
+	}
+	
+	public void addRoom(Room room){
+		allRooms.add(room);
+	}
 
 	public void addUser(User user){
 		allUsers.add(user);
@@ -363,6 +371,13 @@ public class SportsCenter {
 	    return idleTime;
 	}
 
+	public int getNextRoomTypeID() {
+		return allRoomTypes.size() + 1;
+	}
+	
+	public int getNextRoomID() {
+		return allRooms.size() + 1;
+	}
 	
 	public int getNextBookingID() {
 		return allBookings.size() + 1;
