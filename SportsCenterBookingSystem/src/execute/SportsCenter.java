@@ -38,6 +38,10 @@ public class SportsCenter {
         }
         return INSTANCE;
     }
+	
+	public ArrayList<Booking> getAllBookings() {
+		return allBookings;
+	}
     
 	public void init() {
 		String roomTypePath = "src/execute/assets/room_type_data.txt";

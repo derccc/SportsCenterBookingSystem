@@ -44,10 +44,14 @@ public class Admin implements UserRole {
 		Scanner scanner = new Scanner(System.in);
 		String action;
 		
-		System.out.println("Please input your action ([u] for view specific user booking, [r] for view specific room booking):");
+		System.out.println("Please input your action ([a] for view all user booking, [u] for view specific user booking, [r] for view specific room booking):");
 		action = scanner.nextLine();
 		
 		switch (action) {
+			case "a":
+					ViewBookingService viewBookingService = new ViewBookingService();
+					viewBookingService.viewBooking(sportsCenter.getAllBookings());
+					break;
 			case "u":
 				System.out.println("Please input the User ID you would like to view booking for:"); //maybe all this ask for user ID can be put in a function
 				String userID = scanner.nextLine();
