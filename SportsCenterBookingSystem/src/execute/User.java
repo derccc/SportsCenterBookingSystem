@@ -92,59 +92,59 @@ public class User {
 			}
 			String[] splittedDateAndTime = dateAndTime.split(" ");
 			String date = splittedDateAndTime[0];
-			while (sportsCenter.isClosingDate(date)) {
-				System.out.printf("Sorry, the sports center will be closed on %s, please input again:\n", date);
-				dateAndTime = scanner.nextLine();
-				splittedDateAndTime = dateAndTime.split(" ");
-				date = splittedDateAndTime[0];
-			}
 			String time = splittedDateAndTime[1];
 			String[] splittedTime = time.split("-");
 			int startTime = Integer.parseInt(splittedTime[0]);
 			int endTime = Integer.parseInt(splittedTime[1]);
 			
-			//TODO: checkAvailability
-			Room room = sportsCenter.checkAvailability(roomType, date, startTime, endTime);
-			
-			if (room != null) {
-				int bookingPrice = roomType.getPrice()*DateAndTime.calculateHours(startTime, endTime);
-				System.out.printf("Room available (Price: $%d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
-				String action = scanner.nextLine();
-				while (!action.equals("Y") && !action.equals("N")) {
-	        		System.out.println("Invalid command, please input again:");
-	        		action = scanner.nextLine();
-	        	}
-				switch(action) {
-					case "Y":
-						System.out.println("Payment collected. Booking Success.");
-						int nextBookingID = sportsCenter.getNextBookingID();
-						Booking booking = new Booking(room, this.userID, date, startTime, endTime, bookingPrice, "N", String.valueOf(nextBookingID));
-						this.addBooking(booking);
-						room.addBooking(booking);
-						sportsCenter.addBooking(booking);
-						break;
-						
-					case "N":
-						break;
-				}
+			if (sportsCenter.isClosingDate(date)) {
+				System.out.printf("Sorry, the sports center will be closed on %s, please input again:\n", date);
 				
 			} else {
-				System.out.println("Sorry, the room is not available at the time you want. Would you like to book another time or room? (Y/N):");
-				String action = scanner.nextLine();
-				while (!action.equals("Y") && !action.equals("N")) {
-	        		System.out.println("Invalid command, please input again:");
-	        		action = scanner.nextLine();
-	        	}
-				switch(action) {
-	                case "Y":
-	                    makeBooking();
-	                    break;
-	                    
-	                case "N":
-	                    break;
+				
+				Room room = sportsCenter.checkAvailability(roomType, date, startTime, endTime);
+				
+				if (room != null) {
+					int bookingPrice = roomType.getPrice()*DateAndTime.calculateHours(startTime, endTime);
+					System.out.printf("Room available (Price: $%d), are you confirmed to book and pay? (Y/N):\n", bookingPrice);
+					String action = scanner.nextLine();
+					while (!action.equals("Y") && !action.equals("N")) {
+		        		System.out.println("Invalid command, please input again:");
+		        		action = scanner.nextLine();
+		        	}
+					switch(action) {
+						case "Y":
+							System.out.println("Payment collected. Booking Success.");
+							int nextBookingID = sportsCenter.getNextBookingID();
+							Booking booking = new Booking(room, this.userID, date, startTime, endTime, bookingPrice, "N", String.valueOf(nextBookingID));
+							this.addBooking(booking);
+							room.addBooking(booking);
+							sportsCenter.addBooking(booking);
+							break;
+							
+						case "N":
+							break;
+					}
+					
+				} else {
+					System.out.println("Sorry, the room is not available at the time you want. Would you like to book another time or room? (Y/N):");
+					String action = scanner.nextLine();
+					while (!action.equals("Y") && !action.equals("N")) {
+		        		System.out.println("Invalid command, please input again:");
+		        		action = scanner.nextLine();
+		        	}
+					switch(action) {
+		                case "Y":
+		                    makeBooking();
+		                    break;
+		                    
+		                case "N":
+		                    break;
+					}
 				}
 			}
-		}
+			}
+			
 		
 	}
 

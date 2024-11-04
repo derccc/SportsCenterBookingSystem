@@ -10,7 +10,7 @@ public class Room {
 	
 	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
-		this.roomType=roomType;
+		this.roomType = roomType;
 		this.allBookings = new ArrayList<>();
 	}
 	
