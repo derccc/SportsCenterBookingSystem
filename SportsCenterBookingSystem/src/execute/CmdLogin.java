@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class CmdLogin implements Command{
 
 	@Override
-	public void execute() {
+	public void execute(Scanner scanner) {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("Please input your User ID:");
     	String userID = scanner.nextLine();

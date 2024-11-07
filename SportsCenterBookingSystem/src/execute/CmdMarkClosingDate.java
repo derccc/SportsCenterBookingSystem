@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class CmdMarkClosingDate implements Command{
 
 	@Override
-	public void execute() {
+	public void execute(Scanner scanner) {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("Please input the Date you would like to mark closing (format: yyMMdd (e.g.241001)):");
 		String date = scanner.nextLine();

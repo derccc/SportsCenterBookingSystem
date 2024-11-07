@@ -41,22 +41,22 @@ public class User {
         return null;
     }
 
-	public String showActionMenu(){
-        String action = userRole.showActionMenu();
+	public String showActionMenu(Scanner scanner){
+        String action = userRole.showActionMenu(scanner);
         return action;
 		
 	}
 	
-	public void makeBooking() {
-		userRole.makeBooking();
+	public void makeBooking(Scanner scanner) {
+		userRole.makeBooking(scanner);
 	}
 	
-	public void viewBooking(){
-		userRole.viewBooking();
+	public void viewBooking(Scanner scanner){
+		userRole.viewBooking(scanner);
     }
 
-	public void cancelBooking() {
-		userRole.cancelBooking();
+	public void cancelBooking(Scanner scanner) {
+		userRole.cancelBooking(scanner);
 	}
 	
 	public void addBooking(Booking booking) {
@@ -64,9 +64,9 @@ public class User {
 		Collections.sort(allBookings);
 	}
 	
-	public void makeUserBooking() {
+	public void makeUserBooking(Scanner scanner) {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-    	Scanner scanner = new Scanner(System.in);
+    	//Scanner scanner = new Scanner(System.in);
     	
     	sportsCenter.printAllClosingDate();
     	
@@ -135,7 +135,7 @@ public class User {
 		        	}
 					switch(action) {
 		                case "Y":
-		                    makeBooking();
+		                    makeBooking(scanner);
 		                    break;
 		                    
 		                case "N":
@@ -149,10 +149,10 @@ public class User {
 	}
 
 	
-	public void viewUserBookingCalendar() {
+	public void viewUserBookingCalendar(Scanner scanner) {
 		if (allBookings.size()>0) {
 			ViewBookingService viewBookingService = new ViewBookingService();
-			viewBookingService.viewBooking(allBookings);
+			viewBookingService.viewBooking(allBookings, scanner);
 		} else {
 			System.out.println("No booking records.");
 		}	
@@ -177,8 +177,8 @@ public class User {
 		
 	}
 
-	public void cancelUserBooking() {
-    	Scanner scanner = new Scanner(System.in);
+	public void cancelUserBooking(Scanner scanner) {
+    	//Scanner scanner = new Scanner(System.in);
     	
     	int bookingCount = this.viewUserBooking();
     	

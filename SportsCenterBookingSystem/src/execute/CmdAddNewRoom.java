@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class CmdAddNewRoom implements Command{
 
 	@Override
-	public void execute() {
+	public void execute(Scanner scanner) {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-    	Scanner scanner = new Scanner(System.in);
+    	//Scanner scanner = new Scanner(System.in);
     	String action;
     	
     	int roomTypeCount = sportsCenter.printAllRoomType();
