@@ -24,13 +24,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class AdminTest {
-	/*
+	
+	
+	
 	 @Test
 	    public void testShowActionMenu_InputM() {
 	        Admin admin = new Admin();
 	        InputStream in = new ByteArrayInputStream("m\n".getBytes());
 	        System.setIn(in); 
-	        assertEquals("m", admin.showActionMenu());
+	        Scanner scanner = new Scanner(System.in);
+	        assertEquals("m", admin.showActionMenu(scanner));
 	    }
 
 	    @Test
@@ -38,7 +41,8 @@ public class AdminTest {
 	        Admin admin = new Admin();
 	        InputStream in = new ByteArrayInputStream("v\n".getBytes());
 	        System.setIn(in); 
-	        assertEquals("v", admin.showActionMenu());
+	        Scanner scanner = new Scanner(System.in);
+	        assertEquals("v", admin.showActionMenu(scanner));
 	    }
 
 	    @Test
@@ -46,7 +50,8 @@ public class AdminTest {
 	        Admin admin = new Admin();
 	        InputStream in = new ByteArrayInputStream("c\n".getBytes());
 	        System.setIn(in); 
-	        assertEquals("c", admin.showActionMenu());
+	        Scanner scanner = new Scanner(System.in);
+	        assertEquals("c", admin.showActionMenu(scanner));
 	    }
 	    //do not know exception yet,maybe write the 4th test for exception?
 	    
@@ -57,14 +62,16 @@ public class AdminTest {
 	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
 
-	        String input = "001\n"; 
+	        String input = "001\n1\n201129 13-15\nY\n"; 
 	        InputStream in = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(in); 
-	        boolean result = admin.makeBooking();
+	        Scanner scanner = new Scanner(System.in);
+	        boolean result = admin.makeBooking(scanner);
 
-	        Assert.assertEquals(false, result);
+	        Assert.assertEquals(true, result);
 
 	    }
+	    
 	    
 	    @Test
 	    public void testMakeBooking_Null() {
@@ -73,15 +80,16 @@ public class AdminTest {
 	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
 
-	        String input = "002\n001\n"; 
+	        String input = "002\n001\n1\n201129 13-15\nN\n"; 
 	        InputStream in = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(in); 
-	        boolean result = admin.makeBooking();
+	        Scanner scanner = new Scanner(System.in);
+	        boolean result = admin.makeBooking(scanner);
 
 	        Assert.assertEquals(false, result);
 	        }
 	        
-	    */
+	    
 	    @Test
 	    public void testViewBooking_AllBookings() {
 	        // 设置测试环境
@@ -97,7 +105,8 @@ public class AdminTest {
 	        // 调用viewBooking方法
 	        Admin admin = new Admin();
 	        ViewBookingService viewBookingService = new ViewBookingService();
-	        admin.viewBooking();
+	        Scanner scanner = new Scanner(System.in);
+	        admin.viewBooking(scanner);
 
 	        // 验证输出
 	        String expectedOutput = "Today is: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH)) + "\n";
