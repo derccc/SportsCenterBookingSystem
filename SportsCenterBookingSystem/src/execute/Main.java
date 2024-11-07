@@ -5,13 +5,14 @@ import java.util.Scanner;
 public class Main {
 
 	private static User currentUser = null;
+	public static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		System.out.println("Welcome to the Sports Centre Booking System!");
         
 		boolean isExit = false;
-		Scanner scanner = new Scanner(System.in);
+		
 		String action;
         
         while (!isExit) {
@@ -24,11 +25,11 @@ public class Main {
         			
         			switch(action) {
 	        			case "r":
-	        				(new CmdRegisterAccount()).execute();
+	        				(new CmdRegisterAccount()).execute(scanner);
 	        				break;
 	        				
 	        			case "l":
-	        				(new CmdLogin()).execute();
+	        				(new CmdLogin()).execute(scanner);
 	        				break;
 	        				
 	        			case "e":
@@ -42,35 +43,35 @@ public class Main {
         			
         		}
         		else {
-        			action = currentUser.showActionMenu();
+        			action = currentUser.showActionMenu(scanner);
         			
         	        switch (action){
 	        	        case "m":
-	        	        	(new CmdMakeBooking()).execute();
+	        	        	(new CmdMakeBooking()).execute(scanner);
 	        	            break;
 	                
 	        	        case "v":
-	        	        	(new CmdViewBooking()).execute();
+	        	        	(new CmdViewBooking()).execute(scanner);
 	        	            break;
 	        	
 	        	        case "c":
-	        	            (new CmdCancelBooking()).execute();
+	        	            (new CmdCancelBooking()).execute(scanner);
 	        	            break;
 	        	            
 	        	        case "l":
-	        	        	(new CmdLogout()).execute();
+	        	        	(new CmdLogout()).execute(scanner);
 	        	            break;
 	        	            
 	        	        case "d":
-	        	        	(new CmdMarkClosingDate()).execute();
+	        	        	(new CmdMarkClosingDate()).execute(scanner);
 	        	        	break;
 	        	        	
 	        	        case "a":
-	        	        	(new CmdAddNewRoom()).execute();
+	        	        	(new CmdAddNewRoom()).execute(scanner);
 	        	        	break;
 	        	        
 	        	        case "p":
-	        	        	(new CmdModifyRoomTypePrice()).execute();
+	        	        	(new CmdModifyRoomTypePrice()).execute(scanner);
 	        	        	break;
 	        	            
 	        			default:
