@@ -25,17 +25,19 @@ public class ViewBookingService {
 	
 	public void viewBooking(ArrayList<Booking> allBookings) {
 		yearMap = makeMap(allBookings);
-		printMap(yearMap);
+		//printMap(yearMap);
 		
 		String action="";
 		printCalendar();
+		Scanner scanner = new Scanner(System.in);
+		boolean isPrintMenu=true;
 		
-		do {
+		while (!action.equals("q")) {
 			
 			
-			printMenu();
+			if(isPrintMenu) {printMenu();}
 			
-			Scanner scanner = new Scanner(System.in);
+			
 			
 			action = scanner.nextLine();
 			
@@ -43,11 +45,13 @@ public class ViewBookingService {
 				case "p":
 					viewingDate=viewingDate.minusMonths(1);
 					printCalendar();
+					isPrintMenu=true;
 					break;
 				
 				case "n":
 					viewingDate=viewingDate.plusMonths(1);
 					printCalendar();
+					isPrintMenu=true;
 					break;
 				
 				case "s":
@@ -57,22 +61,32 @@ public class ViewBookingService {
 				
 					viewingDate= LocalDate.of(newYear, newMonth, 1);
 					printCalendar();
+					isPrintMenu=true;
 					break;
 				case "t":
 					viewingDate = currentDate;
 					printCalendar();
+					isPrintMenu=true;
 					break;
 				case "q":
+					isPrintMenu=false;
+					break;
+					
+				case "":
+					isPrintMenu=false;
 					break;
 				default:
 					System.out.println("Invalid command");
+					isPrintMenu=false;
 					break;
 			}
 			
+
+			
+		
 		}
-		while (!action.equals("q"));
 		
-		
+		//scanner.close();
 		
 	}
 	
@@ -164,6 +178,9 @@ public class ViewBookingService {
 		int firstYear = yearMap.firstKey();
 		int lastYear = yearMap.lastKey();
 		
+
+		
+		if (lastYear<viewingYear) {lastYear=viewingYear;}
 		
 		
 		for(int year=firstYear; year<=lastYear; year++) {
