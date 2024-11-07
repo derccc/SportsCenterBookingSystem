@@ -48,4 +48,6 @@ public class RoomType {
 		//TypeID Type Price
 		return typeID + " " + type + " " + price;
 	}
+
+	
 }

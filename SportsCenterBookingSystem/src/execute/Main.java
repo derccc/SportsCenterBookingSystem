@@ -64,6 +64,14 @@ public class Main {
 	        	        case "d":
 	        	        	(new CmdMarkClosingDate()).execute();
 	        	        	break;
+	        	        	
+	        	        case "a":
+	        	        	(new CmdAddNewRoom()).execute();
+	        	        	break;
+	        	        
+	        	        case "p":
+	        	        	(new CmdModifyRoomTypePrice()).execute();
+	        	        	break;
 	        	            
 	        			default:
 	        				throw new ExInvalidCommand();

@@ -38,9 +38,13 @@ public class SportsCenter {
         }
         return INSTANCE;
     }
+	
+	public ArrayList<Booking> getAllBookings() {
+		return allBookings;
+	}
     
 	public void init() {
-		String roomTypePath = "src/execute/assets/room_type.txt";
+		String roomTypePath = "src/execute/assets/room_type_data.txt";
 		String roomPath = "src/execute/assets/room_data.txt";
 		String userPath = "src/execute/assets/user_data.txt";
 		String bookingPath = "src/execute/assets/booking_data.txt";
@@ -180,7 +184,7 @@ public class SportsCenter {
                 allClosingDates.add(date);
             }
             
-            System.out.println("Finished loading users.");
+            System.out.println("Finished loading closing dates.");
             scanner.close();
 
         } catch (FileNotFoundException e) {
@@ -204,6 +208,23 @@ public class SportsCenter {
 	public Booking getBookingByID(String bookingID) {
 		return Booking.getBookingByID(allBookings, bookingID);
 	}
+	
+	public boolean isClosingDate(String date) {
+		for (String d: allClosingDates) {
+			if (d.equals(date)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addRoomType(RoomType roomType){
+		allRoomTypes.add(roomType);
+	}
+	
+	public void addRoom(Room room){
+		allRooms.add(room);
+	}
 
 	public void addUser(User user){
 		allUsers.add(user);
@@ -216,29 +237,48 @@ public class SportsCenter {
 	
 	public void addClosingDate(String date) {
 		allClosingDates.add(date);
-		//TODO:Collections.sort();
-		String closingDatePath = "src/execute/assets/closing_date_data.txt";
-		try {
-			File file = new File(closingDatePath);
-			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write(date + "\n");
-			fileWriter.close();
-
-		} catch (IOException e) {
-			System.out.println("IO error");
+		//TODO: sorting needed for allClosingDates
+		
+		//handle those already booked bookings on closingDate
+		ArrayList<Booking> bookingForDay = Booking.getBookingsOfSpecificDate(allBookings, date);
+		if (bookingForDay.size()>0) {
+			//TODO: need change the booking info string
+			System.out.println("The followings are all the booking affected by the closing date, please contact all the relevant users:");
+			for (Booking b: bookingForDay) {
+				if (!b.getIsCancelled()) {
+					System.out.println(b);
+					b.cancelBookingByClosingDate();
+				}
+			}
 		}
-	}
-	
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-		Collections.sort(allBookings);
+		
 	}
 	
 	public void saveData() {
+		String roomTypePath = "src/execute/assets/room_type_data.txt";
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(roomTypePath))) {
+	        for (RoomType r: allRoomTypes) {
+	            writer.write(r.toString());
+	            writer.newLine();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    String roomPath = "src/execute/assets/room_data.txt";
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(roomPath))) {
+	        for (Room r: allRooms) {
+	            writer.write(r.toString());
+	            writer.newLine();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		
 		String userPath = "src/execute/assets/user_data.txt";
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(userPath))) {
-            for (User user : allUsers) {
-                writer.write(user.toString());
+            for (User u: allUsers) {
+                writer.write(u.toString());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -247,27 +287,35 @@ public class SportsCenter {
 		
 	    String bookingPath = "src/execute/assets/booking_data.txt";
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(bookingPath))) {
-	        for (Booking booking : allBookings) {
-	            writer.write(booking.toString());
+	        for (Booking b: allBookings) {
+	            writer.write(b.toString());
 	            writer.newLine();
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
 	    
+	    String closingDatePath = "src/execute/assets/closing_date_data.txt";
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(closingDatePath))) {
+			for (String d: allClosingDates) {
+				writer.write(d);
+				writer.newLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    
 	}
 
 	public Room checkAvailability(RoomType roomType, String date, int startTime, int endTime) {
 		
 		//TODO: if room available, return room, else return null
-		ArrayList<Booking> bookingForDay = Booking.getBoookingsOfSpecificDate(allBookings, date);
+		ArrayList<Booking> bookingForDay = Booking.getBookingsOfSpecificDate(allBookings, date);
 		Map<String, ArrayList<Booking>> bookingOfRoomsForDay = new HashMap<String, ArrayList<Booking>>();
 		
-		if (bookingForDay.isEmpty() || bookingOfRoomsForDay.isEmpty()) {
-			for (Room r:allRooms){
-                if(r.getRoomType().getType().equals(roomType.getType())){
-                    return r;
-                }
+		for (Room r:allRooms){
+            if(r.getRoomType().getType().equals(roomType.getType())){
+                bookingOfRoomsForDay.put(r.getRoomID(), new ArrayList<Booking>());
             }
 		}
 		
@@ -276,15 +324,10 @@ public class SportsCenter {
 			if(room.getRoomType().getType().equals(roomType.getType())) {
 				if (bookingOfRoomsForDay.containsKey(room.getRoomID())) {
 					bookingOfRoomsForDay.get(room.getRoomID()).add(b);
-				} else {
-					ArrayList<Booking> bookingList = new ArrayList<>();
-					bookingList.add(b);
-					bookingOfRoomsForDay.put(room.getRoomID(), bookingList);	
 				}
 			};
 			
 		}
-		
 		
 	    Room bestRoom = null;
 	    int minIdleTime = Integer.MAX_VALUE;
@@ -332,16 +375,43 @@ public class SportsCenter {
 	    return idleTime;
 	}
 
+	public int getNextRoomTypeID() {
+		return allRoomTypes.size() + 1;
+	}
+	
+	public int getNextRoomID() {
+		return allRooms.size() + 1;
+	}
 	
 	public int getNextBookingID() {
 		return allBookings.size() + 1;
 	}
 	
-	public void printAllRoomType (){
-		for(RoomType r: allRoomTypes){
-			System.out.println(r.printAllRoomTypeString());
+	public int printAllRoomType (){
+		if (allRoomTypes.size()>0) {
+			System.out.println("The followings are all the room type available:");
+			for(RoomType r: allRoomTypes){
+				System.out.println(r.printAllRoomTypeString());
+			}
+		} else {
+			System.out.println("No room type available.");
 		}
+		return allRoomTypes.size();
+		
 	}
+
+	public void printAllClosingDate() {
+		if (allClosingDates.size()>0) {
+			System.out.println("Notice:\nThe followings are all closing date of the sports center:");
+			for (String d: allClosingDates) {
+				System.out.println(d);
+			}
+		}
+		
+		
+	}
+
+	
 
 	
 }

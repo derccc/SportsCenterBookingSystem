@@ -9,10 +9,10 @@ public class Admin implements UserRole {
 	public String showActionMenu() {
 		Scanner scanner = new Scanner(System.in);
 		String action;
-		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center):");
+		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] add room, [p] for modify room type price):");
 		action = scanner.nextLine();
 		//TODO: handle invalid Command
-		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l") && !action.equals("d")) {
+		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l") && !action.equals("d") && !action.equals("a") && !action.equals("p")) {
 			// throw new ExInvalidCommand();
 		}
 		
@@ -44,10 +44,14 @@ public class Admin implements UserRole {
 		Scanner scanner = new Scanner(System.in);
 		String action;
 		
-		System.out.println("Please input your action ([u] for view specific user booking, [r] for view specific room booking):");
+		System.out.println("Please input your action ([a] for view all user booking, [u] for view specific user booking, [r] for view specific room booking):");
 		action = scanner.nextLine();
 		
 		switch (action) {
+			case "a":
+					ViewBookingService viewBookingService = new ViewBookingService();
+					viewBookingService.viewBooking(sportsCenter.getAllBookings());
+					break;
 			case "u":
 				System.out.println("Please input the User ID you would like to view booking for:"); //maybe all this ask for user ID can be put in a function
 				String userID = scanner.nextLine();
@@ -58,7 +62,7 @@ public class Admin implements UserRole {
 					user = sportsCenter.getUserByID(userID);
 				};
 				
-				user.viewUserBooking();
+				user.viewUserBookingCalendar();
 				
 				break;
 				
@@ -72,7 +76,7 @@ public class Admin implements UserRole {
 					room = sportsCenter.getRoomByID(roomID);
 				}
 				
-				room.viewRoomBooking();
+				room.viewRoomBookingCalendar();
 				
 			    break;
 			    

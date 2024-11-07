@@ -10,7 +10,7 @@ public class Room {
 	
 	public Room(String roomID, RoomType roomType) {
 		this.roomID = roomID;
-		this.roomType=roomType;
+		this.roomType = roomType;
 		this.allBookings = new ArrayList<>();
 	}
 	
@@ -37,32 +37,36 @@ public class Room {
 		allBookings.add(booking);
 		Collections.sort(allBookings);
 	}
-
-	/*
-	public void removeBooking(Booking booking) {
-		allBookings.remove(booking);
-	}
-	*/
 	
 	public String toString(){
 		//roomID roomTypeID
-		return roomID + " " + roomType.getType();
+		return roomID + " " + roomType.getTypeID();
 	}
 
-	public void viewRoomBooking() {
+	public void viewRoomBookingCalendar() {
 		if (allBookings.size()>0) {
-			/*
-			System.out.println("The followings are all the booking:");
-			for (Booking b: allBookings) {
-				if (!b.getIsCancelled()) {
-					System.out.println(b.viewRoomBookingString());
-				}
-			}
-			*/
 			ViewBookingService viewBookingService = new ViewBookingService();
 			viewBookingService.viewBooking(allBookings);
 		} else {
 			System.out.println("No booking records.");
 		}
 	}
+	
+	/*
+	public void viewRoomBooking() {
+		int count = 0;
+		for (Booking b: allBookings) {
+			if (!b.getIsCancelled()) {
+				if (count==0) {
+					System.out.println("The followings are all the booking:");
+				}
+				System.out.println(b.viewRoomBookingString());
+				count++;
+			}
+		}
+		if (count==0) {
+			System.out.println("No booking records.");
+		}
+	}
+	*/
 }
