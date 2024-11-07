@@ -1,13 +1,11 @@
 package execute;
 
-import java.util.Scanner;
-
 public class CmdCancelBooking implements Command{
 
 	@Override
-	public void execute(Scanner scanner) {
+	public void execute() {
 		User currentUser = Main.getCurrentUser();
-		currentUser.cancelBooking(scanner);
+		currentUser.cancelBooking();
 	}
 
 }

@@ -2,7 +2,6 @@ package execute;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Room {
 	private String roomID;
@@ -44,10 +43,10 @@ public class Room {
 		return roomID + " " + roomType.getTypeID();
 	}
 
-	public void viewRoomBookingCalendar(Scanner scanner) {
+	public void viewRoomBookingCalendar() {
 		if (allBookings.size()>0) {
 			ViewBookingService viewBookingService = new ViewBookingService();
-			viewBookingService.viewBooking(allBookings, scanner);
+			viewBookingService.viewBooking(allBookings);
 		} else {
 			System.out.println("No booking records.");
 		}

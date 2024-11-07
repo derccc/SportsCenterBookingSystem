@@ -23,13 +23,13 @@ public class ViewBookingService {
 		
 	}
 	
-	public void viewBooking(ArrayList<Booking> allBookings,Scanner scanner) {
+	public void viewBooking(ArrayList<Booking> allBookings) {
 		yearMap = makeMap(allBookings);
 		//printMap(yearMap);
 		
 		String action="";
 		printCalendar();
-		//Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		boolean isPrintMenu=true;
 		
 		while (!action.equals("q")) {

@@ -5,14 +5,13 @@ import java.util.Scanner;
 public class Main {
 
 	private static User currentUser = null;
-	public static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		System.out.println("Welcome to the Sports Centre Booking System!");
         
 		boolean isExit = false;
-		
+		Scanner scanner = new Scanner(System.in);
 		String action;
         
         while (!isExit) {
@@ -25,11 +24,11 @@ public class Main {
         			
         			switch(action) {
 	        			case "r":
-	        				(new CmdRegisterAccount()).execute(scanner);
+	        				(new CmdRegisterAccount()).execute();
 	        				break;
 	        				
 	        			case "l":
-	        				(new CmdLogin()).execute(scanner);
+	        				(new CmdLogin()).execute();
 	        				break;
 	        				
 	        			case "e":
@@ -43,35 +42,35 @@ public class Main {
         			
         		}
         		else {
-        			action = currentUser.showActionMenu(scanner);
+        			action = currentUser.showActionMenu();
         			
         	        switch (action){
 	        	        case "m":
-	        	        	(new CmdMakeBooking()).execute(scanner);
+	        	        	(new CmdMakeBooking()).execute();
 	        	            break;
 	                
 	        	        case "v":
-	        	        	(new CmdViewBooking()).execute(scanner);
+	        	        	(new CmdViewBooking()).execute();
 	        	            break;
 	        	
 	        	        case "c":
-	        	            (new CmdCancelBooking()).execute(scanner);
+	        	            (new CmdCancelBooking()).execute();
 	        	            break;
 	        	            
 	        	        case "l":
-	        	        	(new CmdLogout()).execute(scanner);
+	        	        	(new CmdLogout()).execute();
 	        	            break;
 	        	            
 	        	        case "d":
-	        	        	(new CmdMarkClosingDate()).execute(scanner);
+	        	        	(new CmdMarkClosingDate()).execute();
 	        	        	break;
 	        	        	
 	        	        case "a":
-	        	        	(new CmdAddNewRoom()).execute(scanner);
+	        	        	(new CmdAddNewRoom()).execute();
 	        	        	break;
 	        	        
 	        	        case "p":
-	        	        	(new CmdModifyRoomTypePrice()).execute(scanner);
+	        	        	(new CmdModifyRoomTypePrice()).execute();
 	        	        	break;
 	        	            
 	        			default:

@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Admin implements UserRole {
 	
 	@Override
-	public String showActionMenu(Scanner scanner) {
-		//Scanner scanner = new Scanner(System.in);
+	public String showActionMenu() {
+		Scanner scanner = new Scanner(System.in);
 		String action;
 		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] add room, [p] for modify room type price):");
 		action = scanner.nextLine();
@@ -20,9 +20,9 @@ public class Admin implements UserRole {
 	}
 	
 	@Override
-    public boolean makeBooking(Scanner scanner) {
+    public boolean makeBooking() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-    	//Scanner scanner = new Scanner(System.in);
+    	Scanner scanner = new Scanner(System.in);
     	
     	System.out.println("Please input the User ID you would like to make booking for:");
     	String userID = scanner.nextLine();
@@ -33,15 +33,15 @@ public class Admin implements UserRole {
 			user = sportsCenter.getUserByID(userID);
 		};
 		
-		user.makeUserBooking(scanner);
+		user.makeUserBooking();
 		
         return false; 
     }
 	
 	@Override
-	public void viewBooking(Scanner scanner) {
+	public void viewBooking() {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
-		//Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		String action;
 		
 		System.out.println("Please input your action ([a] for view all user booking, [u] for view specific user booking, [r] for view specific room booking):");
@@ -50,7 +50,7 @@ public class Admin implements UserRole {
 		switch (action) {
 			case "a":
 					ViewBookingService viewBookingService = new ViewBookingService();
-					viewBookingService.viewBooking(sportsCenter.getAllBookings(), scanner);
+					viewBookingService.viewBooking(sportsCenter.getAllBookings());
 					break;
 			case "u":
 				System.out.println("Please input the User ID you would like to view booking for:"); //maybe all this ask for user ID can be put in a function
@@ -62,7 +62,7 @@ public class Admin implements UserRole {
 					user = sportsCenter.getUserByID(userID);
 				};
 				
-				user.viewUserBookingCalendar(scanner);
+				user.viewUserBookingCalendar();
 				
 				break;
 				
@@ -76,7 +76,7 @@ public class Admin implements UserRole {
 					room = sportsCenter.getRoomByID(roomID);
 				}
 				
-				room.viewRoomBookingCalendar(scanner);
+				room.viewRoomBookingCalendar();
 				
 			    break;
 			    
@@ -89,9 +89,9 @@ public class Admin implements UserRole {
     }
 
     @Override
-    public boolean cancelBooking(Scanner scanner) {
+    public boolean cancelBooking() {
     	SportsCenter sportsCenter = SportsCenter.getInstance();
-    	//Scanner scanner = new Scanner(System.in);
+    	Scanner scanner = new Scanner(System.in);
     	
     	System.out.println("Please input the User ID you would like to cancel booking for:");
     	String userID = scanner.nextLine();
@@ -103,7 +103,7 @@ public class Admin implements UserRole {
 			user = sportsCenter.getUserByID(userID);
 		};
 		
-		user.cancelUserBooking(scanner);
+		user.cancelUserBooking();
 		
         return false;
     }
