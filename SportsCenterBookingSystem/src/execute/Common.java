@@ -28,7 +28,7 @@ public class Common {
             input = scanner.nextLine().trim();
             // Check if the input matches any of the valid commands
             for (String validCommand : validCommands) {
-                if (input.equalsIgnoreCase(validCommand)) {
+                if (input.equals(validCommand)) {
                     return input;
                 }
             }
