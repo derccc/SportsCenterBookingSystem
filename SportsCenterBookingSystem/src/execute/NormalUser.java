@@ -22,9 +22,9 @@ public class NormalUser implements UserRole {
 	@Override
     public boolean makeBooking(Scanner scanner) {
 		User user = Main.getCurrentUser();
-		user.makeUserBooking(scanner);
+		return user.makeUserBooking(scanner);
 		
-		return false;
+
     }
 
     @Override

@@ -33,9 +33,9 @@ public class Admin implements UserRole {
 			user = sportsCenter.getUserByID(userID);
 		};
 		
-		user.makeUserBooking(scanner);
+		return user.makeUserBooking(scanner);
 		
-        return false; 
+
     }
 	
 	@Override
