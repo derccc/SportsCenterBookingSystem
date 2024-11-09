@@ -25,7 +25,7 @@ public class CmdAddNewRoom implements Command{
             case "t":
             	//TODO: may need state only one word name is allowed?
             	System.out.println("Please input the new Room Type Name and its Price (format: badminton 40):");
-            	String roomTypeNameAndPrice = scanner.nextLine();
+            	String roomTypeNameAndPrice = Common.getValidRoomTypeAndPrice(scanner);
             	String[] splittedRoomTypeNameAndPrice = roomTypeNameAndPrice.split(" ");
             	String roomTypeName = splittedRoomTypeNameAndPrice[0];
             	int roomTypePrice = Integer.parseInt(splittedRoomTypeNameAndPrice[1]);
@@ -42,11 +42,11 @@ public class CmdAddNewRoom implements Command{
             	
             case "r":
             	System.out.println("Please input the Room Type ID you would like to add room to:");
-            	String roomTypeID = scanner.nextLine();
+            	String roomTypeID = scanner.nextLine().trim();
             	roomType = sportsCenter.getRoomTypeByID(roomTypeID);
     			while (roomType == null) {
     				System.out.println("Room Type ID not found, please input again:");
-    				roomTypeID = scanner.nextLine();
+    				roomTypeID = scanner.nextLine().trim();
     				roomType = sportsCenter.getRoomTypeByID(roomTypeID);
     			}
             	nextRoomID = sportsCenter.getNextRoomID();

@@ -98,7 +98,7 @@ public class AdminTest {
 	        sportsCenter.addBooking(new Booking(new Room("101", new RoomType("001", "Badminton", 10)), "001", "20240520", 10, 12, 100, "N", "BK001"));
 
 	        // 模拟用户输入选择查看所有预订
-	        String input = "a\nq\nt\n";
+	        String input = "a\n";
 	        ByteArrayInputStream inContent = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(inContent);
 

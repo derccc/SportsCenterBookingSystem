@@ -16,21 +16,21 @@ public class CmdRegisterAccount implements Command {
 
 	
 	    System.out.println("Please input your User ID:");
-	    String userID = scanner.nextLine();
+	    String userID = Common.getValidInputLength(scanner, Common.InputType.USERID, 1);
 	    User user = sportsCenter.getUserByID(userID);
 	    while (user != null) {
 			System.out.println("This User ID is not available, please input again:");
-			userID = scanner.nextLine();
+			userID = Common.getValidInputLength(scanner, Common.InputType.USERID, 1);
 			user = sportsCenter.getUserByID(userID);
 		};
 	
 	    System.out.println("Please input your Password:");
-	    String userPassword = scanner.nextLine();
+	    String userPassword = Common.getValidInputLength(scanner, Common.InputType.PASSWORD, 1);
 	    System.out.println("Please input your Password again:");
-        String userPassword2 = scanner.nextLine();
+        String userPassword2 = scanner.nextLine().trim();
 	    while (!userPassword.equals(userPassword2)){
 	    	System.out.println("Passwords do not match, please input again:");
-	    	userPassword2 = scanner.nextLine();
+	    	userPassword2 = scanner.nextLine().trim();
 	    }
 	    
 	    user = new User(userID, userRole, userPassword);

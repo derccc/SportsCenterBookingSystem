@@ -10,7 +10,9 @@ public class Common {
 		COMMAND("command"),
         DATE("date"),
         USERROLE("user role"),
-        PRICE("price");
+        PRICE("price"),
+        PASSWORD("password"),
+        USERID("user id");
 		
 		private String name;
 
@@ -95,6 +97,39 @@ public class Common {
         }
     }
 
+    public static String getValidRoomTypeAndPrice(Scanner scanner) {
+
+        String message = "";
+        int price;
+
+        while (true) {
+
+            String input = scanner.nextLine().trim();
+            String[] splitInput = input.split("\\s+"); // Split input by spaces
+
+            if (splitInput.length != 2) {
+                message = "Input does not match the format";
+            } else if (!splitInput[1].matches("-?\\d+")) {
+                message = "Price must be numeric";
+            } else {
+                try {
+
+                    price = Integer.parseInt(splitInput[1]);
+
+                    if(price<=0){message = "Price must be larger than zero";}
+                    else{return input;} // Valid year and month}
+                        
+                    
+                } catch (NumberFormatException e) {
+                    message = "Error parsing input as numbers";
+                }
+            }
+
+            System.out.printf("%s, please input again.\n", message);
+        }
+    }
+
+
 
     public static int getValidPositiveNumber(Scanner scanner, InputType type) {
         String input;
@@ -123,7 +158,18 @@ public class Common {
         }
     }
     
+    public static String getValidInputLength(Scanner scanner, InputType type, int length) {
+        String input;
+        while (true) {
+            input = scanner.nextLine().trim();
 
+            if (input.length()>=length) {
+                return input;
+            }
+            
+            System.out.printf("The %s length should not be less than %d digits.\n", type.getName(), length);
+        }
+    }
 
 	
 	public static String formatDate(String orginalDate) {
