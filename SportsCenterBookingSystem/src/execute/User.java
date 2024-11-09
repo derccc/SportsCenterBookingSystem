@@ -105,7 +105,8 @@ public class User {
 				int endTime = Integer.parseInt(splittedTime[1]);
 
 				if (sportsCenter.isClosingDate(date)) {
-					System.out.printf("Sorry, the sports center will be closed on %s\n", date);
+					String formatDate = Common.formatDate(date);
+					System.out.printf("Sorry, the sports center will be closed on %s\n", formatDate);
 					throw new ExBookingFailed(ExBookingFailed.FailReason.CLOSEDATE);
 
 				} else {
@@ -130,6 +131,11 @@ public class User {
 							this.addBooking(booking);
 							room.addBooking(booking);
 							sportsCenter.addBooking(booking);
+							
+							
+							booking.printDetail();
+							
+							
 							isBookingSuccess = true;
 							break;
 

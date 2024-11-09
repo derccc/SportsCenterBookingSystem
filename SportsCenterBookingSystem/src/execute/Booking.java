@@ -157,6 +157,20 @@ public class Booking implements Comparable<Booking> {
 		}
 	}
 
+	public void printDetail() {
+		System.out.println("—————————————————————————");
+		System.out.println("Booking detail:");
+		System.out.println("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+		System.out.println("Booking ID: "+bookingID);
+		System.out.println("User ID: "+userID);
+		System.out.println("Room Type: "+room.getRoomType().getType());
+		System.out.println("Room ID: "+room.getRoomID());
+		System.out.println("Date: "+Common.formatDate(date));
+		System.out.println("Time: "+startTime+" - "+ endTime);
+		System.out.println("—————————————————————————");
+		System.out.println("");
+	}
+
 	
 
 	

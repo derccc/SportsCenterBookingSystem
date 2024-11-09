@@ -404,7 +404,8 @@ public class SportsCenter {
 		if (allClosingDates.size()>0) {
 			System.out.println("Notice:\nThe followings are all closing date of the sports center:");
 			for (String d: allClosingDates) {
-				System.out.println(d);
+				String formatDate = Common.formatDate(d);
+				System.out.println(formatDate);
 			}
 		}
 		
