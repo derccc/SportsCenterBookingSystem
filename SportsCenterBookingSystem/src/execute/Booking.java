@@ -61,30 +61,6 @@ public class Booking implements Comparable<Booking> {
 		return false;
 	}
 	
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-	
-//	public void setUserID(String UserID) {
-//		this.UserID = UserID;
-//	}
-	
-	public void setDate(String date) {
-		this.date = date;
-	}
-	
-//	public void setBookingID(String bookingID) {
-//		this.bookingID = bookingID;
-//	}
-	
-	public void setStartTime(int startTime) {
-		this.startTime = startTime;
-	}
-	
-	public void setEndTime(int endTime) {
-		this.endTime = endTime;
-	}
-	
 	public void cancelBookingByUser() {
 		this.isCancelled = "Y";
 		this.pricePaid = pricePaid/2;
