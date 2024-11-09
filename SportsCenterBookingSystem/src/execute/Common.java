@@ -30,7 +30,7 @@ public class Common {
             input = scanner.nextLine().trim();
             // Check if the input matches any of the valid commands
             for (String validCommand : validCommands) {
-                if (input.equals(validCommand)) {
+                if (input.equalsIgnoreCase(validCommand)) {
                     return input;
                 }
             }

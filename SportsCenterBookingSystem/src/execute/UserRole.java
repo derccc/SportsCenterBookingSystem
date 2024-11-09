@@ -7,9 +7,9 @@ public interface UserRole {
 	
 	public static UserRole getUserRoleByChar(String userRole) {
         switch(userRole){
-            case "A":
+            case "A","a":
                 return new Admin();
-            case "N":
+            case "N","n":
                 return new NormalUser();
         }
         return null;
