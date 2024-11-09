@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class NormalUser implements UserRole {
 	
 	@Override
-	public String showActionMenu() {
-		Scanner scanner = new Scanner(System.in);
+	public String showActionMenu(Scanner scanner) {
+		//Scanner scanner = new Scanner(System.in);
 		String action;
 		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
 		action = scanner.nextLine();
@@ -20,23 +20,23 @@ public class NormalUser implements UserRole {
 	}
 	
 	@Override
-    public boolean makeBooking() {
+    public boolean makeBooking(Scanner scanner) {
 		User user = Main.getCurrentUser();
-		user.makeUserBooking();
+		user.makeUserBooking(scanner);
 		
 		return false;
     }
 
     @Override
-    public void viewBooking() {
+    public void viewBooking(Scanner scanner) {
     	User user = Main.getCurrentUser();
-    	user.viewUserBookingCalendar();
+    	user.viewUserBookingCalendar(scanner);
     }
 
     @Override
-    public boolean cancelBooking() {
+    public boolean cancelBooking(Scanner scanner) {
     	User user = Main.getCurrentUser();
-    	user.cancelUserBooking();
+    	user.cancelUserBooking(scanner);
     	
         return false;
     }

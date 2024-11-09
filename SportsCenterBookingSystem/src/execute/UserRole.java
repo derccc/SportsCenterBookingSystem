@@ -1,6 +1,7 @@
 package execute;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public interface UserRole {
 	
@@ -14,10 +15,10 @@ public interface UserRole {
         return null;
     }
 	
-	public String showActionMenu();
-	public boolean makeBooking();
-    public void viewBooking();
-    public boolean cancelBooking();
+	public String showActionMenu(Scanner scanner);
+	public boolean makeBooking(Scanner scanner);
+    public void viewBooking(Scanner scanner);
+    public boolean cancelBooking(Scanner scanner);
     public String toString(String userID, String userPassword);
 
 }
