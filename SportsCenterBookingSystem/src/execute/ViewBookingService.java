@@ -168,10 +168,20 @@ public class ViewBookingService {
 		System.out.println("Year Summary: (⚫: exists record ⚪: no record ►: displaying year)");
 		
 		int col = 0;
+
+		int firstYear;
+		int lastYear ;
 		
+		if(yearMap.isEmpty()){
+			firstYear = viewingYear;
+			lastYear = viewingYear;
+		}
+		else{
+			firstYear = yearMap.firstKey();
+			lastYear = yearMap.lastKey();
+		}
 		
-		int firstYear = yearMap.firstKey();
-		int lastYear = yearMap.lastKey();
+
 		
 
 		
