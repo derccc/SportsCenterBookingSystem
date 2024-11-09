@@ -26,7 +26,9 @@ public class CmdLogin implements Command{
 			userPassword = scanner.nextLine().trim();
 		};
 		
-		Main.setCurrentUser(user);
+
+		UserSessionManager.getInstance().setCurrentUser(user);
+
 		
 		
 	}

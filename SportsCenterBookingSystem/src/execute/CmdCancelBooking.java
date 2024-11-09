@@ -6,7 +6,7 @@ public class CmdCancelBooking implements Command{
 
 	@Override
 	public void execute(Scanner scanner) {
-		User currentUser = Main.getCurrentUser();
+		User currentUser = UserSessionManager.getInstance().getCurrentUser();
 		currentUser.cancelBooking(scanner);
 	}
 

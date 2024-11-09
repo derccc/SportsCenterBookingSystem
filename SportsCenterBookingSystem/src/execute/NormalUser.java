@@ -18,22 +18,25 @@ public class NormalUser implements UserRole {
 	
 	@Override
     public boolean makeBooking(Scanner scanner) {
-		User user = Main.getCurrentUser();
-		return user.makeUserBooking(scanner);
+		User currentUser = UserSessionManager.getInstance().getCurrentUser();
+
+		return currentUser.makeUserBooking(scanner);
 		
 
     }
 
     @Override
     public void viewBooking(Scanner scanner) {
-    	User user = Main.getCurrentUser();
-    	user.viewUserBookingCalendar(scanner);
+    	User currentUser = UserSessionManager.getInstance().getCurrentUser();
+
+    	currentUser.viewUserBookingCalendar(scanner);
     }
 
     @Override
     public boolean cancelBooking(Scanner scanner) {
-    	User user = Main.getCurrentUser();
-    	user.cancelUserBooking(scanner);
+    	User currentUser = UserSessionManager.getInstance().getCurrentUser();
+
+    	currentUser.cancelUserBooking(scanner);
     	
         return false;
     }

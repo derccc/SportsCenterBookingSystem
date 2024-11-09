@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-	private static User currentUser = null;
+
 	public static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
@@ -15,7 +15,7 @@ public class Main {
 		
 		String action;
 
-
+		User currentUser = UserSessionManager.getInstance().getCurrentUser();
         
         while (!isExit) {
         	
@@ -87,14 +87,6 @@ public class Main {
         
         scanner.close();
         
-	}
-	
-	public static User getCurrentUser() {
-		return currentUser;
-	}
-
-	public static void setCurrentUser(User user) {
-		currentUser = user;
 	}
 
 }
