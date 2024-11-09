@@ -7,14 +7,11 @@ public class NormalUser implements UserRole {
 	
 	@Override
 	public String showActionMenu(Scanner scanner) {
-		//Scanner scanner = new Scanner(System.in);
+
 		String action;
 		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout):");
-		action = scanner.nextLine();
-		//TODO: handle invalid Command
-		if (!action.equals("m") && !action.equals("v") && !action.equals("c") && !action.equals("l")) {
-			// throw new ExInvalidCommand(); 
-		}
+		String[] validCommand= {"m","v","c","l"};
+		action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
 		
 		return action;
 	}
@@ -22,9 +19,9 @@ public class NormalUser implements UserRole {
 	@Override
     public boolean makeBooking(Scanner scanner) {
 		User user = Main.getCurrentUser();
-		user.makeUserBooking(scanner);
+		return user.makeUserBooking(scanner);
 		
-		return false;
+
     }
 
     @Override

@@ -78,13 +78,12 @@ public class Booking implements Comparable<Booking> {
     }
 	
 	public String viewUserBookingString() {
-		SportsCenter sportsCenter = SportsCenter.getInstance();
 		RoomType roomType = room.getRoomType();
-		return "Booking ID: " + bookingID + " Room ID: " + room.getRoomID() + " Room Type: " + roomType.getType() + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: $" + pricePaid;
+		return "Booking ID: " + bookingID + " Room ID: " + room.getRoomID() + " Room Type: " + roomType.getType() + " Date: " + Common.formatDate(date) + " Start Time: " + startTime + " End Time: " + endTime + " Price Paid: $" + pricePaid;
 	}
 	
 	public String viewRoomBookingString() {
-		return "Booking ID: " + bookingID + " User ID: " + userID + " Date: " + date + " Start Time: " + startTime + " End Time: " + endTime;
+		return "Booking ID: " + bookingID + " User ID: " + userID + " Date: " + Common.formatDate(date) + " Start Time: " + startTime + " End Time: " + endTime;
 	}
 
 
@@ -131,6 +130,20 @@ public class Booking implements Comparable<Booking> {
 				}
 			}
 		}
+	}
+
+	public void printDetail() {
+		System.out.println("—————————————————————————");
+		System.out.println("Booking detail:");
+		System.out.println("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+		System.out.println("Booking ID: "+bookingID);
+		System.out.println("User ID: "+userID);
+		System.out.println("Room Type: "+room.getRoomType().getType());
+		System.out.println("Room ID: "+room.getRoomID());
+		System.out.println("Date: "+Common.formatDate(date));
+		System.out.println("Time: "+startTime+" - "+ endTime);
+		System.out.println("—————————————————————————");
+		System.out.println("");
 	}
 
 	

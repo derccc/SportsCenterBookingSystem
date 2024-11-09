@@ -10,11 +10,10 @@ public class CmdRegisterAccount implements Command {
 		//Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
-		String userRole = scanner.nextLine();
-		while (!userRole.equals("A") && !userRole.equals("N")){
-			System.out.println("Invalid user role, please input again:");
-			userRole = scanner.nextLine();
-		}
+		String userRole = "";
+		String[] validInput= {"A","N"};
+		userRole = Common.getValidInput(scanner, validInput, Common.InputType.USERROLE);
+
 	
 	    System.out.println("Please input your User ID:");
 	    String userID = scanner.nextLine();
