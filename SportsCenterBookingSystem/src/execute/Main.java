@@ -15,10 +15,10 @@ public class Main {
 		
 		String action;
 
-		User currentUser = UserSessionManager.getInstance().getCurrentUser();
+
         
         while (!isExit) {
-        	
+    		User currentUser = UserSessionManager.getInstance().getCurrentUser();
 
         		
         		if(currentUser==null) {
