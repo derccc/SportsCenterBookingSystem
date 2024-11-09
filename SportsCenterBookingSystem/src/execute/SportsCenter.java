@@ -150,7 +150,7 @@ public class SportsCenter {
 				Room room = getRoomByID(splittedData[0]);
 				User user = getUserByID(splittedData[1]);
 
-				//TODO: invalid date time exception
+
 				if (room != null && user != null) {
 					Booking booking = new Booking(room, splittedData[1], splittedData[2], Integer.parseInt(splittedData[3]), Integer.parseInt(splittedData[4]), Integer.parseInt(splittedData[5]), splittedData[6], splittedData[7]);
 					room.addBooking(booking);

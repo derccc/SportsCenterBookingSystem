@@ -91,12 +91,9 @@ public class User {
 
 				System.out.println(
 						"Please input the Date and Time you would like to book (format: yyMMdd HH-HH (e.g.241001 15-20)):");
-				// TODO: handle wrong input format (e.g. only input date)
-				String dateAndTime = scanner.nextLine();
-				while (!DateAndTime.isDateAndTimeValid(dateAndTime)) {
-					System.out.println("Invalid Date or Time, please input again:");
-					dateAndTime = scanner.nextLine();
-				}
+
+				String dateAndTime = Common.getValidDateandTime(scanner);
+
 				String[] splittedDateAndTime = dateAndTime.split(" ");
 				String date = splittedDateAndTime[0];
 				String time = splittedDateAndTime[1];
@@ -117,11 +114,11 @@ public class User {
 						int bookingPrice = roomType.getPrice() * DateAndTime.calculateHours(startTime, endTime);
 						System.out.printf("Room available (Price: $%d), are you confirmed to book and pay? (Y/N):\n",
 								bookingPrice);
-						String action = scanner.nextLine();
-						while (!action.equals("Y") && !action.equals("N")) {
-							System.out.println("Invalid command, please input again:");
-							action = scanner.nextLine();
-						}
+						String[] validCommand= {"Y","N"};
+						String action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
+
+
+						
 						switch (action) {
 						case "Y":
 							System.out.println("Payment collected. Booking Success.");
@@ -146,11 +143,12 @@ public class User {
 					} else {
 						System.out.println(
 								"Sorry, no room is not available at the time you want. Would you like to book another time or room? (Y/N):");
-						String action = scanner.nextLine();
-						while (!action.equals("Y") && !action.equals("N")) {
-							System.out.println("Invalid command, please input again:");
-							action = scanner.nextLine();
-						}
+
+						String[] validCommand= {"Y","N"};
+						String action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
+
+
+
 						switch (action) {
 						case "Y":
 							makeBooking(scanner);
@@ -218,11 +216,10 @@ public class User {
 			int refund = booking.getPricePaid() / 2;
 			System.out.printf("Refund for cancelled booking: $%d, are you confirmed to cancel booking? (Y/N):\n",
 					refund);
-			String action = scanner.nextLine();
-			while (!action.equals("Y") && !action.equals("N")) {
-				System.out.println("Invalid command, please input again:");
-				action = scanner.nextLine();
-			}
+			String[] validCommand= {"Y","N"};
+			String action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
+
+			
 			switch (action) {
 			case "Y":
 				booking.cancelBookingByUser();

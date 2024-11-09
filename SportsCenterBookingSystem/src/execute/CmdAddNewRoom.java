@@ -17,11 +17,8 @@ public class CmdAddNewRoom implements Command{
     		
     	} else {
     		System.out.println("Please input your action ([t] for add room type, [r] for add room to existing room type):");
-        	action = scanner.nextLine();
-    		while (!action.equals("t") && !action.equals("r")) {
-        		System.out.println("Invalid command, please input again:");
-        		action = scanner.nextLine();
-        	}
+			String[] validCommand= {"t","r"};
+			action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
     	}
     	
 		switch(action) {

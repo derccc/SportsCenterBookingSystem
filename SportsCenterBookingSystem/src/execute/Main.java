@@ -17,11 +17,13 @@ public class Main {
         
         while (!isExit) {
         	
-        	try {
+
         		
         		if(currentUser==null) {
         			System.out.println("Please input your action ([r] for Register, [l] for login, [e] for exit system) :");
-        			action = scanner.nextLine();
+					String[] validCommand= {"r","l","e"};
+					action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
+			
         			
         			switch(action) {
 	        			case "r":
@@ -37,8 +39,6 @@ public class Main {
 	        				System.out.println("System exit.");
 	        				break;
 	        				
-	        			default:
-	        				throw new ExInvalidCommand();
         			}
         			
         		}
@@ -74,14 +74,12 @@ public class Main {
 	        	        	(new CmdModifyRoomTypePrice()).execute(scanner);
 	        	        	break;
 	        	            
-	        			default:
-	        				throw new ExInvalidCommand();
         	        }
         	        
         		}
         	
-        	}
-        	catch(ExInvalidCommand e) {System.out.println("Invalid command!");}
+        	
+
 
         }
         

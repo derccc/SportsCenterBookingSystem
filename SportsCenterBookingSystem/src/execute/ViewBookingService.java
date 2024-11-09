@@ -29,56 +29,51 @@ public class ViewBookingService {
 		
 		String action="";
 		printCalendar();
-		//Scanner scanner = new Scanner(System.in);
-		boolean isPrintMenu=true;
+
 		
 		while (!action.equals("q")) {
 			
 			
-			if(isPrintMenu) {printMenu();}
+			printMenu();
 			
 			
 			
-			action = scanner.nextLine();
+			String[] validCommand= {"p","n","s","t","q"};
+			action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
 			
 			switch(action) {
 				case "p":
 					viewingDate=viewingDate.minusMonths(1);
 					printCalendar();
-					isPrintMenu=true;
+
 					break;
 				
 				case "n":
 					viewingDate=viewingDate.plusMonths(1);
 					printCalendar();
-					isPrintMenu=true;
+
 					break;
 				
 				case "s":
 					System.out.println("Please input year and month: (format: 2024 1)");
-					int newYear=scanner.nextInt();
-					int newMonth=scanner.nextInt();
+
+					int[] input = Common.getValidYearAndMonth(scanner);
+					int newYear = input[0];
+					int newMonth = input[1];
 				
 					viewingDate= LocalDate.of(newYear, newMonth, 1);
 					printCalendar();
-					isPrintMenu=true;
+
 					break;
 				case "t":
 					viewingDate = currentDate;
 					printCalendar();
-					isPrintMenu=true;
+
 					break;
 				case "q":
-					isPrintMenu=false;
+
 					break;
 					
-				case "":
-					isPrintMenu=false;
-					break;
-				default:
-					System.out.println("Invalid command");
-					isPrintMenu=false;
-					break;
 			}
 			
 
@@ -181,6 +176,7 @@ public class ViewBookingService {
 
 		
 		if (lastYear<viewingYear) {lastYear=viewingYear;}
+		if (firstYear>viewingYear) {firstYear = viewingYear;}
 		
 		
 		for(int year=firstYear; year<=lastYear; year++) {
