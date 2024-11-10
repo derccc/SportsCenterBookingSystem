@@ -2,6 +2,8 @@ package execute;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
@@ -17,6 +19,7 @@ public class Main {
 		
 		String action;
 
+		SportsCenter sportsCenter = SportsCenter.getInstance();
 
         
         while (!isExit) {
