@@ -24,11 +24,11 @@ public class Admin implements UserRole {
     	//Scanner scanner = new Scanner(System.in);
     	
     	System.out.println("Please input the User ID you would like to make booking for:");
-    	String userID = scanner.nextLine();
+    	String userID = scanner.nextLine().trim();
     	User user = sportsCenter.getUserByID(userID);
     	while (user == null) {
 			System.out.println("User ID not found, please input again:");
-			userID = scanner.nextLine();
+			userID = scanner.nextLine().trim();
 			user = sportsCenter.getUserByID(userID);
 		};
 		
@@ -54,12 +54,12 @@ public class Admin implements UserRole {
 					break;
 			case "u":
 				System.out.println("Please input the User ID you would like to view booking for:"); //maybe all this ask for user ID can be put in a function
-				String userID = scanner.nextLine();
+				String userID = scanner.nextLine().trim();
 				User user = sportsCenter.getUserByID(userID);
 
 		    	while (user == null) {
 					System.out.println("User ID not found, please input again:");
-					userID = scanner.nextLine();
+					userID = scanner.nextLine().trim();
 					user = sportsCenter.getUserByID(userID);
 				};
 				
@@ -69,12 +69,12 @@ public class Admin implements UserRole {
 				
 			case "r":
 				System.out.println("Please input the Room ID you would like to view booking for:");
-				String roomID = scanner.nextLine();
+				String roomID = scanner.nextLine().trim();
 				Room room = sportsCenter.getRoomByID(roomID);
 
 				while (room == null) {
 					System.out.println("Room ID not found, please input again:");
-					roomID = scanner.nextLine();
+					roomID = scanner.nextLine().trim();
 					room = sportsCenter.getRoomByID(roomID);
 				}
 				
@@ -93,12 +93,12 @@ public class Admin implements UserRole {
     	//Scanner scanner = new Scanner(System.in);
     	
     	System.out.println("Please input the User ID you would like to cancel booking for:");
-    	String userID = scanner.nextLine();
+    	String userID = scanner.nextLine().trim();
     	User user = sportsCenter.getUserByID(userID);
     	
 		while (user == null) {
 			System.out.println("User ID not found, please input again:");
-			userID = scanner.nextLine();
+			userID = scanner.nextLine().trim();
 			user = sportsCenter.getUserByID(userID);
 		};
 		
