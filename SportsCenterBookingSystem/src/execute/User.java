@@ -120,7 +120,7 @@ public class User {
 
 						
 						switch (action) {
-						case "Y":
+						case "y":
 							System.out.println("Payment collected. Booking Success.");
 							int nextBookingID = sportsCenter.getNextBookingID();
 							Booking booking = new Booking(room, this.userID, date, startTime, endTime, bookingPrice,
@@ -136,7 +136,7 @@ public class User {
 							isBookingSuccess = true;
 							break;
 
-						case "N":
+						case "n":
 							throw new ExBookingFailed(ExBookingFailed.FailReason.NOTPAID);
 						}
 
@@ -150,11 +150,11 @@ public class User {
 
 
 						switch (action) {
-						case "Y":
+						case "y":
 							makeBooking(scanner);
 							break;
 
-						case "N":
+						case "n":
 							throw new ExBookingFailed(ExBookingFailed.FailReason.NOTAVAIL);
 						}
 					}
@@ -221,12 +221,12 @@ public class User {
 
 			
 			switch (action) {
-			case "Y":
+			case "y":
 				booking.cancelBookingByUser();
 				System.out.println("Booking cancelled.");
 				break;
 
-			case "N":
+			case "n":
 				break;
 			}
 		}

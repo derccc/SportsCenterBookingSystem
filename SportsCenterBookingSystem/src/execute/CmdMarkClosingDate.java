@@ -22,11 +22,11 @@ public class CmdMarkClosingDate implements Command{
 			action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
 
 			switch (action) {
-				case "Y":
+				case "y":
 					sportsCenter.addClosingDate(date);
 					break;
 					
-				case "N":
+				case "n":
 					break;
 			}
 			

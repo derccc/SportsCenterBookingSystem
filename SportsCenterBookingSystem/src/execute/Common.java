@@ -31,7 +31,7 @@ public class Common {
             // Check if the input matches any of the valid commands
             for (String validCommand : validCommands) {
                 if (input.equalsIgnoreCase(validCommand)) {
-                    return input;
+                    return input.toLowerCase();
                 }
             }
             System.out.printf("Invalid %s, please input again.\n", type.getName());

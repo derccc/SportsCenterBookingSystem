@@ -39,11 +39,11 @@ public class CmdModifyRoomTypePrice implements Command{
 				String action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
 
 				switch (action) {
-					case "Y":
+					case "y":
 						roomType.setPrice(intPrice);
 						break;
 						
-					case "N":
+					case "n":
 						break;
 				}
 			}
