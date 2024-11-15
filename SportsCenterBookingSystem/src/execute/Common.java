@@ -163,11 +163,11 @@ public class Common {
         while (true) {
             input = scanner.nextLine().trim();
 
-            if (input.length()>=length) {
+            if (!input.contains(" ") && input.length()>=length) {
                 return input;
             }
             
-            System.out.printf("The %s length should not be less than %d digits.\n", type.getName(), length);
+            System.out.printf("The %s length should not be less than %d digits and space is not allowed.\n", type.getName(), length);
         }
     }
 

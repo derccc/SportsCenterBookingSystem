@@ -15,8 +15,8 @@ public class CmdRegisterAccount implements Command {
 		userRole = Common.getValidInput(scanner, validInput, Common.InputType.USERROLE);
 
 	
-	    System.out.println("Please input your User ID:");
-	    String userID = Common.getValidInputLength(scanner, Common.InputType.USERID, 1);
+	    System.out.println("Please input your User ID (minimum 6 characters):");
+	    String userID = Common.getValidInputLength(scanner, Common.InputType.USERID, 6);
 	    User user = sportsCenter.getUserByID(userID);
 	    while (user != null) {
 			System.out.println("This User ID is not available, please input again:");
