@@ -38,9 +38,7 @@ public class DateAndTimeTest {
     
     @Test
     public void testInvalidDateAndTime4() {
-
         Assert.assertFalse(DateAndTime.isDateAndTimeValid("2a0420 9-17")); // InValid date
-
     }
    
     
@@ -49,7 +47,6 @@ public class DateAndTimeTest {
         Assert.assertFalse(DateAndTime.isDateAndTimeValid("240030 9-17")); // Invalid date
     }
     
-
     @Test
     public void testInvalidDateAndTime6() {
         Assert.assertTrue(DateAndTime.isDateAndTimeValid("240830 9-17")); // Valid date
@@ -99,7 +96,6 @@ public class DateAndTimeTest {
     public void testInvalidDateAndTime10() {
         Assert.assertFalse(DateAndTime.isDateAndTimeValid("240930 8-25")); // InValid date
     }
-
     
     @Test
     public void testInvalidDateAndTime_InvalidTime() {
@@ -116,12 +112,11 @@ public class DateAndTimeTest {
     public void testInvalidDateAndTime_WrongDay() {
         Assert.assertFalse(DateAndTime.isDateAndTimeValid("240230 9-17")); // Invalid day in February
     }
-
+    
     @Test
     public void testInvalidDateAndTime_RightDay() {
         Assert.assertTrue(DateAndTime.isDateAndTimeValid("230220 9-17")); // valid day in February
     }
-
 
    
  
@@ -161,9 +156,10 @@ public class DateAndTimeTest {
         Assert.assertFalse(DateAndTime.isDateValid("2405-31")); // Invalid format
     }
     
+    
+    
 
     
     
 
 }
-
