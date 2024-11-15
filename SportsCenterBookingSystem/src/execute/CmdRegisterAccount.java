@@ -15,8 +15,8 @@ public class CmdRegisterAccount implements Command {
 		userRole = Common.getValidInput(scanner, validInput, Common.InputType.USERROLE);
 
 	
-	    System.out.println("Please input your User ID (minimum 6 characters):");
-	    String userID = Common.getValidInputLength(scanner, Common.InputType.USERID, 6);
+	    System.out.println("Please input your User ID:");
+	    String userID = Common.getValidInputLength(scanner, Common.InputType.USERID, 1);
 	    User user = sportsCenter.getUserByID(userID);
 	    while (user != null) {
 			System.out.println("This User ID is not available, please input again:");
@@ -24,8 +24,8 @@ public class CmdRegisterAccount implements Command {
 			user = sportsCenter.getUserByID(userID);
 		};
 	
-	    System.out.println("Please input your Password:");
-	    String userPassword = Common.getValidInputLength(scanner, Common.InputType.PASSWORD, 1);
+	    System.out.println("Please input your Password (minimum 6 digits):");
+	    String userPassword = Common.getValidInputLength(scanner, Common.InputType.PASSWORD, 6);
 	    System.out.println("Please input your Password again:");
         String userPassword2 = scanner.nextLine().trim();
 	    while (!userPassword.equals(userPassword2)){
