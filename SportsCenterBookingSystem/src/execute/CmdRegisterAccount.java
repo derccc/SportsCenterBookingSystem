@@ -9,9 +9,9 @@ public class CmdRegisterAccount implements Command {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		//Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
+		System.out.println("Please input your Role ([a] for admin, [n] for normal user):");
 		String userRole = "";
-		String[] validInput= {"A","N"};
+		String[] validInput= {"a","n"};
 		userRole = Common.getValidInput(scanner, validInput, Common.InputType.USERROLE);
 
 	

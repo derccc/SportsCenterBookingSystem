@@ -27,7 +27,7 @@ public class Main {
 
         		
         		if(currentUser==null) {
-        			System.out.println("Please input your action ([r] for Register, [l] for login, [e] for exit system) :");
+        			System.out.println("Please input your action ([r] for register, [l] for login, [e] for exit system) :");
 					String[] validCommand= {"r","l","e"};
 					action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
 			
