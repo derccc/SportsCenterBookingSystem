@@ -1,3 +1,4 @@
+
 package test;
 
 import static org.junit.Assert.assertEquals;
@@ -190,5 +191,6 @@ public class AdminTest {
 	        String expected = "12345 A password123";
 	        Assert.assertEquals(expected, result);
 	    }
+
 	}
 

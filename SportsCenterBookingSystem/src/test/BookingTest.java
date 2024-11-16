@@ -289,4 +289,6 @@ public class BookingTest {
         assertTrue("Should contain formatted date", output.contains("Date: 20-May-2024"));
         assertTrue("Should contain time", output.contains("Time: 10 - 12"));
     }
+
 }
+
