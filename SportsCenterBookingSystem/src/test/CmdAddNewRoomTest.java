@@ -38,7 +38,7 @@ public class CmdAddNewRoomTest {
 	@Test
     public void testAddRoomToExsitingType_NotExsit() {
         CmdAddNewRoom cmdAddNewRoom = new CmdAddNewRoom();
-        String input = "r\n5\n1\n";
+        String input = "r\n6\n1\n";
 	    InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 	    Scanner scanner = new Scanner(System.in);
