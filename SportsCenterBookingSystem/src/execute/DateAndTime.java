@@ -43,8 +43,11 @@ public class DateAndTime {
 			int startTime = Integer.parseInt(splittedTime[0]);
 			int endTime = Integer.parseInt(splittedTime[1]);
 
-			
-			if (startTime<0 || startTime>23 || endTime<0 || endTime>23) {
+			if(startTime>23) {
+				return false;
+				
+			}
+			if(endTime>23) {
 				return false;
 			}
 			return true;
@@ -60,13 +63,7 @@ public class DateAndTime {
 	}
 	
 	private static boolean isLeapYear(int year) {
-		if (year%400==0) {
-			return true;
-		}
-		else if (year%100==0) {
-			return false;
-		}
-		else if (year%4==0) {
+		if (year%4==0) {
 			return true;
 		}
 		else {
@@ -84,4 +81,6 @@ public class DateAndTime {
             return false;
         }
     }
+	
+	
 }

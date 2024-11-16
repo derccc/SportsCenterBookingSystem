@@ -1,3 +1,4 @@
+
 package test;
 
 import execute.Booking;
@@ -290,3 +291,4 @@ public class BookingTest {
         assertTrue("Should contain time", output.contains("Time: 10 - 12"));
     }
 }
+

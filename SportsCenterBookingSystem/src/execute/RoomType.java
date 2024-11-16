@@ -25,10 +25,6 @@ public class RoomType {
 		return price;
 	}
 	
-	public void setTypeID(String typeID) {
-		this.typeID = typeID;
-	}
-	
 	public void setPrice(int price) {
 		this.price = price;
 	}
