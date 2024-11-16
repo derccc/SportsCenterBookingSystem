@@ -33,10 +33,10 @@ public class SportsCenterTest {
         String userPassword = "123456";
         User user = new User(userID, userRole, userPassword);
         sportsCenter.addUser(user);
-        String closingDate = "20231212";
+        String closingDate = "231212";
         sportsCenter.addClosingDate(closingDate);
         String bookingID = "booking1";
-        Booking booking = new Booking(room, userID, "20231201", 10, 12, 100, "N", bookingID);
+        Booking booking = new Booking(room, userID, "231201", 10, 12, 100, "N", bookingID);
         sportsCenter.addBooking(booking);
       
         RoomType retrievedRoomType = sportsCenter.getRoomTypeByID(roomTypeID);
@@ -54,13 +54,13 @@ public class SportsCenterTest {
         boolean isClosing = sportsCenter.isClosingDate(closingDate);
         assertTrue(isClosing);
 
-        boolean isNotClosing = sportsCenter.isClosingDate("20231213");
+        boolean isNotClosing = sportsCenter.isClosingDate("231213");
         assertFalse(isNotClosing);
 
         boolean isNullClosing = sportsCenter.isClosingDate(null);
         assertFalse(isNullClosing);
 
-        boolean isInvalidFormatClosing = sportsCenter.isClosingDate("202312");
+        boolean isInvalidFormatClosing = sportsCenter.isClosingDate("2312");
         assertFalse(isInvalidFormatClosing);
     }
     
@@ -73,8 +73,8 @@ public class SportsCenterTest {
        sportsCenter.addRoom(room);
        sportsCenter.addUser(new User("001", "A", "123456"));
        
-       String closingDate = "20231212";
-       String closingDate1 = "20231213";
+       String closingDate = "231212";
+       String closingDate1 = "231213";
        sportsCenter.addClosingDate(closingDate);
         User user = new User( "001", "A", "123456");
         sportsCenter.addUser(user);
@@ -102,12 +102,12 @@ public class SportsCenterTest {
         sportsCenter.addRoom(room1);
         sportsCenter.addRoom(room2);
 
-        Booking booking1 = new Booking(room1, "001", "20231201", 10, 12, 100, "N", "001");
-        Booking booking2 = new Booking(room2, "001", "20231201", 14, 16, 100, "N", "002");
+        Booking booking1 = new Booking(room1, "001", "231201", 10, 12, 100, "N", "001");
+        Booking booking2 = new Booking(room2, "001", "231201", 14, 16, 100, "N", "002");
         sportsCenter.addBooking(booking1);
         sportsCenter.addBooking(booking2);
 
-        Room availableRoom = sportsCenter.checkAvailability(roomType, "20231201", 13, 15);
+        Room availableRoom = sportsCenter.checkAvailability(roomType, "231201", 13, 15);
 
     }
 
@@ -115,8 +115,8 @@ public class SportsCenterTest {
     public void testIsOverlapping() {
     	SportsCenter sportsCenter = SportsCenter.getInstance();
         ArrayList<Booking> bookings = new ArrayList<>();
-        Booking booking1 = new Booking(null, "001", "20231201", 10, 12, 100, "N", "001");
-        Booking booking2 = new Booking(null, "001", "20231201", 12, 14, 100, "N", "002");
+        Booking booking1 = new Booking(null, "001", "231201", 10, 12, 100, "N", "001");
+        Booking booking2 = new Booking(null, "001", "231201", 12, 14, 100, "N", "002");
         bookings.add(booking1);
         bookings.add(booking2);
 
@@ -129,8 +129,8 @@ public class SportsCenterTest {
     public void testCalculateIdleTime() {
     	SportsCenter sportsCenter = SportsCenter.getInstance();
         ArrayList<Booking> bookings = new ArrayList<>();
-        Booking booking1 = new Booking(null, "001", "20231201", 10, 12, 100, "N", "001");
-        Booking booking2 = new Booking(null, "001", "20231201", 14, 16, 100, "N", "002");
+        Booking booking1 = new Booking(null, "001", "231201", 10, 12, 100, "N", "001");
+        Booking booking2 = new Booking(null, "001", "231201", 14, 16, 100, "N", "002");
         bookings.add(booking1);
         bookings.add(booking2);
         int idleTime = sportsCenter.calculateIdleTime(bookings, 13, 15);
@@ -188,8 +188,8 @@ public class SportsCenterTest {
     @Test
     public void testPrintAllClosingDate_WhenNotEmpty() {
     	SportsCenter sportsCenter = SportsCenter.getInstance();
-        sportsCenter.addClosingDate("20231212");
-        sportsCenter.addClosingDate("20231213");
+        sportsCenter.addClosingDate("231212");
+        sportsCenter.addClosingDate("231213");
         sportsCenter.printAllClosingDate();
     }
 
