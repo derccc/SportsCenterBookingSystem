@@ -9,9 +9,9 @@ public class CmdRegisterAccount implements Command {
 		SportsCenter sportsCenter = SportsCenter.getInstance();
 		//Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("Please input your Role ([A] for Admin, [N] for Normal User):");
+		System.out.println("Please input your Role ([a] for admin, [n] for normal user):");
 		String userRole = "";
-		String[] validInput= {"A","N"};
+		String[] validInput= {"a","n"};
 		userRole = Common.getValidInput(scanner, validInput, Common.InputType.USERROLE);
 
 	
@@ -24,8 +24,8 @@ public class CmdRegisterAccount implements Command {
 			user = sportsCenter.getUserByID(userID);
 		};
 	
-	    System.out.println("Please input your Password:");
-	    String userPassword = Common.getValidInputLength(scanner, Common.InputType.PASSWORD, 1);
+	    System.out.println("Please input your Password (minimum 6 digits):");
+	    String userPassword = Common.getValidInputLength(scanner, Common.InputType.PASSWORD, 6);
 	    System.out.println("Please input your Password again:");
         String userPassword2 = scanner.nextLine().trim();
 	    while (!userPassword.equals(userPassword2)){

@@ -9,7 +9,7 @@ public class Admin implements UserRole {
 	public String showActionMenu(Scanner scanner) {
 
 		String action="";
-		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] add room, [p] for modify room type price):");
+		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] for add room, [p] for modify room type price):");
 		
 		String[] validCommand= {"m","v","c","l","d","a","p"};
 		action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
