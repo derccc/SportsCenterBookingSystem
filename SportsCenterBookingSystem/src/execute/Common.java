@@ -6,6 +6,13 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Common {
+
+    private Common() throws InstantiationException{
+        throw new InstantiationException("Instances of this type are forbidden.");
+    }
+
+
+
     public enum InputType{
 		COMMAND("command"),
         DATE("date"),

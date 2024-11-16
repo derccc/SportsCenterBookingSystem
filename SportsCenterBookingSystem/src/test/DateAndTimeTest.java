@@ -1,5 +1,6 @@
 package test;
 
+import execute.Common;
 import execute.DateAndTime;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,11 +11,33 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 
 
 public class DateAndTimeTest {
+
+
+    @Test
+    public void testConstructor() throws IllegalAccessException, InstantiationException {
+        final Class<?> cls = DateAndTime.class;
+        final Constructor<?> c = cls.getDeclaredConstructors()[0];
+        c.setAccessible(true);
+
+        Throwable targetException = null;
+        try {
+            c.newInstance((Object[])null);
+        } catch (InvocationTargetException ite) {
+            targetException = ite.getTargetException();
+        }
+
+        assertNotNull(targetException);
+        assertEquals(targetException.getClass(), InstantiationException.class);
+    }
+
 
     @Test
     public void testValidDateAndTime() {

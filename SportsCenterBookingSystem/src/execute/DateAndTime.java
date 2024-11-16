@@ -4,6 +4,11 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class DateAndTime {
+
+    private DateAndTime() throws InstantiationException{
+        throw new InstantiationException("Instances of this type are forbidden.");
+    }	
+
 	
 	public static boolean isDateAndTimeValid(String DateAndTime) {
 		String[] splittedDateAndTime = DateAndTime.split(" ");
