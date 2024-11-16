@@ -95,25 +95,31 @@ public class AdminTest {
 	    public void testMakeBooking() {
 	        Admin admin = new Admin();
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
+	        User user = new User("011", "A", "123456");
 	        sportsCenter.addUser(user);
-	        String input = "002\n001\n";
+	        String input = "011\n1\n241116 12-16\nY\n";
 	        InputStream in = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(in);
 	        boolean result = admin.makeBooking(new Scanner(System.in));
-	        Assert.assertEquals(false, result);
+	        Assert.assertEquals(true, result);
 	    }
 	   
 	    @Test
 	    public void testViewBooking_AllBookings() {
 	        Admin admin = new Admin();
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        sportsCenter.addUser(new User("001", "A", "123456"));
+	        User user = new User("011", "A", "123456");
+	        sportsCenter.addUser(user);
 	        Room room = new Room("101", new RoomType("Q", "Queen", 800));
 	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20230101", 10, 12, 100, "N", "001");
+	        
+	        int nextBookingID = sportsCenter.getNextBookingID();
+	        Booking booking = new Booking(sportsCenter.getRoomByID("101"), "011", "230101", 10, 12, 100, "N", String.valueOf(nextBookingID));
 	        sportsCenter.addBooking(booking);
-	        String input = "a\nq\n";
+	        user.addBooking(booking);
+	        room.addBooking(booking);
+	        
+	        String input = "a\ns\n2023 1\nq\n";
 	        InputStream in = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(in);
 	        Scanner scanner = new Scanner(System.in);
@@ -129,11 +135,19 @@ public class AdminTest {
 	    public void testViewBooking_SpecificUser() {
 	        Admin admin = new Admin();
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        sportsCenter.addUser(new User("001", "A", "123456"));
-	        sportsCenter.addRoom(new Room("101", new RoomType("Q", "Queen", 800)));
-	        sportsCenter.addBooking(new Booking(sportsCenter.getRoomByID("101"), "001", "20230101", 10, 12, 100, "N", "001"));
-
-	        String input = "u\n002\n001\n";
+	        User user = new User("011", "A", "123456");
+	        sportsCenter.addUser(user);
+	        Room room = new Room("101", new RoomType("Q", "Queen", 800));
+	        sportsCenter.addRoom(room);
+	        
+	        int nextBookingID = sportsCenter.getNextBookingID();
+	        Booking booking = new Booking(sportsCenter.getRoomByID("101"), "011", "230101", 10, 12, 100, "N", String.valueOf(nextBookingID));
+	        sportsCenter.addBooking(booking);
+	        user.addBooking(booking);
+	        room.addBooking(booking);
+	        
+	        
+	        String input = "u\n011\ns\n2023 1\nq\n";
 	        InputStream in = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(in);
 	        Scanner scanner = new Scanner(System.in);
@@ -142,16 +156,25 @@ public class AdminTest {
 
 	        scanner.close();
 	    }
+
 
 	    @Test
 	    public void testViewBooking_SpecificRoom() {
 	        Admin admin = new Admin();
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        sportsCenter.addUser(new User("001", "A", "123456"));
-	        sportsCenter.addRoom(new Room("101", new RoomType("Q", "Queen", 800)));
-	        sportsCenter.addBooking(new Booking(sportsCenter.getRoomByID("101"), "001", "20230101", 10, 12, 100, "N", "001"));
+	        User user = new User("011", "A", "123456");
+	        sportsCenter.addUser(user);
+	        Room room = new Room("101", new RoomType("Q", "Queen", 800));
+	        sportsCenter.addRoom(room);
+	        
+	        int nextBookingID = sportsCenter.getNextBookingID();
+	        Booking booking = new Booking(sportsCenter.getRoomByID("101"), "011", "230101", 10, 12, 100, "N", String.valueOf(nextBookingID));
+	        sportsCenter.addBooking(booking);
+	        user.addBooking(booking);
+	        room.addBooking(booking);
+	        
 
-	        String input = "r\n002\n101\n";
+	        String input = "r\n101\ns\n2023 1\nq\n";
 	        InputStream in = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(in);
 	        Scanner scanner = new Scanner(System.in);
@@ -160,19 +183,24 @@ public class AdminTest {
 
 	        scanner.close();
 	    }
-	    
+	
 	    @Test
 	    public void testCancelBooking_WithValidUserID() {
 	        Admin admin = new Admin();
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
+	        
+	        User user = new User("012", "A", "123456");
 	        sportsCenter.addUser(user);
-	        Room room = new Room("101", new RoomType("Q", "Queen", 800));
+	        
+	        Room room = new Room("123", new RoomType("Q", "Queen", 800));
 	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20230101", 10, 12, 100, "N", "001");
+	        
+	        Booking booking = new Booking(sportsCenter.getRoomByID("123"), "012", "230112", 10, 12, 100, "N", "99");
 	        sportsCenter.addBooking(booking);
 	        user.addBooking(booking);
-	        String input = "002\n001\n";
+	        room.addBooking(booking);
+	        
+	        String input = "012\n99\nY\n";
 	        InputStream in = new ByteArrayInputStream(input.getBytes());
 	        System.setIn(in);
 	        Scanner scanner = new Scanner(System.in);
@@ -182,7 +210,7 @@ public class AdminTest {
 	        scanner.close();
 	    }
 	    
-	    
+	  
 	    
 	    @Test
 	    public void testToString() {

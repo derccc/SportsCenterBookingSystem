@@ -2,6 +2,7 @@ package test;
 
 import execute.SportsCenter;
 import execute.User;
+import execute.UserSessionManager;
 import execute.Booking;
 import execute.Room;
 import execute.RoomType;
@@ -21,7 +22,8 @@ public class CmdViewBookingTest {
         SportsCenter sportsCenter = SportsCenter.getInstance();
         User user = new User("001", "N", "password");
         sportsCenter.addUser(user);
-        Main.setCurrentUser(user); 
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
 
         RoomType roomType = new RoomType("B", "Badminton", 800);
         sportsCenter.addRoomType(roomType);
@@ -44,8 +46,8 @@ public class CmdViewBookingTest {
         SportsCenter sportsCenter = SportsCenter.getInstance();
         User user = new User("002", "N", "password");
         sportsCenter.addUser(user);
-        Main.setCurrentUser(user); 
-
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
         String input = ""; 
         StringReader stringReader = new StringReader(input);
         Scanner scanner = new Scanner(stringReader);

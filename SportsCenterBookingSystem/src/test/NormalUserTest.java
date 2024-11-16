@@ -13,6 +13,7 @@ import execute.Room;
 import execute.RoomType;
 import execute.SportsCenter;
 import execute.User;
+import execute.UserSessionManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,7 +39,8 @@ public class NormalUserTest {
         Room room = new Room("101", new RoomType("Q", "Queen", 800));
         sportsCenter.addRoom(room);
         NormalUser normalUser = new NormalUser();
-        Main.setCurrentUser(new User("001", "A", "123456"));
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(new User("001", "A", "123456"));
         String input = "Q\n20230101 10-12\nY\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
@@ -53,7 +55,8 @@ public class NormalUserTest {
         sportsCenter.addRoom(room);
         NormalUser normalUser = new NormalUser();
         User user=new User("001", "A", "123456");
-        Main.setCurrentUser(user);
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
         Booking booking = new Booking(room, "001", "20230101", 10, 12, 100, "N", "001");
         user.addBooking(booking);
         String input = "q\n";
@@ -69,7 +72,8 @@ public class NormalUserTest {
         sportsCenter.addRoom(room);
         NormalUser normalUser = new NormalUser();
         User user=new User("001", "A", "123456");
-        Main.setCurrentUser(user);
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
         Booking booking = new Booking(room, "001", "20230101", 10, 12, 100, "N", "001");
         String input = "q\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -85,7 +89,8 @@ public class NormalUserTest {
         sportsCenter.addRoom(room);
         NormalUser normalUser = new NormalUser();
         User user=new User("001", "A", "123456");
-        Main.setCurrentUser(user);
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
         Booking booking = new Booking(room, "001", "20230101", 10, 12, 100, "N", "001");
         user.addBooking(booking);
         String input = "Y\n";
