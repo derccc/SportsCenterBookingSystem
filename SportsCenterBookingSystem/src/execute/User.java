@@ -81,11 +81,11 @@ public class User {
 			if (roomTypeCount > 0) {
 
 				System.out.println("Please input the Room Type ID you would like to book:");
-				String roomTypeID = scanner.nextLine();
+				String roomTypeID = scanner.nextLine().trim();
 				RoomType roomType = sportsCenter.getRoomTypeByID(roomTypeID);
 				while (roomType == null) {
 					System.out.println("Room Type ID not found, please input again:");
-					roomTypeID = scanner.nextLine();
+					roomTypeID = scanner.nextLine().trim();
 					roomType = sportsCenter.getRoomTypeByID(roomTypeID);
 				}
 
@@ -120,7 +120,7 @@ public class User {
 
 						
 						switch (action) {
-						case "Y":
+						case "y":
 							System.out.println("Payment collected. Booking Success.");
 							int nextBookingID = sportsCenter.getNextBookingID();
 							Booking booking = new Booking(room, this.userID, date, startTime, endTime, bookingPrice,
@@ -136,7 +136,7 @@ public class User {
 							isBookingSuccess = true;
 							break;
 
-						case "N":
+						case "n":
 							throw new ExBookingFailed(ExBookingFailed.FailReason.NOTPAID);
 						}
 
@@ -150,11 +150,11 @@ public class User {
 
 
 						switch (action) {
-						case "Y":
+						case "y":
 							makeBooking(scanner);
 							break;
 
-						case "N":
+						case "n":
 							throw new ExBookingFailed(ExBookingFailed.FailReason.NOTAVAIL);
 						}
 					}
@@ -205,11 +205,11 @@ public class User {
 		if (bookingCount > 0) {
 
 			System.out.println("Please input the Booking ID you would like to cancel:");
-			String bookingID = scanner.nextLine();
+			String bookingID = scanner.nextLine().trim();
 			Booking booking = this.getNotCancelledBookingByID(bookingID);
 			while (booking == null) {
 				System.out.println("Booking ID not found, please input again:");
-				bookingID = scanner.nextLine();
+				bookingID = scanner.nextLine().trim();
 				booking = this.getNotCancelledBookingByID(bookingID);
 			}
 
@@ -221,12 +221,12 @@ public class User {
 
 			
 			switch (action) {
-			case "Y":
+			case "y":
 				booking.cancelBookingByUser();
 				System.out.println("Booking cancelled.");
 				break;
 
-			case "N":
+			case "n":
 				break;
 			}
 		}

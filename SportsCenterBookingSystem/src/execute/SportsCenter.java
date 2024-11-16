@@ -3,16 +3,22 @@ package execute;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Properties;
 import java.util.Scanner;
 
 public class SportsCenter {
@@ -31,7 +37,7 @@ public class SportsCenter {
         this.allClosingDates = new ArrayList<>();
 	}
     
-    public static SportsCenter getInstance() {
+    public static SportsCenter getInstance(){
         if(INSTANCE == null) {
             INSTANCE = new SportsCenter();
             INSTANCE.init();
@@ -44,17 +50,33 @@ public class SportsCenter {
 	}
     
 	public void init() {
-		String roomTypePath = "src/execute/assets/room_type_data.txt";
-		String roomPath = "src/execute/assets/room_data.txt";
-		String userPath = "src/execute/assets/user_data.txt";
-		String bookingPath = "src/execute/assets/booking_data.txt";
-		String closingDatePath = "src/execute/assets/closing_date_data.txt";
-		
-		loadRoomType(roomTypePath);
-		loadRoom(roomPath);
-		loadUser(userPath);
-		loadBooking(bookingPath);
-		loadClosingDate(closingDatePath);
+		 try {
+	            // Get the decoded path to the Main class's location
+	            String mainClassPath = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	            String decodedPath = URLDecoder.decode(mainClassPath, "UTF-8");
+	            if (decodedPath.startsWith("/") && System.getProperty("os.name").toLowerCase().contains("win")) {
+	                decodedPath = decodedPath.substring(1);
+	            }
+	            Path basePath = Paths.get(decodedPath).getParent();
+
+	            // Resolve the data file paths relative to the base path
+	            String roomTypePath = basePath.resolve("src/execute/assets/room_type_data.txt").toString();
+	            String roomPath = basePath.resolve("src/execute/assets/room_data.txt").toString();
+	            String userPath = basePath.resolve("src/execute/assets/user_data.txt").toString();
+	            String bookingPath = basePath.resolve("src/execute/assets/booking_data.txt").toString();
+	            String closingDatePath = basePath.resolve("src/execute/assets/closing_date_data.txt").toString();
+
+
+	            // Load data using the resolved paths
+	            loadRoomType(roomTypePath);
+	            loadRoom(roomPath);
+	            loadUser(userPath);
+	            loadBooking(bookingPath);
+	            loadClosingDate(closingDatePath);
+
+	        } catch (UnsupportedEncodingException e) {
+	            e.printStackTrace();
+	        }
 		
 	}
 

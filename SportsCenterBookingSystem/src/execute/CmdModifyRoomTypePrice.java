@@ -14,11 +14,11 @@ public class CmdModifyRoomTypePrice implements Command{
 		if (roomTypeCount>0) {
 			
 			System.out.println("Please input the Room Type ID you would like to modify price for:");
-			String roomTypeID = scanner.nextLine();
+			String roomTypeID = scanner.nextLine().trim();
 			RoomType roomType = sportsCenter.getRoomTypeByID(roomTypeID);
 			while (roomType == null) {
 				System.out.println("Room Type ID not found, please input again:");
-				roomTypeID = scanner.nextLine();
+				roomTypeID = scanner.nextLine().trim();
 				roomType = sportsCenter.getRoomTypeByID(roomTypeID);
 			}
 			
@@ -39,11 +39,11 @@ public class CmdModifyRoomTypePrice implements Command{
 				String action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
 
 				switch (action) {
-					case "Y":
+					case "y":
 						roomType.setPrice(intPrice);
 						break;
 						
-					case "N":
+					case "n":
 						break;
 				}
 			}

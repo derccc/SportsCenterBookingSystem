@@ -1,4 +1,3 @@
-
 package test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +17,7 @@ import execute.SportsCenter;
 import execute.User;
 import execute.ViewBookingService;
 
-public class AdminTest {
+public class AdminTest1 {
 
 	 @Test
 	    public void testShowActionMenu_InputM() {
@@ -192,4 +191,3 @@ public class AdminTest {
 	        Assert.assertEquals(expected, result);
 	    }
 	}
-
