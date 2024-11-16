@@ -62,14 +62,7 @@ public class DateAndTime {
 		return endTime-startTime;
 	}
 	
-	private static boolean isLeapYear(int year) {
-		if (year%4==0) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+
 
 	public static boolean isValidYearMonth(int year, int month) {
         try {
