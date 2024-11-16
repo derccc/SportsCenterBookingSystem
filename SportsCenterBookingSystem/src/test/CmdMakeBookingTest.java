@@ -4,6 +4,7 @@ import execute.CmdMakeBooking;
 import execute.Main;
 import execute.SportsCenter;
 import execute.User;
+import execute.UserSessionManager;
 import execute.Room;
 import execute.RoomType;
 import execute.Booking;
@@ -31,7 +32,8 @@ public class CmdMakeBookingTest {
         Room room = new Room("101", roomType);
         sportsCenter.addRoom(room);
 
-        Main.setCurrentUser(user);
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
 
         String inputString = "001\n241001 15-20\n";  
         Scanner scanner = new Scanner(inputString);
@@ -58,8 +60,8 @@ public class CmdMakeBookingTest {
         SportsCenter sportsCenter = SportsCenter.getInstance();
         User user = new User("001", "A", "123456");
         sportsCenter.addUser(user);
-        Main.setCurrentUser(user);
-
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
         String inputString = "999\n001\n241001 15-20\n";
         Scanner scanner = new Scanner(inputString);
         CmdMakeBooking cmdMakeBooking = new CmdMakeBooking();

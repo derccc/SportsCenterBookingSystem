@@ -4,6 +4,7 @@ import execute.CmdCancelBooking;
 import execute.Main;
 import execute.SportsCenter;
 import execute.User;
+import execute.UserSessionManager;
 import execute.Room;
 import execute.RoomType;
 import execute.Booking;
@@ -29,7 +30,8 @@ public class CmdCancelBookingTest {
         sportsCenter.addRoom(room);
         Booking booking = new Booking(room, "001", "20230101", 10, 12, 100, "N", "001");
         sportsCenter.addBooking(booking);
-        Main.setCurrentUser(user);
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
         String inputString = "001\n";
         Scanner scanner = new Scanner(inputString);
 
@@ -47,7 +49,8 @@ public class CmdCancelBookingTest {
         SportsCenter sportsCenter = SportsCenter.getInstance();
         User user = new User("001", "A", "123456");
         sportsCenter.addUser(user);
-        Main.setCurrentUser(user);
+        UserSessionManager session = UserSessionManager.getInstance();
+        session.setCurrentUser(user);
         String inputString = "999\n001\n";
         Scanner scanner = new Scanner(inputString);
         CmdCancelBooking cmdCancelBooking = new CmdCancelBooking();

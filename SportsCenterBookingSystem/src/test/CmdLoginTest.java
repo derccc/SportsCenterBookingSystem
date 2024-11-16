@@ -4,6 +4,8 @@ import execute.CmdLogin;
 import execute.Main;
 import execute.SportsCenter;
 import execute.User;
+import execute.UserSessionManager;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,7 +36,9 @@ public class CmdLoginTest {
         cmdLogin.execute(scanner);
         String output = outContent.toString();
         assertTrue("Should contain success message", output.contains("Please input your Password:"));
-        assertEquals("The current user should be set", user, Main.getCurrentUser());
+        UserSessionManager session = UserSessionManager.getInstance();
+        
+        assertEquals("The current user should be set", user, session.getCurrentUser());
 
         System.setOut(originalOut);
         scanner.close();
