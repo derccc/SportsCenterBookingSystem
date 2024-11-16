@@ -1,3 +1,4 @@
+
 package test;
 
 import execute.CmdMakeBooking;
@@ -50,6 +51,7 @@ public class CmdMakeBookingTest {
 	        CmdMakeBooking CmdMakeBooking = new CmdMakeBooking();
 	        CmdMakeBooking.execute(scanner);
     }
+
 
 
 

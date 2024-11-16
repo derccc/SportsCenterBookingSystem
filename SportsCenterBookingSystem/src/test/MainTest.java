@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+
 import java.util.Scanner;
 
 import org.junit.Assert;
@@ -27,14 +28,19 @@ public class MainTest {
 	
 	
 	@Test
+
 	public void testRegist() {
 	    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	    PrintStream originalOut = System.out;
 	    Scanner testScanner = new Scanner("r\nA\n004\n123456\n123456\nl\n"); 
-	    Main.scanner = testScanner; 
 
-	    Main.main(new String[]{});
-	    Main.scanner.close();
+	    Main.scanner = testScanner; 
+        
+        Main.main(new String[]{});
+
+        Main.scanner.close();
+
+        testScanner.close(); 
 	}
 	
 }
