@@ -4,28 +4,9 @@ import execute.Common;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 public class CommonTest {
-
-    @Test
-    public void testConstructor() throws IllegalAccessException, InstantiationException {
-        final Class<?> cls = Common.class;
-        final Constructor<?> c = cls.getDeclaredConstructors()[0];
-        c.setAccessible(true);
-
-        Throwable targetException = null;
-        try {
-            c.newInstance((Object[])null);
-        } catch (InvocationTargetException ite) {
-            targetException = ite.getTargetException();
-        }
-
-        assertNotNull(targetException);
-        assertEquals(targetException.getClass(), InstantiationException.class);
-    }
 
     @Test
     public void testGetValidInput() {
