@@ -9,7 +9,7 @@ public class Admin implements UserRole {
 	public String showActionMenu(Scanner scanner) {
 
 		String action="";
-		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] for add room, [p] for modify room type price):");
+		System.out.println("Please input your action ([m] for make booking, [v] for view booking, [c] for cancel booking, [l] for logout, [d] for mark closing date of sports center, [a] add room, [p] for modify room type price):");
 		
 		String[] validCommand= {"m","v","c","l","d","a","p"};
 		action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
@@ -24,11 +24,11 @@ public class Admin implements UserRole {
     	//Scanner scanner = new Scanner(System.in);
     	
     	System.out.println("Please input the User ID you would like to make booking for:");
-    	String userID = scanner.nextLine().trim();
+    	String userID = scanner.nextLine();
     	User user = sportsCenter.getUserByID(userID);
     	while (user == null) {
 			System.out.println("User ID not found, please input again:");
-			userID = scanner.nextLine().trim();
+			userID = scanner.nextLine();
 			user = sportsCenter.getUserByID(userID);
 		};
 		
@@ -54,12 +54,12 @@ public class Admin implements UserRole {
 					break;
 			case "u":
 				System.out.println("Please input the User ID you would like to view booking for:"); //maybe all this ask for user ID can be put in a function
-				String userID = scanner.nextLine().trim();
+				String userID = scanner.nextLine();
 				User user = sportsCenter.getUserByID(userID);
 
 		    	while (user == null) {
 					System.out.println("User ID not found, please input again:");
-					userID = scanner.nextLine().trim();
+					userID = scanner.nextLine();
 					user = sportsCenter.getUserByID(userID);
 				};
 				
@@ -69,12 +69,12 @@ public class Admin implements UserRole {
 				
 			case "r":
 				System.out.println("Please input the Room ID you would like to view booking for:");
-				String roomID = scanner.nextLine().trim();
+				String roomID = scanner.nextLine();
 				Room room = sportsCenter.getRoomByID(roomID);
 
 				while (room == null) {
 					System.out.println("Room ID not found, please input again:");
-					roomID = scanner.nextLine().trim();
+					roomID = scanner.nextLine();
 					room = sportsCenter.getRoomByID(roomID);
 				}
 				
@@ -93,12 +93,12 @@ public class Admin implements UserRole {
     	//Scanner scanner = new Scanner(System.in);
     	
     	System.out.println("Please input the User ID you would like to cancel booking for:");
-    	String userID = scanner.nextLine().trim();
+    	String userID = scanner.nextLine();
     	User user = sportsCenter.getUserByID(userID);
     	
 		while (user == null) {
 			System.out.println("User ID not found, please input again:");
-			userID = scanner.nextLine().trim();
+			userID = scanner.nextLine();
 			user = sportsCenter.getUserByID(userID);
 		};
 		

@@ -1,33 +1,26 @@
 package execute;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
 
-
+	private static User currentUser = null;
 	public static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
-
+		SportsCenter sportsCenter = SportsCenter.getInstance();
 		System.out.println("Welcome to the Sports Centre Booking System!");
         
 		boolean isExit = false;
 		
 		String action;
-
-		SportsCenter sportsCenter = SportsCenter.getInstance();
-
         
         while (!isExit) {
-    		User currentUser = UserSessionManager.getInstance().getCurrentUser();
+        	
 
         		
         		if(currentUser==null) {
-        			System.out.println("Please input your action ([r] for register, [l] for login, [e] for exit system) :");
+        			System.out.println("Please input your action ([r] for Register, [l] for login, [e] for exit system) :");
 					String[] validCommand= {"r","l","e"};
 					action = Common.getValidInput(scanner, validCommand, Common.InputType.COMMAND);
 			
@@ -92,6 +85,14 @@ public class Main {
         
         scanner.close();
         
+	}
+	
+	public static User getCurrentUser() {
+		return currentUser;
+	}
+
+	public static void setCurrentUser(User user) {
+		currentUser = user;
 	}
 
 }
