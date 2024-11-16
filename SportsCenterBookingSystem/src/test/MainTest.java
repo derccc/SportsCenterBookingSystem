@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.junit.Assert;
@@ -34,11 +35,20 @@ public class MainTest {
 	
 	@Test
 	public void test1() {
-	    Scanner testScanner = new Scanner("r\nA\n003\n123456\n123456\n"); 
-	    Main.scanner = testScanner; 
 
-	    Main.main(new String[]{});
-	    Main.scanner.close();
+        Random random = new Random();
+        int randomUserId = 1 + random.nextInt(999); 
+        String randomUserIdStr = Integer.toString(randomUserId); 
+        String input = "r\nA\n" + randomUserIdStr + "\n123456\n123456\nl\ne\n";
+
+	    Scanner testScanner = new Scanner(input); 
+	    Main.scanner = testScanner; 
+        
+        Main.main(new String[]{});
+
+        Main.scanner.close();
+
+        testScanner.close(); 
 	}
 	
 }
