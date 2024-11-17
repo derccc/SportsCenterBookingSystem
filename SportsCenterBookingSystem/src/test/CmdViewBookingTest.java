@@ -18,119 +18,85 @@ import static org.junit.Assert.*;
 public class CmdViewBookingTest {
 
 	 @Test
-	    public void testExecute_BookingExists() {
+	    public void testViewBooking_allUserBooking() {
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "N", "password");
+	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user);
-
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
-	        sportsCenter.addRoomType(roomType);
-	        Room room = new Room("101", roomType);
-	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20231201", 10, 12, 100, "N", "001");
-	        user.addBooking(booking); 
-	        sportsCenter.addBooking(booking); 
-
-	        String input = "p\nq\n"; 
+	        UserSessionManager.getInstance().setCurrentUser(user); 
+	        String input = "a\nq\n"; 
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 	        CmdViewBooking command = new CmdViewBooking();
 	        command.execute(scanner);
 	    }
 	 @Test
-	    public void testExecute_BookingExists_previous() {
+	    public void testViewBooking_specificUserBooking() {
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "N", "password");
+	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user);
-
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
-	        sportsCenter.addRoomType(roomType);
-	        Room room = new Room("101", roomType);
-	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20231201", 10, 12, 100, "N", "001");
-	        user.addBooking(booking); 
-	        sportsCenter.addBooking(booking); 
-
-	        String input = "p\np\nq\n"; 
+	        UserSessionManager.getInstance().setCurrentUser(user); 
+	        String input = "u\na\n001\nq\n"; 
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 	        CmdViewBooking command = new CmdViewBooking();
 	        command.execute(scanner);
 	    }
 	 @Test
-	    public void testExecute_BookingExists_next() {
+	    public void testViewBooking_roomBooking() {
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "N", "password");
+	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user);
+	        UserSessionManager.getInstance().setCurrentUser(user); 
+	        String input = "r\na\n1\nq\n"; 
+	        StringReader stringReader = new StringReader(input);
+	        Scanner scanner = new Scanner(stringReader);
+	        CmdViewBooking command = new CmdViewBooking();
+	        command.execute(scanner);
+	    }
 
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
-	        sportsCenter.addRoomType(roomType);
-	        Room room = new Room("101", roomType);
-	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20231201", 10, 12, 100, "N", "001");
-	        user.addBooking(booking); 
-	        sportsCenter.addBooking(booking); 
-
-	        String input = "p\nn\nq\n"; 
+	 @Test
+	    public void testViewBooking_previousMonth() {
+	        SportsCenter sportsCenter = SportsCenter.getInstance();
+	        User user = new User("001", "A", "123456");
+	        sportsCenter.addUser(user);
+	        UserSessionManager.getInstance().setCurrentUser(user); 
+	        String input = "a\np\nq\n"; 
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 	        CmdViewBooking command = new CmdViewBooking();
 	        command.execute(scanner);
 	    }
 	 @Test
-	    public void testExecute_BookingExists_specific() {
+	    public void testViewBooking_nextMonth() {
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "N", "password");
+	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user);
-
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
-	        sportsCenter.addRoomType(roomType);
-	        Room room = new Room("101", roomType);
-	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20231201", 10, 12, 100, "N", "001");
-	        user.addBooking(booking); 
-	        sportsCenter.addBooking(booking); 
-
-	        String input = "p\ns\n2024 1\nq"; 
+	        UserSessionManager.getInstance().setCurrentUser(user); 
+	        String input = "a\nn\nq\n"; 
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 	        CmdViewBooking command = new CmdViewBooking();
 	        command.execute(scanner);
 	    }
 	 @Test
-	    public void testExecute_BookingExists_jump() {
+	    public void testViewBooking_specificDate() {
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "N", "password");
+	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user);
-
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
-	        sportsCenter.addRoomType(roomType);
-	        Room room = new Room("101", roomType);
-	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20231201", 10, 12, 100, "N", "001");
-	        user.addBooking(booking); 
-	        sportsCenter.addBooking(booking); 
-
-	        String input = "p\nt\nq\n"; 
+	        UserSessionManager.getInstance().setCurrentUser(user); 
+	        String input = "a\nf\ns\n2024 13\n2024 1\n1\nq\n"; 
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 	        CmdViewBooking command = new CmdViewBooking();
 	        command.execute(scanner);
 	    }
-	    @Test
-	    public void testExecute_NoBookings() {
-	        // Arrange
+	 @Test
+	    public void testViewBooking_jumpToday() {
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("002", "N", "password");
+	        User user = new User("001", "A", "123456");
 	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user);
-
-	        String input = ""; 
+	        UserSessionManager.getInstance().setCurrentUser(user); 
+	        String input = "a\nt\nq\n"; 
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 	        CmdViewBooking command = new CmdViewBooking();

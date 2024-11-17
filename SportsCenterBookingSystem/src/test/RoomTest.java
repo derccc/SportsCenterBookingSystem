@@ -84,8 +84,8 @@ public class RoomTest {
 
     @Test
     public void testViewRoomBookingCalendar_NoBookings() {
-        RoomType roomType = new RoomType("001", "Badminton", 800);
-        Room room = new Room("101", roomType);
+        RoomType roomType = new RoomType("1", "Badminton", 40);
+        Room room = new Room("1", roomType);
         String input = "q"; 
         StringReader stringReader = new StringReader(input);
         Scanner scanner = new Scanner(stringReader);
@@ -94,12 +94,12 @@ public class RoomTest {
     }
     @Test
     public void testViewRoomBookingCalendar_WithBookings() {
-        RoomType roomType = new RoomType("001", "Badminton", 800);
-        Room room = new Room("101", roomType);
-        User user = new User("001", "N", "password");
-        RoomType roomType1 = new RoomType("001", "Badminton", 800);
+        RoomType roomType = new RoomType("1", "Badminton", 40);
+        Room room = new Room("4", roomType);
+        User user = new User("001", "A", "123456");
+        RoomType roomType1 = new RoomType("1", "Badminton", 40);
         Room room1 = new Room("101", roomType1);
-        Booking booking = new Booking(room1, "001", "20231201", 10, 12, 100, "N", "001");
+        Booking booking = new Booking(room1, "1", "20231201", 10, 12, 100, "A", "001");
         room.addBooking(booking);
         String input = "p\nq";
         StringReader stringReader = new StringReader(input);

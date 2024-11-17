@@ -24,9 +24,9 @@ public class CmdModifyRoomTypePriceTest {
 	    public void testExecute_ModifyPrice_Success() {
 	        // Arrange
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
+	        RoomType roomType = new RoomType("1", "Badminton", 80);
 	        sportsCenter.addRoomType(roomType);
-	        String input = "B\n900\nY";
+	        String input = "1\n90\nY";
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 
@@ -35,8 +35,8 @@ public class CmdModifyRoomTypePriceTest {
 	        command.execute(scanner);
 
 	        // Assert
-	        RoomType updatedRoomType = sportsCenter.getRoomTypeByID("B");
-	        assertEquals("The room type price should be updated to 900", 900, updatedRoomType.getPrice());
+	        RoomType updatedRoomType = sportsCenter.getRoomTypeByID("1");
+	        assertEquals(90, updatedRoomType.getPrice());
 	        scanner.close();
 	    }
 
@@ -44,9 +44,9 @@ public class CmdModifyRoomTypePriceTest {
 	    public void testExecute_RoomTypeIDNotExist() {
 	        // Arrange
 	    	SportsCenter sportsCenter = SportsCenter.getInstance();
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
+	        RoomType roomType = new RoomType("1", "Badminton", 80);
 	        sportsCenter.addRoomType(roomType);
-	        String input = "X\nB\n800\nYB\n900\nY";
+	        String input = "a\n1\n80\nYB\n90\nY";
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 
@@ -59,9 +59,9 @@ public class CmdModifyRoomTypePriceTest {
 	    public void testExecute_PriceSameAsOriginal() {
 	        // Arrange
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
+	        RoomType roomType = new RoomType("1", "Badminton", 80);
 	        sportsCenter.addRoomType(roomType);
-	        String input = "B\n800";
+	        String input = "1\n80";
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 
@@ -74,9 +74,9 @@ public class CmdModifyRoomTypePriceTest {
 	    public void testExecute_CancelPriceModification() {
 	        // Arrange
 	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
+	        RoomType roomType = new RoomType("1", "Badminton", 80);
 	        sportsCenter.addRoomType(roomType);
-	        String input = "B\n900\nN";
+	        String input = "1\n90\nN";
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 
@@ -105,7 +105,7 @@ public class CmdModifyRoomTypePriceTest {
 		    field.set(sportsCenter, emptyInstance);
 		    
 
-	        String input = "B\n900\nN";
+	        String input = "1\n90\nN";
 	        StringReader stringReader = new StringReader(input);
 	        Scanner scanner = new Scanner(stringReader);
 
