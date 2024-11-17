@@ -14,11 +14,11 @@ to organize sports activities.
 
 ***Aims of the software:***  
 The objective of this software is to facilitate the booking
-process by assigning an optimize room to users according to 
+process by assigning an optimized room to users according to 
 the number of available rooms and idle times of each room. 
 
 ***Usage:***  
-Users need to create an account to login the system. Then 
+Users need to create an account to login the system. Then, 
 users can make, cancel, and view their bookings according to 
 their needs.
 
