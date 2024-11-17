@@ -104,27 +104,48 @@ public class SportsCenterTest {
         sportsCenter.addClosingDate(closingDate);
        
     }
+   @Test
+   public void testSaveData()  {
+	   SportsCenter sportsCenter = SportsCenter.getInstance();
+       sportsCenter.saveData();
+   }
 
     
-    @Test
-    public void testCheckAvailability() {
-    	SportsCenter sportsCenter = SportsCenter.getInstance();
-        RoomType roomType = new RoomType("001", "Badminton", 800);
-        sportsCenter.addRoomType(roomType);
+   @Test
+   public void testCheckAvailability() {
+       SportsCenter sportsCenter = SportsCenter.getInstance();
+       RoomType roomType1 = new RoomType("1", "Badminton", 80);
+       sportsCenter.addRoomType(roomType1);
 
-        Room room1 = new Room("101", roomType);
-        Room room2 = new Room("102", roomType);
-        sportsCenter.addRoom(room1);
-        sportsCenter.addRoom(room2);
+       RoomType roomType2 = new RoomType("2", "Tennis", 80);
+       sportsCenter.addRoomType(roomType2);
 
-        Booking booking1 = new Booking(room1, "001", "231201", 10, 12, 100, "N", "001");
-        Booking booking2 = new Booking(room2, "001", "231201", 14, 16, 100, "N", "002");
-        sportsCenter.addBooking(booking1);
-        sportsCenter.addBooking(booking2);
+       Room room1 = new Room("101", roomType1);
+       Room room2 = new Room("102", roomType1);
+       Room room3 = new Room("201", roomType2);
+       Room room4 = new Room("202", roomType2); 
+       sportsCenter.addRoom(room1);
+       sportsCenter.addRoom(room2);
+       sportsCenter.addRoom(room3);
+       sportsCenter.addRoom(room4);
 
-        Room availableRoom = sportsCenter.checkAvailability(roomType, "231201", 13, 15);
-
-    }
+       Booking booking1 = new Booking(room1, "001", "231201", 10, 12, 100, "N", "001");
+       Booking booking2 = new Booking(room2, "001", "231201", 14, 16, 100, "N", "002");
+       Booking booking3 = new Booking(room1, "001", "231201", 12, 14, 100, "N", "003"); // 与booking1冲突
+       Booking booking4 = new Booking(room3, "001", "231201", 11, 15, 100, "N", "004");
+       sportsCenter.addBooking(booking1);
+       sportsCenter.addBooking(booking2);
+       sportsCenter.addBooking(booking3);
+       sportsCenter.addBooking(booking4);
+       Room availableRoom1 = sportsCenter.checkAvailability(roomType1, "231201", 13, 15);
+       
+       Room availableRoom2 = sportsCenter.checkAvailability(roomType2, "231201", 9, 10);
+      
+       Room availableRoom3 = sportsCenter.checkAvailability(roomType1, "231201", 16, 18);
+     
+       Room availableRoom7 = sportsCenter.checkAvailability(roomType2, "231202", 13, 15);
+      
+   }
 
     @Test
     public void testIsOverlapping() {
