@@ -3,12 +3,21 @@ package test;
 import execute.SportsCenter;
 import execute.User;
 import execute.Booking;
+import execute.CmdModifyRoomTypePrice;
 import execute.Room;
 import execute.RoomType;
 
+import java.io.StringReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SportsCenterTest {
 	 @Test
@@ -50,6 +59,10 @@ public class SportsCenterTest {
 
         Booking retrievedBooking = sportsCenter.getBookingByID(bookingID);
         assertEquals(bookingID, retrievedBooking.getBookingID());
+        
+        sportsCenter.getNextRoomTypeID();
+        sportsCenter.getNextRoomID();
+        sportsCenter.getNextBookingID();
 
         boolean isClosing = sportsCenter.isClosingDate(closingDate);
         assertTrue(isClosing);
@@ -62,6 +75,8 @@ public class SportsCenterTest {
 
         boolean isInvalidFormatClosing = sportsCenter.isClosingDate("2312");
         assertFalse(isInvalidFormatClosing);
+        
+        
     }
     
    @Test
@@ -198,6 +213,35 @@ public class SportsCenterTest {
     	SportsCenter sportsCenter = SportsCenter.getInstance();
         sportsCenter.printAllClosingDate();
     }
+    @Test
+    public void testNoRoomType() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
+
+		SportsCenter sportsCenter = SportsCenter.getInstance();
+		
+		Class<?> cls = SportsCenter.class;
+	    Constructor<?> cons = cls.getDeclaredConstructor();
+	    cons.setAccessible(true);
+	    SportsCenter emptyInstance = (SportsCenter) cons.newInstance();
+	    
+	    // Access private field using reflection
+	    Field field = SportsCenter.class.getDeclaredField("INSTANCE");
+	    field.setAccessible(true); // Make private field accessible
+
+	    // Modify the private field
+	    field.set(sportsCenter, emptyInstance);
+	    
+
+        String input = "1\n90\nN";
+        StringReader stringReader = new StringReader(input);
+        Scanner scanner = new Scanner(stringReader);
+
+        // Act
+        CmdModifyRoomTypePrice command = new CmdModifyRoomTypePrice();
+        command.execute(scanner);
+
+    }
+    
+
 }
 
     
