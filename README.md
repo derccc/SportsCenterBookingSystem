@@ -19,7 +19,7 @@ the number of available rooms and idle times of each room.
 
 ***Usage:***  
 Users need to create an account to login the system. Then 
-user can make, cancel, and view their bookings according to 
+users can make, cancel, and view their bookings according to 
 their needs.
 
 Installation
