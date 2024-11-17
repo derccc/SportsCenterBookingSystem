@@ -25,6 +25,8 @@ import static org.junit.Assert.*;
 
 public class UserTest {
 	
+
+    	
 	  @Test
 	    public void testUserConstructorAndGetters() {
 	        String userID = "001";
@@ -91,74 +93,94 @@ public class UserTest {
 	        System.setIn(in);
 	        user.makeBooking(new Scanner(System.in));
 	    }
-@Test
-public void testMakeBooking_admin() {
-	User user = new User("001", "A", "123456");
-    UserSessionManager.getInstance().setCurrentUser(user);
-    String input = "001\n6\n1\n240701 11-12\nN\n";
-    InputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-    user.makeBooking(new Scanner(System.in));
-}
-@Test
-public void testMakeBooking_DateOrRoomError() {
-	User user = new User("001", "A", "123456");
-    UserSessionManager.getInstance().setCurrentUser(user);
-    String input = "001\n6\n1\n241003 15-20\na\nY";
-    InputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-    user.makeBooking(new Scanner(System.in));
-}
+	@Test
+	public void testMakeBooking_admin() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "001\n6\n1\n240701 11-12\nN\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.makeBooking(new Scanner(System.in));
+	}
+	
+	@Test
+	public void testMakeBooking_DateError() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "001\n1\n241003 15-20\na\nY";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.makeBooking(new Scanner(System.in));
+	}
+	@Test
+	public void testMakeBooking_WrongRoomType() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "001\n6\n1\n240701 11-12\nY\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.makeBooking(new Scanner(System.in));
+	}
+	@Test
+	public void testMakeBooking_RoomNotAvailable() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "001\n1\n240701 11-12\nN\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.makeBooking(new Scanner(System.in));
+		
+	}
+	
+	@Test
+	public void testViewBooking_a_admin() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "a\np\nn\ns\n2024 1\nt\nq\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.viewBooking(new Scanner(System.in));
+	}
+	
+	@Test
+	public void testViewBooking_admin() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "\nr\n4\n1\nq\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.viewBooking(new Scanner(System.in));
+	}
+	@Test
+	public void testViewBooking_user() {
+		User user = new User("002", "N", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "a\np\nn\ns\n2024 1\nt\nq\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.viewBooking(new Scanner(System.in));
+	}
+	
+	@Test
+	public void testCancelBooking_admin() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "001\n1\nN\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.cancelBooking(new Scanner(System.in));
+	}
+	
+	@Test
+	public void testCancelBooking_NotFound() {
+		User user = new User("001", "A", "123456");
+		UserSessionManager.getInstance().setCurrentUser(user);
+		String input = "001\n9\n6\nY\n";
+		InputStream in = new ByteArrayInputStream(input.getBytes());
+		System.setIn(in);
+		user.cancelBooking(new Scanner(System.in));
+	}
 
-
-@Test
-public void testViewBooking_a_admin() {
-	User user = new User("001", "A", "123456");
-    UserSessionManager.getInstance().setCurrentUser(user);
-    String input = "a\np\nn\ns\n2024 1\nt\nq\n";
-    InputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-    user.viewBooking(new Scanner(System.in));
-}
-
-@Test
-public void testViewBooking_admin() {
-	User user = new User("001", "A", "123456");
-    UserSessionManager.getInstance().setCurrentUser(user);
-    String input = "\nr\n4\n1\nq\n";
-    InputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-    user.viewBooking(new Scanner(System.in));
-}
-@Test
-public void testViewBooking_user() {
-	User user = new User("002", "N", "123456");
-    UserSessionManager.getInstance().setCurrentUser(user);
-    String input = "a\np\nn\ns\n2024 1\nt\nq\n";
-    InputStream in = new ByteArrayInputStream(input.getBytes());
-    System.setIn(in);
-    user.viewBooking(new Scanner(System.in));
-}
-
-    @Test
-    public void testCancelBooking_admin() {
-    	User user = new User("001", "A", "123456");
-        UserSessionManager.getInstance().setCurrentUser(user);
-        String input = "001\n6\nN\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        user.cancelBooking(new Scanner(System.in));
-    }
-    @Test
-    public void testCancelBooking_user() {
-    	User user = new User("002", "N", "123456");
-    	UserSessionManager.getInstance().setCurrentUser(user);
-        String input = "6\nY\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        user.cancelBooking(new Scanner(System.in));
-
-    }
     
    
 }
