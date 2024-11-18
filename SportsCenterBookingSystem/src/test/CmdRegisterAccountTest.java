@@ -1,9 +1,7 @@
 package test;
 
-import execute.SportsCenter;
-import execute.User;
+
 import execute.CmdRegisterAccount;
-import java.io.StringReader;
 import java.util.Scanner;
 
 import org.junit.Test;
@@ -13,57 +11,40 @@ public class CmdRegisterAccountTest {
 
 	 @Test
 	    public void testExecute_RegisterAdminSuccess() {
-	        // Arrange
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        String input = "a\n005\n123456\n123456";
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-
-	        // Act
-	        CmdRegisterAccount command = new CmdRegisterAccount();
+		    CmdRegisterAccount command = new CmdRegisterAccount();
+	        String inputString = "a\n003\n123456\n123456\n";
+	        Scanner scanner = new Scanner(inputString);
 	        command.execute(scanner);
+	        scanner.close();
 
 	    }
 
 	    @Test
 	    public void testExecute_RegisterNormalUserSuccess() {
-	        // Arrange
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        String input = "n\n006\npassword\npassword";
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-
-	        // Act
 	        CmdRegisterAccount command = new CmdRegisterAccount();
+	        String inputString = "n\n004\n123456\n123456\n";
+	        Scanner scanner = new Scanner(inputString);
 	        command.execute(scanner);
+	        scanner.close();
 
 	    }
 
 	    @Test
 	    public void testExecute_UserIdAlreadyExists() {
-	        // Arrange
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User existingUser = new User("001", "A", "123456");
-	        sportsCenter.addUser(existingUser);
-	        String input = "A\n001\nnewpassword\nnewpassword\nA\n001\nnewpassword";
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-
-	        // Act
-	        CmdRegisterAccount command = new CmdRegisterAccount();
+	    	CmdRegisterAccount command = new CmdRegisterAccount();
+	        String inputString = "invalid\na\n001\ninvalid\n005\n123456\n123456\n";
+	        Scanner scanner = new Scanner(inputString);
 	        command.execute(scanner);
+	        scanner.close();
 	        }
-
 	    @Test
 	    public void testExecute_PasswordsDoNotMatch() {
-	        // Arrange
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        String input = "N\n003\npassword\ndifferentpassword\nN\n003\npassword\npassword";
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-
-	        // Act
-	        CmdRegisterAccount command = new CmdRegisterAccount();
+	    	CmdRegisterAccount command = new CmdRegisterAccount();
+	        String inputString = "a\n001\n006\n12345\n123456\n123456\n";
+	        Scanner scanner = new Scanner(inputString);
 	        command.execute(scanner);
-	    }
+	        scanner.close();
+	        }
+
+
 	}

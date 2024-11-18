@@ -36,24 +36,35 @@ public class NormalUserTest {
 	}
 
 	@Test
-	public void testMakeBooking_failed() {
-	    User user=new User("001", "N", "123456");
+	public void testMakeBooking_failedWrongDate() {
+	    User user=new User("002", "N", "123456");
 	    NormalUser normalUser = new NormalUser();
 	    UserSessionManager.getInstance().setCurrentUser(user);
-	    String input = "1\n240701 8-10\nN\n";
+	    String input = "1\ninvalid\n241041 15-20\n241001\n241001 8-9\nN\n";
+	    InputStream in = new ByteArrayInputStream(input.getBytes());
+	    System.setIn(in);
+	    normalUser.makeBooking(new Scanner(System.in));
+	}
+	@Test
+	public void testMakeBooking_failedWrongRoom() {
+	    User user=new User("002", "N", "123456");
+	    NormalUser normalUser = new NormalUser();
+	    UserSessionManager.getInstance().setCurrentUser(user);
+	    String input = "invalid\n1\n241001 8-9\nN\n";
 	    InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 	    normalUser.makeBooking(new Scanner(System.in));
 	}
 	@Test
 	 public void testMakeBooking_valid() {
-	        User user=new User("001", "N", "123456");
-	        NormalUser normalUser = new NormalUser();
-	        UserSessionManager.getInstance().setCurrentUser(user);
-	        String input = "1\n240701 8-10\nY\n";
-	        InputStream in = new ByteArrayInputStream(input.getBytes());
-	        System.setIn(in);
-	        normalUser.makeBooking(new Scanner(System.in));
+	        User user=new User("002", "N", "123456");
+		    NormalUser normalUser = new NormalUser();
+		    UserSessionManager.getInstance().setCurrentUser(user);
+		    String input = "1\n241001 8-9\nY\n";
+		    InputStream in = new ByteArrayInputStream(input.getBytes());
+		    System.setIn(in);
+		    normalUser.makeBooking(new Scanner(System.in));
+
 	    }
 
 
@@ -69,21 +80,13 @@ public class NormalUserTest {
 	}
 	@Test
 	public void testViewBooking_valid() {
-		 	SportsCenter sportsCenter = SportsCenter.getInstance();
-		 	User user=new User("002", "N", "123456");
-	        sportsCenter.addUser(user);
-	        RoomType roomType = new RoomType("B", "Badminton", 800);
-	        sportsCenter.addRoomType(roomType);
-	        Room room = new Room("101", roomType);
-	        sportsCenter.addRoom(room);
-	        Booking booking = new Booking(room, "001", "20231201", 10, 12, 100, "N", "001");
-	        user.addBooking(booking); 
-	        sportsCenter.addBooking(booking); 
-	        String input = "q\n"; 
-	        Scanner scanner = new Scanner(input);
-		    NormalUser normalUser = new NormalUser();
-		    UserSessionManager.getInstance().setCurrentUser(user);
-		    normalUser.viewBooking(new Scanner(System.in));
+	    User user=new User("001", "A", "123456");
+	    NormalUser normalUser = new NormalUser();
+	    UserSessionManager.getInstance().setCurrentUser(user);
+	    String input = "q\n";
+	    InputStream in = new ByteArrayInputStream(input.getBytes());
+	    System.setIn(in);
+	    normalUser.viewBooking(new Scanner(System.in));
 	}
 	@Test
     public void testCancelBooking_null() {

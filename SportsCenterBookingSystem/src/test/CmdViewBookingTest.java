@@ -18,89 +18,65 @@ import static org.junit.Assert.*;
 public class CmdViewBookingTest {
 
 	 @Test
-	    public void testViewBooking_allUserBooking() {
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
-	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user); 
-	        String input = "a\nq\n"; 
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-	        CmdViewBooking command = new CmdViewBooking();
+	    public void testExecute_viewAllBookings() {
+		 	User user = new User("001", "A", "123456");
+	        UserSessionManager.getInstance().setCurrentUser(user);
+		 	CmdViewBooking command = new CmdViewBooking();
+	        String inputString = "a\nq\n";
+	        Scanner scanner = new Scanner(inputString);
 	        command.execute(scanner);
+	        scanner.close();
 	    }
+	 
 	 @Test
-	    public void testViewBooking_specificUserBooking() {
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
-	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user); 
-	        String input = "u\na\n001\nq\n"; 
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-	        CmdViewBooking command = new CmdViewBooking();
-	        command.execute(scanner);
-	    }
+	    public void testExecute_BookingExists_previous() {
+	 	User user = new User("001", "A", "123456");
+        UserSessionManager.getInstance().setCurrentUser(user);
+	 	CmdViewBooking command = new CmdViewBooking();
+        String inputString = "a\np\nq\n";
+        Scanner scanner = new Scanner(inputString);
+        command.execute(scanner);
+        scanner.close();
+    }
 	 @Test
-	    public void testViewBooking_roomBooking() {
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
-	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user); 
-	        String input = "r\na\n1\nq\n"; 
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-	        CmdViewBooking command = new CmdViewBooking();
-	        command.execute(scanner);
-	    }
-
+	    public void testExecute_BookingExists_next() {
+			User user = new User("001", "A", "123456");
+		    UserSessionManager.getInstance().setCurrentUser(user);
+		 	CmdViewBooking command = new CmdViewBooking();
+		    String inputString = "a\nn\nq\n";
+		    Scanner scanner = new Scanner(inputString);
+		    command.execute(scanner);
+		    scanner.close();
+}
 	 @Test
-	    public void testViewBooking_previousMonth() {
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
-	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user); 
-	        String input = "a\np\nq\n"; 
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-	        CmdViewBooking command = new CmdViewBooking();
-	        command.execute(scanner);
-	    }
+	    public void testExecute_BookingExists_specific() {
+			User user = new User("001", "A", "123456");
+		    UserSessionManager.getInstance().setCurrentUser(user);
+		 	CmdViewBooking command = new CmdViewBooking();
+		    String inputString = "a\ns\ninvalid\n2024 13\n0000\n2024 1\nq";
+		    Scanner scanner = new Scanner(inputString);
+		    command.execute(scanner);
+		    scanner.close();
+}
 	 @Test
-	    public void testViewBooking_nextMonth() {
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
-	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user); 
-	        String input = "a\nn\nq\n"; 
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-	        CmdViewBooking command = new CmdViewBooking();
-	        command.execute(scanner);
-	    }
+	    public void testExecute_BookingExists_jump() {
+			User user = new User("001", "A", "123456");
+		    UserSessionManager.getInstance().setCurrentUser(user);
+		 	CmdViewBooking command = new CmdViewBooking();
+		    String inputString = "a\nt\nq\n";
+		    Scanner scanner = new Scanner(inputString);
+		    command.execute(scanner);
+		    scanner.close();
+}
 	 @Test
-	    public void testViewBooking_specificDate() {
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
-	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user); 
-	        String input = "a\nf\ns\n2024 13\n2024 1\n1\nq\n"; 
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-	        CmdViewBooking command = new CmdViewBooking();
-	        command.execute(scanner);
-	    }
-	 @Test
-	    public void testViewBooking_jumpToday() {
-	        SportsCenter sportsCenter = SportsCenter.getInstance();
-	        User user = new User("001", "A", "123456");
-	        sportsCenter.addUser(user);
-	        UserSessionManager.getInstance().setCurrentUser(user); 
-	        String input = "a\nt\nq\n"; 
-	        StringReader stringReader = new StringReader(input);
-	        Scanner scanner = new Scanner(stringReader);
-	        CmdViewBooking command = new CmdViewBooking();
-	        command.execute(scanner);
-	    }
+	    public void testExecute_NoBookings() {
+			User user = new User("002", "N", "123456");
+		    UserSessionManager.getInstance().setCurrentUser(user);
+		 	CmdViewBooking command = new CmdViewBooking();
+		    String inputString = "a\n";
+		    Scanner scanner = new Scanner(inputString);
+		    command.execute(scanner);
+		    scanner.close();
+}
    
 }
