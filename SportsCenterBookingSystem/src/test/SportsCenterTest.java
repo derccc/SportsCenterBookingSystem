@@ -38,6 +38,10 @@ public class SportsCenterTest {
         String bookingID = "booking1";
         Booking booking = new Booking(room, userID, "20231201", 10, 12, 100, "N", bookingID);
         sportsCenter.addBooking(booking);
+        
+        sportsCenter.getNextRoomTypeID();
+        sportsCenter.getNextRoomID();
+        sportsCenter.getNextBookingID();
       
         RoomType retrievedRoomType = sportsCenter.getRoomTypeByID(roomTypeID);
         assertEquals(roomTypeID, retrievedRoomType.getTypeID());
